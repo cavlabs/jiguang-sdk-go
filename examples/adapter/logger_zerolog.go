@@ -82,10 +82,12 @@ func NewZeroLogger() *ZeroLogger {
 		},
 	}
 
-	projectRoot, _ := filepath.Abs("..") // The parent directory of the submodule directory `example`.
 	zerolog.CallerMarshalFunc = func(pc uintptr, file string, line int) string {
-		if rel, err := filepath.Rel(projectRoot, file); err == nil {
-			file = rel
+		matches := jiguang.ModPathRegex.FindStringSubmatch(file)
+		if len(matches) > 0 {
+			file = matches[0]
+		} else {
+			file = filepath.Base(file)
 		}
 		return file + ":" + strconv.Itoa(line)
 	}
