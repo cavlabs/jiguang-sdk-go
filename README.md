@@ -96,10 +96,7 @@
     }
     ```
 
-3. 查看完整示例代码：
-    ```bash
-    go get github.com/calvinit/jiguang-sdk-go/examples@latest
-    ```
+3. 查看完整示例代码：https://github.com/calvinit/jiguang-sdk-go/tree/main/examples
 
 ---
 
