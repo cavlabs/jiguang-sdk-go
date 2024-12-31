@@ -42,7 +42,7 @@ type Logger interface {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-const LogPrefix = "[JGSDK]"
+const LogPrefix = "[JGSDK] "
 
 // 用于在终端输出彩色日志的 ANSI 转义码。
 const (
@@ -59,7 +59,7 @@ type StdLogger struct {
 }
 
 func NewStdLogger() *StdLogger {
-	return &StdLogger{log.New(os.Stderr, LogPrefix, log.LstdFlags)}
+	return &StdLogger{log.New(os.Stdout, LogPrefix, log.LstdFlags)}
 }
 
 var projectRoot, _ = filepath.Abs("..")

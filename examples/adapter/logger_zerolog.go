@@ -38,7 +38,7 @@ type ZeroLogger struct {
 
 func NewZeroLogger() *ZeroLogger {
 	consoleWriter := zerolog.ConsoleWriter{
-		Out: os.Stderr,
+		Out: os.Stdout,
 		FormatLevel: func(i interface{}) string {
 			var l string
 			if ll, ok := i.(string); ok {
@@ -78,7 +78,7 @@ func NewZeroLogger() *ZeroLogger {
 			} else {
 				t = ts.Local().Format("2006/01/02 15:04:05")
 			}
-			return jiguang.LogPrefix + " " + t
+			return jiguang.LogPrefix + t
 		},
 	}
 
