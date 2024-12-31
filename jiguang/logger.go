@@ -24,6 +24,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 )
 
@@ -62,13 +63,16 @@ func NewStdLogger() *StdLogger {
 	return &StdLogger{log.New(os.Stdout, LogPrefix, log.LstdFlags)}
 }
 
-var projectRoot, _ = filepath.Abs("..")
+var ModPathRegex = regexp.MustCompile(`github\.com/[^@]+(@[^/]+)?/.+`) // 匹配模块路径
 
 // 格式化带有日志级别、文件路径、行号和颜色的日志消息，然后打印它。
 func (s *StdLogger) logMessage(_ context.Context, level, color, msg string) {
-	_, file, line, ok := runtime.Caller(2)
-	if ok {
-		file, _ = filepath.Rel(projectRoot, file)
+	_, file, line, _ := runtime.Caller(2)
+	matches := ModPathRegex.FindStringSubmatch(file)
+	if len(matches) > 0 {
+		file = matches[0]
+	} else {
+		file = filepath.Base(file)
 	}
 	s.logger.Printf("%s%-5s%s %s:%d %s", color, level, colorReset, file, line, msg)
 }

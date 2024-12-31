@@ -35,8 +35,6 @@ type LogrusLogger struct {
 }
 
 func NewLogrusLogger() *LogrusLogger {
-	projectRoot, _ := filepath.Abs("..") // The parent directory of the submodule directory `example`.
-
 	logger := logrus.New()
 
 	logger.Level = logrus.DebugLevel
@@ -55,8 +53,11 @@ func NewLogrusLogger() *LogrusLogger {
 				if !ok {
 					file, line = frame.File, frame.Line
 				}
-				if rel, err := filepath.Rel(projectRoot, file); err == nil {
-					file = rel
+				matches := jiguang.ModPathRegex.FindStringSubmatch(file)
+				if len(matches) > 0 {
+					file = matches[0]
+				} else {
+					file = filepath.Base(file)
 				}
 				return "", fmt.Sprintf(" %s:%d", file, line)
 			},
