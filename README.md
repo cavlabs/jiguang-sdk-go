@@ -67,7 +67,6 @@
     
         "github.com/calvinit/jiguang-sdk-go/api/jpush/device/platform"
         "github.com/calvinit/jiguang-sdk-go/api/jpush/push"
-        "github.com/calvinit/jiguang-sdk-go/jiguang"
     )
     
     func main() {
@@ -80,7 +79,7 @@
             Platform: platform.All,
             Audience: push.BroadcastAuds,
             Notification: &push.Notification{
-                Alert: jiguang.String("Hello, JPush!"),
+                Alert: "Hello, JPush!",
             },
         }
     
