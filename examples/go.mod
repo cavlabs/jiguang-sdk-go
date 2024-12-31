@@ -2,6 +2,11 @@ module github.com/calvinit/jiguang-sdk-go/examples
 
 go 1.16
 
+retract (
+	v0.0.0-20241231094233-e49f35b049d0
+	v0.0.0-20241231093211-6c13dbb3190d
+)
+
 require (
 	github.com/calvinit/jiguang-sdk-go v0.1.0
 	github.com/go-resty/resty/v2 v2.16.2
