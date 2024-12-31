@@ -3,7 +3,7 @@ module github.com/calvinit/jiguang-sdk-go/examples
 go 1.16
 
 require (
-	github.com/calvinit/jiguang-sdk-go v0.0.0
+	github.com/calvinit/jiguang-sdk-go v0.1.0
 	github.com/go-resty/resty/v2 v2.16.2
 	github.com/rs/zerolog v1.33.0
 	github.com/sirupsen/logrus v1.9.3
@@ -11,7 +11,6 @@ require (
 )
 
 replace (
-	github.com/calvinit/jiguang-sdk-go => ../
 	golang.org/x/mod => golang.org/x/mod v0.4.2
 	// It's the latest version that supports go 1.16, as later versions removed `// +build ignore`,
 	// and `//go:build ignore` is not supported in go 1.16.
