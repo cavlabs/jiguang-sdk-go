@@ -8,7 +8,7 @@ retract (
 )
 
 require (
-	github.com/calvinit/jiguang-sdk-go v0.1.0
+	github.com/calvinit/jiguang-sdk-go v0.1.1
 	github.com/go-resty/resty/v2 v2.16.2
 	github.com/rs/zerolog v1.33.0
 	github.com/sirupsen/logrus v1.9.3
