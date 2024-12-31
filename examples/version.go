@@ -16,7 +16,8 @@
  *
  */
 
-package sdk
+// examples 包下对应的模块提供了极光 SDK 的使用范例。
+package examples
 
-// 当前极光 SDK 的版本号。
+// 当前极光 SDK 使用范例模块的版本号。
 const Version = "v0.1.1"

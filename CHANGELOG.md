@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.1.1](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.1) - 2024-12-31
+
+### 修复
+
+- 修复了 README 中的一些示例代码错误问题；
+- 优化了 HTTP 日志输出时源文件位置的显示，使之更加清晰明了；
+- 其他一些细节优化和文档完善。
+
+---
+
 ## [v0.1.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.0) - 2024-12-31
 
 🎉🎉🎉 **历经长时间细心打磨，首个正式版本终于发布啦！** 🎉🎉🎉
