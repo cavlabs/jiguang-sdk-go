@@ -21,6 +21,7 @@ package adapter
 import (
 	"context"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
@@ -52,7 +53,7 @@ func NewZapLogger() *ZapLogger {
 			EncodeDuration: zapcore.StringDurationEncoder,
 			// EncodeTime:     zapcore.TimeEncoderOfLayout("2006/01/02 15:04:05"),
 			EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-				enc.AppendString(jiguang.LogPrefix)
+				enc.AppendString(strings.TrimRight(jiguang.LogPrefix, " "))
 
 				type appendTimeEncoder interface {
 					AppendTimeLayout(time.Time, string)

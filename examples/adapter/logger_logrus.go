@@ -40,7 +40,7 @@ func NewLogrusLogger() *LogrusLogger {
 	logger := logrus.New()
 
 	logger.Level = logrus.DebugLevel
-	logger.Out = os.Stderr
+	logger.Out = os.Stdout
 	logger.ExitFunc = os.Exit
 	logger.ReportCaller = true
 	logger.Formatter = &SDKTextFormatter{
@@ -61,7 +61,7 @@ func NewLogrusLogger() *LogrusLogger {
 				return "", fmt.Sprintf(" %s:%d", file, line)
 			},
 		},
-		Prefix: jiguang.LogPrefix + " ",
+		Prefix: jiguang.LogPrefix,
 	}
 
 	return &LogrusLogger{logger}
