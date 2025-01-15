@@ -99,7 +99,7 @@ func NewZeroLogger() *ZeroLogger {
 
 // colorize returns the string s wrapped in ANSI code c.
 func colorize(s interface{}, c int) string {
-	return fmt.Sprintf("\x1b[%dm%v\x1b[0m", c, s)
+	return fmt.Sprintf("\x1b[%dm%-5s\x1b[0m", c, s)
 }
 
 func (z *ZeroLogger) Debug(_ context.Context, msg string) {

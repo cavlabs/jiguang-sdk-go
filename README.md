@@ -12,7 +12,7 @@
 
 `jiguang-sdk-go` 是基于 Go 的极光 REST API
 封装开发包，参考了极光官方提供的 [jiguang-sdk-java](https://github.com/jpush/jiguang-sdk-java) 实现。
-它致力于为开发者提供便捷、高效的服务端集成方式，并支持最新的 API 功能。
+它致力于为开发者提供便捷、轻量和高效的服务端集成方式，并支持最新的 API 功能。
 
 ### 特性
 
@@ -129,7 +129,13 @@
 
 ---
 
-## 七、参考链接
+## 七、致谢
+
+- 感谢 [tjfoc/gmsm](https://github.com/tjfoc/gmsm) 库提供的支持，帮助我们实现了 SM2 加解密算法的核心功能。
+
+---
+
+## 八、参考链接
 
 - [jiguang-sdk-java](https://github.com/jpush/jiguang-sdk-java)
 - [极光文档中心](https://docs.jiguang.cn)

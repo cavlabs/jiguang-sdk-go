@@ -34,6 +34,7 @@ type Request struct {
 	Proto  string      // 协议版本，如 "HTTP/1.0"、"HTTP/1.1"、"HTTP/2.0" 等。
 	URL    string      // 请求完整 URL
 	Auth   string      // 请求授权信息
+	Header http.Header // 自定义请求头
 	Body   interface{} // 请求正文负载
 }
 
@@ -54,6 +55,10 @@ func newApplicationJSONRequest(ctx context.Context, req *Request) (*http.Request
 
 	if req.Proto != "" {
 		httpReq.Proto = req.Proto
+	}
+
+	for k, v := range req.Header {
+		httpReq.Header[k] = v
 	}
 
 	httpReq.Header.Set("Authorization", req.Auth)
@@ -81,6 +86,10 @@ func newMultipartFormDataRequest(ctx context.Context, req *Request) (*http.Reque
 
 	if req.Proto != "" {
 		httpReq.Proto = req.Proto
+	}
+
+	for k, v := range req.Header {
+		httpReq.Header[k] = v
 	}
 
 	httpReq.Header.Set("Authorization", req.Auth)

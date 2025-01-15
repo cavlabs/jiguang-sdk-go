@@ -198,6 +198,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	param.Callback = callback
 
 	result, err := pushAPIv3.Send(context.Background(), param)
+	// result, err := pushAPIv3.SendWithSM2(context.Background(), param)
 	// result, err := pushAPIv3.CustomSend(context.Background(), param)
 	if err != nil {
 		t.Fatalf("Failed! Error: %s", err)

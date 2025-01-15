@@ -20,4 +20,4 @@
 package examples
 
 // 当前极光 SDK 使用范例模块的版本号。
-const Version = "v0.1.1"
+const Version = "v0.1.2"
