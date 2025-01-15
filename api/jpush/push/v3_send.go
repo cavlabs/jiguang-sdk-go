@@ -25,6 +25,7 @@ import (
 	"net/http"
 
 	"github.com/calvinit/jiguang-sdk-go/api"
+	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
 // 普通推送
@@ -63,6 +64,56 @@ func (p *apiv3) CustomSend(ctx context.Context, param interface{}) (*SendResult,
 		return nil, err
 	}
 	return result, nil
+}
+
+// 普通推送（SM2 加密）
+//  - 功能说明：向某单个设备或者某设备列表推送一条通知或者消息。推送的内容只能是 JSON 表示的一个推送对象。
+//	- 调用地址：POST `/v3/push`
+//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push
+func (p *apiv3) SendWithSM2(ctx context.Context, param *SendParam) (*SendResult, error) {
+	if p == nil {
+		return nil, api.ErrNilJPushPushAPIv3
+	}
+
+	if param == nil {
+		return nil, errors.New("`param` cannot be nil")
+	}
+
+	original, err := json.Marshal(param)
+	if err != nil {
+		return nil, err
+	}
+	payload, err := jiguang.EncryptWithSM2(original)
+	if err != nil {
+		return nil, err
+	}
+	sm2PushParam := &sm2Push{Audience: param.Audience, Payload: payload}
+
+	req := &api.Request{
+		Method: http.MethodPost,
+		Proto:  p.proto,
+		URL:    p.host + "/v3/push",
+		Auth:   p.auth,
+		Header: http.Header{"X-Encrypt-Type": {"SM2"}},
+		Body:   sm2PushParam,
+	}
+	resp, err := p.client.Request(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	result := &SendResult{Response: resp}
+	err = json.Unmarshal(resp.RawBody, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// SM2 加密推送参数
+type sm2Push struct {
+	Audience interface{} `json:"audience"` // 推送目标，同 SendParam.Audience
+	Payload  string      `json:"payload"`  // 推送内容，SendParam 的 JSON 字符串使用 SM2 公钥加密后的密文（Base64 编码）
 }
 
 type SendResult struct {

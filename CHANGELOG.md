@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.2](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.2) - 2025-01-15
+
+### 新特性
+
+- 增加了对普通推送 API 的 SM2 加密推送功能。
+
+---
+
 ## [v0.1.1](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.1) - 2024-12-31
 
 ### 修复

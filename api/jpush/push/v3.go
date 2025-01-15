@@ -46,6 +46,12 @@ type APIv3 interface {
 	//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push
 	Send(ctx context.Context, param *SendParam) (*SendResult, error)
 
+	// 普通推送（SM2 加密）
+	//  - 功能说明：向某单个设备或者某设备列表推送一条通知或者消息。推送的内容只能是 JSON 表示的一个推送对象。
+	//	- 调用地址：POST `/v3/push`
+	//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push
+	SendWithSM2(ctx context.Context, param *SendParam) (*SendResult, error)
+
 	// 文件推送（文件立即推送）
 	//  - 功能说明：支持指定文件唯一标识（fileID）进行推送，文件唯一标识（fileID）可以参考 File API v3 的 文件上传接口 获得。
 	//	- 调用地址：POST `/v3/push/file`
