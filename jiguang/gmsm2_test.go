@@ -39,13 +39,13 @@ const (
 )
 
 // 打印 SM2 公钥的 Base64 格式
-func printB64PubKey(pubKey *sm2.PublicKey) string {
+func sprintB64PubKey(pubKey *sm2.PublicKey) string {
 	pubBytes := elliptic.Marshal(sm2.P256Sm2(), pubKey.X, pubKey.Y)
 	return base64.StdEncoding.EncodeToString(pubBytes)
 }
 
 // 将 SM2 私钥打印为可复现格式
-func printPrivKey(privKey *sm2.PrivateKey) string {
+func sprintPrivKey(privKey *sm2.PrivateKey) string {
 	dHex := hex.EncodeToString(privKey.D.Bytes())
 	xHex := hex.EncodeToString(privKey.PublicKey.X.Bytes())
 	yHex := hex.EncodeToString(privKey.PublicKey.Y.Bytes())
@@ -102,8 +102,8 @@ func TestGmSm2(t *testing.T) {
 	privKeyBytes := privKey.D.Bytes()
 	// 将私钥序列化结果转为 Base64
 	b64PrivKey := base64.StdEncoding.EncodeToString(privKeyBytes)
-	t.Logf("SM2 私钥 (Base64): %s\n%s", b64PrivKey, printPrivKey(privKey))
-	t.Logf("SM2 公钥 (Base64): %s", printB64PubKey(&privKey.PublicKey))
+	t.Logf("SM2 私钥 (Base64): %s\n%s", b64PrivKey, sprintPrivKey(privKey))
+	t.Logf("SM2 公钥 (Base64): %s", sprintB64PubKey(&privKey.PublicKey))
 
 	// -----------------------------------------------------------------------------------------------------------------
 

@@ -2,11 +2,11 @@ module github.com/calvinit/jiguang-sdk-go/examples
 
 go 1.16
 
-retract v0.0.0-20250115063900-73c3acadb3f1
+retract v0.0.0-20250116042347-a8a53c585844
 
 require (
-	github.com/calvinit/jiguang-sdk-go v0.1.2
-	github.com/go-resty/resty/v2 v2.16.3
+	github.com/calvinit/jiguang-sdk-go v0.1.3
+	github.com/go-resty/resty/v2 v2.16.5
 	github.com/rs/zerolog v1.33.0
 	github.com/sirupsen/logrus v1.9.3
 	go.uber.org/zap v1.24.0 // It's the latest version that supports go 1.16.
