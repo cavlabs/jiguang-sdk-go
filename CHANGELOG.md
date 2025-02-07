@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.1.3](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.3) - 2025-02-07
+
+### 修复
+
+- **接口调用修复**：修改返回的 `nil` 接口为带有动态类型的 `nil`，避免调用接口时发生方法调用失败。
+
+### 优化
+
+- **安全性改进**：对 `Authorization` 请求头中的敏感令牌信息进行日志输出屏蔽，以增强安全性。
+
+---
+
 ## [v0.1.2](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.2) - 2025-01-15
 
 ### 新特性
