@@ -126,27 +126,25 @@ func (b *APIv3Builder) DisableHttpLogging() *APIv3Builder {
 
 func (b *APIv3Builder) Build() (APIv3, error) {
 	if b.err != nil {
-		return nil, b.err
+		return (*apiv3)(nil), b.err
 	}
 	if b.groupKey == "" || b.groupMasterSecret == "" {
-		return nil, errors.New("both `groupKey` and `groupMasterSecret` cannot be empty")
+		return (*apiv3)(nil), errors.New("both `groupKey` and `groupMasterSecret` cannot be empty")
 	}
 
 	client := api.NewHttpClient(b.client, b.logger, b.httpLogLevel)
 	proto := client.DetectProto(b.host)
 	creds := base64.StdEncoding.EncodeToString([]byte("group-" + b.groupKey + ":" + b.groupMasterSecret))
 
-	var filev3 file.APIv3
-	if b.devKey != "" && b.devSecret != "" {
-		filev3, _ = file.NewAPIv3Builder().
-			SetClient(b.client).
-			SetHost(b.host).
-			SetAuthKey(b.devKey).
-			SetAuthSecret(b.devSecret).
-			SetLogger(b.logger).
-			SetHttpLogLevel(b.httpLogLevel).
-			Build()
-	}
+	filev3, _ := file.NewAPIv3Builder().
+		SetClient(b.client).
+		SetHost(b.host).
+		SetAuthKey(b.devKey).
+		SetAuthSecret(b.devSecret).
+		SetLogger(b.logger).
+		SetHttpLogLevel(b.httpLogLevel).
+		Build()
+
 	return &apiv3{
 		fileAPIv3: filev3,
 		client:    client,

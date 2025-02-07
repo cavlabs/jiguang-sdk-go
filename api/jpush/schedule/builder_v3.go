@@ -101,10 +101,10 @@ func (b *APIv3Builder) DisableHttpLogging() *APIv3Builder {
 
 func (b *APIv3Builder) Build() (APIv3, error) {
 	if b.err != nil {
-		return nil, b.err
+		return (*apiv3)(nil), b.err
 	}
 	if b.appKey == "" || b.masterSecret == "" {
-		return nil, errors.New("both `appKey` and `masterSecret` cannot be empty")
+		return (*apiv3)(nil), errors.New("both `appKey` and `masterSecret` cannot be empty")
 	}
 
 	client := api.NewHttpClient(b.client, b.logger, b.httpLogLevel)
