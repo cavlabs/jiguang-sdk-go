@@ -101,10 +101,10 @@ func (b *APIv1Builder) DisableHttpLogging() *APIv1Builder {
 
 func (b *APIv1Builder) Build() (APIv1, error) {
 	if b.err != nil {
-		return nil, b.err
+		return (*apiv1)(nil), b.err
 	}
 	if b.devKey == "" || b.devSecret == "" {
-		return nil, errors.New("both `devKey` and `devSecret` cannot be empty")
+		return (*apiv1)(nil), errors.New("both `devKey` and `devSecret` cannot be empty")
 	}
 
 	client := api.NewHttpClient(b.client, b.logger, b.httpLogLevel)
