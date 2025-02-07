@@ -120,7 +120,7 @@ func (rs *MessageDetailGetResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (rs *MessageDetailGetResult) MarshalJSON() ([]byte, error) {
+func (rs MessageDetailGetResult) MarshalJSON() ([]byte, error) {
 	if rs.Error != nil {
 		data := make(map[string]*api.CodeError, 1)
 		data["error"] = rs.Error

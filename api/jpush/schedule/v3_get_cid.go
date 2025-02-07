@@ -28,6 +28,11 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/cid"
 )
 
+// 获取定时推送唯一标识 (CID)
+//  - 功能说明：CID 是用于防止 API 调用端重试造成服务端的重复推送而定义的一个推送参数。用户使用一个 CID 推送后，再次使用相同的 CID 进行推送，则会直接返回第一次成功推送的结果，不会再次进行推送。
+//  CID 的有效期为 1 天，格式为：{appkey}-{uuid}，在使用 CID 之前，必须通过接口获取你的 CID 池。
+//	- 调用地址：GET `/v3/push/cid?type=schedule&count={count}`，如 count < 1 则自动重置为 1。
+//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E8%8E%B7%E5%8F%96%E6%8E%A8%E9%80%81%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86cid
 func (s *apiv3) GetCidForSchedulePush(ctx context.Context, count int) (*CidGetResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJPushScheduleAPIv3

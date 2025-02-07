@@ -29,10 +29,18 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
+// 定时推送（创建定时任务）
+//  - 功能说明：API 层面支持定时功能。这是一个相对独立的任务执行模块，维护一个 Schedule 对象。调 API 创建的定时任务只能调 API 获取/修改/删除。
+//	- 调用地址：POST `/v3/schedules`
+//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_push_schedule#%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1
+// 注意事项：
+//  1. 文件定时推送 API 接口频率规则和 File API v3 频率规则一样 20 次/min，且各个文件相关接口频率会互相消耗；
+//  2. 对于文件定时推送，创建定时任务成功后，若任务被执行前文件被删除，则任务执行时推送动作将会失败。
 func (s *apiv3) ScheduleSend(ctx context.Context, param *SendParam) (*SendResult, error) {
 	return s.CustomScheduleSend(ctx, param)
 }
 
+// 自定义定时推送：如果遇到 ScheduleSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
 func (s *apiv3) CustomScheduleSend(ctx context.Context, param interface{}) (*SendResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJPushScheduleAPIv3
