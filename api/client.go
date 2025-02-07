@@ -159,6 +159,10 @@ func (lc *loggingHttpClient) logRequest(ctx context.Context, req *http.Request) 
 
 	if lc.httpLogger.Level >= HttpLogLevelHeaders {
 		for name, values := range req.Header {
+			if name == "Authorization" {
+				lc.httpLogger.Debugf(ctx, "%s: %s", name, "[REDACTED]")
+				continue
+			}
 			for _, value := range values {
 				lc.httpLogger.Debugf(ctx, "%s: %s", name, value)
 			}
