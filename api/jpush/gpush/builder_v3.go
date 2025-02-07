@@ -83,7 +83,7 @@ func (b *APIv3Builder) SetGroupMasterSecret(groupMasterSecret string) *APIv3Buil
 }
 
 // 【可选】设置 API 的开发者标识。
-//  - 但当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devKey`；
+//  - 当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devKey`；
 //  - 参考文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file
 func (b *APIv3Builder) SetDevKey(devKey string) *APIv3Builder {
 	if devKey == "" {
@@ -94,7 +94,7 @@ func (b *APIv3Builder) SetDevKey(devKey string) *APIv3Builder {
 }
 
 // 【可选】设置 API 的开发者密钥。
-//  - 但当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devSecret`；
+//  - 当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devSecret`；
 //  - 参考文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file
 func (b *APIv3Builder) SetDevSecret(devSecret string) *APIv3Builder {
 	if devSecret == "" {

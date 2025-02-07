@@ -73,6 +73,7 @@ type APIv3 interface {
 	// 获取某个定时任务的所有消息 ID
 	//  - 功能说明：获取当前用户指定定时任务对应的所有消息 ID 列表。
 	//	- 调用地址：GET `/v3/schedules/{scheduleID}/msg_ids`
+	//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_push_schedule#%E8%8E%B7%E5%8F%96%E6%9F%90%E4%B8%AA%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E6%B6%88%E6%81%AF-id
 	GetScheduleMsgIDs(ctx context.Context, scheduleID string) (*ScheduleMsgIDsResult, error)
 
 	// 更新定时任务

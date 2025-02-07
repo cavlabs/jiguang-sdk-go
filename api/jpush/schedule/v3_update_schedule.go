@@ -27,6 +27,15 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
+// 更新定时任务
+//  - 功能说明：更新当前用户指定定时任务的详细信息。
+//	- 调用地址：PUT `/v3/schedules/{scheduleID}`
+//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_push_schedule#%E6%9B%B4%E6%96%B0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1
+// 注意事项：
+//  - 不支持部分更新；
+//  - 更新后的 Trigger 必须仍是有效合法的，否则即使 Trigger 整体更新也会失败。可以更新 Enabled = false 的任务；
+//  - 定时任务（Single）与定期任务（Periodical）之间不能进行相互更新，即，原先为 Single 类任务，则不能更新为 Periodical 任务，反之亦然；
+//  - 不能更新已过期的定时任务。
 func (s *apiv3) UpdateSchedule(ctx context.Context, scheduleID string, param *UpdateParam) (*UpdateResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJPushScheduleAPIv3
