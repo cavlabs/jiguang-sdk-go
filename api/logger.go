@@ -24,8 +24,10 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// DefaultLogger 是在 API 没有提供自定义 Logger 时使用的默认 Logger。
-var DefaultLogger jiguang.Logger = jiguang.NewStdLogger()
+var (
+	DefaultJPushLogger jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JPush] "))
+	DefaultJSMSLogger  jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JSMS] "))
+)
 
 // HTTP 请求和响应的日志记录器。
 type httpLogger struct {

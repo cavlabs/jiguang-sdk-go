@@ -21,6 +21,7 @@ package jiguang
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -41,9 +42,7 @@ type Logger interface {
 	Errorf(ctx context.Context, format string, args ...interface{})
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-
-const LogPrefix = "[JGSDK] "
+// =====================================================================================================================
 
 // 用于在终端输出彩色日志的 ANSI 转义码。
 const (
@@ -56,12 +55,47 @@ const (
 
 // StdLogger 使用标准库的 log 包实现了 Logger 接口。
 type StdLogger struct {
-	logger *log.Logger
+	*log.Logger
 }
 
-func NewStdLogger() *StdLogger {
-	return &StdLogger{log.New(os.Stdout, LogPrefix, log.LstdFlags)}
+func NewStdLogger(opts ...StdLoggerOption) *StdLogger {
+	logger := &StdLogger{log.New(os.Stdout, "[JGSDK] ", log.LstdFlags)}
+	for _, opt := range opts {
+		_ = opt(logger)
+	}
+	return logger
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+// 用于配置 StdLogger 的选项。
+type StdLoggerOption func(*StdLogger) error
+
+// 自定义设置日志输出，默认为 os.Stdout。
+func WithLogOutput(logOutput io.Writer) StdLoggerOption {
+	return func(logger *StdLogger) error {
+		logger.SetOutput(logOutput)
+		return nil
+	}
+}
+
+// 自定义设置日志前缀，默认为 "[JGSDK] "。
+func WithLogPrefix(logPrefix string) StdLoggerOption {
+	return func(logger *StdLogger) error {
+		logger.SetPrefix(logPrefix)
+		return nil
+	}
+}
+
+// 自定义设置日志标志，默认为 log.LstdFlags。
+func WithLogFlags(logFlags int) StdLoggerOption {
+	return func(logger *StdLogger) error {
+		logger.SetFlags(logFlags)
+		return nil
+	}
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
 
 var ModPathRegex = regexp.MustCompile(`github\.com/[^@]+(@[^/]+)?/.+`) // 匹配模块路径
 
@@ -74,7 +108,7 @@ func (s *StdLogger) logMessage(_ context.Context, level, color, msg string) {
 	} else {
 		file = filepath.Base(file)
 	}
-	s.logger.Printf("%s%-5s%s %s:%d %s", color, level, colorReset, file, line, msg)
+	s.Printf("%s%-5s%s %s:%d %s", color, level, colorReset, file, line, msg)
 }
 
 func (s *StdLogger) Debug(ctx context.Context, msg string) {

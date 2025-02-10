@@ -50,13 +50,13 @@ type HttpClient interface {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// loggingHttpClient 是 HttpClient 接口的内部实现，可记录下 HTTP 请求和响应的日志信息。
+// HttpClient 接口的内部默认实现，可记录下 HTTP 请求和响应的日志信息。
 type loggingHttpClient struct {
 	client     Client
 	httpLogger *httpLogger
 }
 
-// DefaultClient 是在 API 没有提供自定义 Client 时使用的默认 Client。
+// 在 API 没有提供自定义 Client 时使用 DefaultClient。
 var DefaultClient Client = &http.Client{Timeout: 30 * time.Second}
 
 func NewHttpClient(client Client, logger jiguang.Logger, level HttpLogLevel) HttpClient {
@@ -67,7 +67,7 @@ func NewHttpClient(client Client, logger jiguang.Logger, level HttpLogLevel) Htt
 		lc.client = client
 	}
 	if logger == nil {
-		logger = DefaultLogger
+		logger = jiguang.NewStdLogger()
 	}
 	if !level.IsValid() {
 		level = HttpLogLevelNone
@@ -76,6 +76,7 @@ func NewHttpClient(client Client, logger jiguang.Logger, level HttpLogLevel) Htt
 	return &lc
 }
 
+// 探测给定 URL 对应服务器支持的 HTTP 协议版本，如 "HTTP/1.0"、"HTTP/1.1"、"HTTP/2.0" 等。
 func (lc *loggingHttpClient) DetectProto(url string) string {
 	req, err := http.NewRequest(http.MethodHead, url, nil)
 	if err != nil {
@@ -88,6 +89,7 @@ func (lc *loggingHttpClient) DetectProto(url string) string {
 	return resp.Proto
 }
 
+// 使用 JSON 正文 `Content-Type: application/json;charset=UTF-8` 发送 HTTP 请求。
 func (lc *loggingHttpClient) Request(ctx context.Context, req *Request) (resp *Response, err error) {
 	if ctx == nil {
 		ctx = context.Background()
@@ -101,6 +103,7 @@ func (lc *loggingHttpClient) Request(ctx context.Context, req *Request) (resp *R
 	return lc.doRequest(ctx, applicationJSONRequest)
 }
 
+// 使用多部分表单数据正文 `Content-Type: multipart/form-data; boundary=...` 发送 HTTP 请求。
 func (lc *loggingHttpClient) FormRequest(ctx context.Context, req *Request) (resp *Response, err error) {
 	if ctx == nil {
 		ctx = context.Background()
@@ -114,6 +117,7 @@ func (lc *loggingHttpClient) FormRequest(ctx context.Context, req *Request) (res
 	return lc.doRequest(ctx, multipartFormDataRequest)
 }
 
+// 执行 HTTP 请求，并根据适当的日志记录级别记录下请求和响应的日志信息。
 func (lc *loggingHttpClient) doRequest(ctx context.Context, httpReq *http.Request) (resp *Response, err error) {
 	startTime := time.Now()
 	lc.logRequest(ctx, httpReq)

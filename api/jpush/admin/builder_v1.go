@@ -41,18 +41,18 @@ func NewAPIv1Builder() *APIv1Builder {
 	return &APIv1Builder{
 		client:       api.DefaultClient,
 		host:         api.HostJPushAdminV1,
-		logger:       api.DefaultLogger,
+		logger:       api.DefaultJPushLogger,
 		httpLogLevel: api.HttpLogLevelBasic,
 	}
 }
 
-// 【可选】设置 API 的客户端，用于发送 HTTP 请求，默认值为 api.DefaultClient。
+// 【可选】设置 API 的客户端，用于发送 HTTP 请求，默认为 api.DefaultClient。
 func (b *APIv1Builder) SetClient(client api.Client) *APIv1Builder {
 	b.client = client
 	return b
 }
 
-// 【可选】设置 API 的 Host 基础 URL，默认值为 api.HostJPushAdminV1。
+// 【可选】设置 API 的 Host 基础 URL，默认为 api.HostJPushAdminV1。
 func (b *APIv1Builder) SetHost(host string) *APIv1Builder {
 	if host == "" {
 		b.err = errors.New("`host` cannot be empty")
@@ -79,13 +79,13 @@ func (b *APIv1Builder) SetDevSecret(devSecret string) *APIv1Builder {
 	return b
 }
 
-// 【可选】设置 API 的日志记录器，默认值为 api.DefaultLogger。
+// 【可选】设置 API 的日志记录器，默认为 api.DefaultJPushLogger。
 func (b *APIv1Builder) SetLogger(logger jiguang.Logger) *APIv1Builder {
 	b.logger = logger
 	return b
 }
 
-// 【可选】设置 API 的 HTTP 日志记录级别，用于指定记录 API 的 HTTP 请求和响应的日志信息的详细程度，默认值为 api.HttpLogLevelBasic。
+// 【可选】设置 API 的 HTTP 日志记录级别，用于指定记录 API 的 HTTP 请求和响应的日志信息的详细程度，默认为 api.HttpLogLevelBasic。
 //  - 可用的级别：api.HttpLogLevelNone、api.HttpLogLevelBasic、api.HttpLogLevelHeaders、api.HttpLogLevelFull；
 //  - 若要禁用 HTTP 日志记录，可使用 DisableHttpLogging。
 func (b *APIv1Builder) SetHttpLogLevel(httpLogLevel api.HttpLogLevel) *APIv1Builder {

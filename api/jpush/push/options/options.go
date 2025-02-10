@@ -55,9 +55,9 @@ type Options struct {
 	// 【可选】推送请求下发通道。
 	//  - 目前只支持 xiaomi、huawei、honor、meizu、oppo、vivo、fcm 类型用户，可以一个或者多个同时存在，未传递的通道类型其对应的厂商下发走「默认下发逻辑」：
 	//
-	//  1. 免费用户：Distribution 默认值为 secondary_push，DistributionFcm 默认值为 secondary_fcm_push；
+	//  1. 免费用户：Distribution 默认为 secondary_push，DistributionFcm 默认为 secondary_fcm_push；
 	//
-	//  2. VIP 用户：Distribution 默认值为 first_ospush，DistributionFcm 默认值为 fcm。
+	//  2. VIP 用户：Distribution 默认为 first_ospush，DistributionFcm 默认为 fcm。
 	//  - 仅针对配置了厂商用户使用有效，详情参考【third_party_channel 说明】：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E。
 	ThirdPartyChannel *ThirdPartyChannel `json:"third_party_channel,omitempty"`
 	// 【可选】消息类型分类。
