@@ -34,7 +34,7 @@ type LogrusLogger struct {
 	logger *logrus.Logger
 }
 
-func NewLogrusLogger() *LogrusLogger {
+func NewLogrusLogger(logPrefix string) *LogrusLogger {
 	logger := logrus.New()
 
 	logger.Level = logrus.DebugLevel
@@ -62,7 +62,7 @@ func NewLogrusLogger() *LogrusLogger {
 				return "", fmt.Sprintf(" %s:%d", file, line)
 			},
 		},
-		Prefix: jiguang.LogPrefix,
+		Prefix: logPrefix,
 	}
 
 	return &LogrusLogger{logger}

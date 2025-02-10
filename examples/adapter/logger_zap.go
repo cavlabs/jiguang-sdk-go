@@ -21,10 +21,8 @@ package adapter
 import (
 	"context"
 	"runtime"
-	"strings"
 	"time"
 
-	"github.com/calvinit/jiguang-sdk-go/jiguang"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -34,7 +32,7 @@ type ZapLogger struct {
 	logger *zap.SugaredLogger
 }
 
-func NewZapLogger() *ZapLogger {
+func NewZapLogger(logPrefix string) *ZapLogger {
 	config := zap.Config{
 		Encoding:         "console",
 		Level:            zap.NewAtomicLevelAt(zap.DebugLevel),
@@ -53,7 +51,7 @@ func NewZapLogger() *ZapLogger {
 			EncodeDuration: zapcore.StringDurationEncoder,
 			// EncodeTime:     zapcore.TimeEncoderOfLayout("2006/01/02 15:04:05"),
 			EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-				enc.AppendString(strings.TrimRight(jiguang.LogPrefix, " "))
+				enc.AppendString(logPrefix)
 
 				type appendTimeEncoder interface {
 					AppendTimeLayout(time.Time, string)

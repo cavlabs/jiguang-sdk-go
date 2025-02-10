@@ -16,7 +16,7 @@
 
 ### 特性
 
-- 全面支持 “极光推送（JPush）” 相关功能模块；
+- 全面支持 “极光推送（JPush）” 和 “极光短信（JSMS v1）” 相关功能模块；
 - 简单易用的 Go 接口；
 - 支持 Go 1.16 及其以上版本。
 
@@ -37,6 +37,16 @@
 - [x] [图片管理 - Image API v3](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image)
 - [x] [推送统计 - Report API v3](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report)
 - [x] [分组推送统计 - Group Report API v3](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report)
+
+### 2. 极光短信（JSMS v1）
+
+- [x] [短信签名 - Sign API](https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign)
+- [x] [短信模板 - Template API](https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates)
+- [x] [短信发送 - Code/Message API](https://docs.jiguang.cn/jsms/server/rest_api_jsms)
+- [x] [短信定时发送 - Schedule Message API](https://docs.jiguang.cn/jsms/server/rest_api_jsms_schedule)
+- [x] [短信余量查询 - Account Dev/App Balance API](https://docs.jiguang.cn/jsms/server/rest_jsms_api_account)
+- [x] [短信回执 - Inquire Report/Reply API](https://docs.jiguang.cn/jsms/server/rest_api_jsms_inquire)
+- [x] [回调接口 - Callback Server (SMS_SIGN, SMS_TEMPLATE, SMS_REPORT, SMS_REPLY)](https://docs.jiguang.cn/jsms/server/callback)
 
 ---
 
@@ -138,4 +148,5 @@
 ## 八、参考链接
 
 - [jiguang-sdk-java](https://github.com/jpush/jiguang-sdk-java)
+- [jsms-api-java-client](https://github.com/jpush/jsms-api-java-client)
 - [极光文档中心](https://docs.jiguang.cn)

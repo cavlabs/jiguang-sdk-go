@@ -32,6 +32,7 @@ var (
 	ErrNilJPushImageAPIv3       = newNilAPIError("jpush", "image", 3)
 	ErrNilJPushReportAPIv3      = newNilAPIError("jpush", "report", 3)
 	ErrNilJPushGroupReportAPIv3 = newNilAPIError("jpush", "group report", 3)
+	ErrNilJSmsAPIv1             = newNilAPIError("jsms", "", 1)
 )
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -55,14 +56,22 @@ func (e *nilAPIError) Error() string {
 	if e == nil {
 		return "nil api error"
 	}
-	return fmt.Sprintf("%s: nil %s apiv%d", e.category, e.name, e.version)
+	name := ""
+	if e.name != "" {
+		name = e.name + " "
+	}
+	return fmt.Sprintf("%s: nil %sapiv%d", e.category, name, e.version)
 }
 
 func (e *nilAPIError) String() string {
 	if e == nil {
 		return ""
 	}
-	return fmt.Sprintf("%s: nil %s apiv%d", e.category, e.name, e.version)
+	name := ""
+	if e.name != "" {
+		name = e.name + " "
+	}
+	return fmt.Sprintf("%s: nil %sapiv%d", e.category, name, e.version)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

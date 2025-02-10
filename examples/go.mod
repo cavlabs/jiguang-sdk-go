@@ -5,7 +5,7 @@ go 1.16
 retract v0.0.0-20250116042347-a8a53c585844
 
 require (
-	github.com/calvinit/jiguang-sdk-go v0.1.3
+	github.com/calvinit/jiguang-sdk-go v0.2.0
 	github.com/go-resty/resty/v2 v2.16.5
 	github.com/rs/zerolog v1.33.0
 	github.com/sirupsen/logrus v1.9.3
@@ -19,3 +19,5 @@ replace (
 	golang.org/x/sys => golang.org/x/sys v0.0.0-20201204225414-ed752295db88
 	golang.org/x/tools => golang.org/x/tools v0.1.0
 )
+
+replace github.com/calvinit/jiguang-sdk-go => ../

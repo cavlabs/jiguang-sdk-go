@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 calvinit/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,16 @@
  *
  */
 
-package api
+package inquire
 
-// 极光 REST API 的 HTTP 请求 Host 基础 URL。
+// 「模板审核结果」SMS_TEMPLATE 回执数据。
+type TemplateData struct {
+	RawJSON      string `json:"-"`                      // 原始 JSON 数据
+	TempID       int64  `json:"tempId"`                 // 模板 ID
+	Status       int    `json:"status"`                 // 模板状态：1 - 审核通过；2 - 审核不通过
+	RefuseReason string `json:"refuseReason,omitempty"` // 审核不通过的原因
+}
 
-const (
-	HostJPushAdminV1  = "https://admin.jpush.cn"
-	HostJPushDeviceV3 = "https://device.jpush.cn"
-	HostJPushPushV3   = "https://api.jpush.cn"
-	HostJPushReportV3 = "https://report.jpush.cn"
-	HostJSmsV1        = "https://api.sms.jpush.cn"
-)
+func (t TemplateData) MarshalJSON() ([]byte, error) {
+	return []byte(t.RawJSON), nil
+}

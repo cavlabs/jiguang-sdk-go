@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.2.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.2.0) - 2025-02-10
+
+### 新特性
+
+- 全面支持 “极光短信（JSMS v1）” 相关功能模块。
+
+### 优化
+
+- 优化了日志消息输出前缀，对不同类型 API 的请求和响应日志进行了区分，使之更加清晰明了；
+- 优化了示例代码的演示对象初始化方式，使之更加简洁易懂。
+
+---
+
 ## [v0.1.3](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.3) - 2025-02-07
 
 ### 修复
