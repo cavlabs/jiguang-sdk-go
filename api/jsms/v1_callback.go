@@ -59,7 +59,7 @@ var (
 	// 自定义配置回调接口服务的日志打印器，默认与 JSMS API v1 使用相同的日志打印器。
 	WithCallbackLogger = callback.WithLogger
 	// 自定义配置回调接口服务的 HTTP Handler，默认为使用 net/http 实现的一个简单的 Handler。
-	WithCallbackHTTPHandler = callback.WithHTTPHandler
+	WithCallbackHttpHandler = callback.WithHttpHandler
 	// 自定义配置「用户回复消息」SMS_REPLY 回执数据回调处理器。注：你的自定义处理器需要实现 CallbackReplyDataProcessor 接口。
 	WithCallbackReplyDataProcessor = callback.WithReplyDataProcessor
 	// 自定义配置「短信送达状态」SMS_REPORT 回执数据回调处理器。注：你的自定义处理器需要实现 CallbackReportDataProcessor 接口。

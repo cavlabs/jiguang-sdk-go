@@ -70,7 +70,7 @@ func TestMain(m *testing.M) {
 		jsms.WithCallbackAddr(":8080"),
 		jsms.WithCallbackPath("/jsms/callback"),
 		// jsms.WithCallbackLogger(logger), 									// 这是默认行为，可以不设置！
-		// jsms.WithCallbackHTTPHandler(httpHandler),
+		// jsms.WithCallbackHttpHandler(httpHandler),
 		jsms.WithCallbackReplyDataProcessor(callbackReplyDataProcessor{}), 		// 自定义处理回调数据。
 		// jsms.WithCallbackReportDataProcessor(callbackReportDataProcessor{}),
 		jsms.WithCallbackReportDataProcessor(nil), 						// 如果设置为 nil，则忽略不处理！
@@ -86,7 +86,7 @@ func TestMain(m *testing.M) {
 		SetMasterSecret(masterSecret).            // 【必填】配置。
 		SetDevKey(devKey).                        // 【可选】配置，但当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devKey`。
 		SetDevSecret(devSecret).                  // 【可选】配置，但当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devSecret`。
-		// SetLogger(logger).                        // 【可选】配置，如果不配置，则使用默认的 api.DefaultJSMSLogger。
+		// SetLogger(logger).                        // 【可选】配置，如果不配置，则使用默认的 api.DefaultJSmsLogger。
 		SetHttpLogLevel(api.HttpLogLevelFull).    // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
 		EnableCallback(callbackConfigOptions...). // 【可选】启用回调接口服务（默认不启用），并且自定义服务的一些配置选项。
 		Build()
