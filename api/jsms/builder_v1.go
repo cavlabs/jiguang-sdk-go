@@ -46,7 +46,7 @@ func NewAPIv1Builder() *APIv1Builder {
 	return &APIv1Builder{
 		client:       api.DefaultClient,
 		host:         api.HostJSmsV1,
-		logger:       api.DefaultJSMSLogger,
+		logger:       api.DefaultJSmsLogger,
 		httpLogLevel: api.HttpLogLevelBasic,
 	}
 }
@@ -106,7 +106,7 @@ func (b *APIv1Builder) SetDevSecret(devSecret string) *APIv1Builder {
 	return b
 }
 
-// 【可选】设置 API 的日志记录器，默认为 api.DefaultJSMSLogger。
+// 【可选】设置 API 的日志记录器，默认为 api.DefaultJSmsLogger。
 func (b *APIv1Builder) SetLogger(logger jiguang.Logger) *APIv1Builder {
 	b.logger = logger
 	return b

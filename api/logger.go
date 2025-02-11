@@ -26,7 +26,7 @@ import (
 
 var (
 	DefaultJPushLogger jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JPush] "))
-	DefaultJSMSLogger  jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JSMS] "))
+	DefaultJSmsLogger  jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JSMS] "))
 )
 
 // HTTP 请求和响应的日志记录器。

@@ -44,7 +44,7 @@ const (
 type config struct {
 	addr     string                // 监听地址 (如 ":8088")，默认为 ":8088"
 	path     string                // 回调路径 (如 "/callback")，默认为 "/callback"
-	logger   jiguang.Logger        // 日志打印器，用于记录回调接口服务的日志，默认为 api.DefaultJSMSLogger
+	logger   jiguang.Logger        // 日志打印器，用于记录回调接口服务的日志，默认为 api.DefaultJSmsLogger
 	handler  http.Handler          // HTTP Handler，可自定义处理回调请求，默认为使用 net/http 实现的一个简单的 Handler
 	flag     int8                  // 标志位，用于标记是否已经设置了自定义的回执数据回调处理器，从低位到高位分别表示：SMS_REPLY、SMS_REPORT、SMS_TEMPLATE、SMS_SIGN
 	reply    ReplyDataProcessor    // 「用户回复消息」SMS_REPLY 回执数据回调处理器，为 nil 时不处理
@@ -113,7 +113,7 @@ func (o loggerOption) apply(c *config) error {
 	return nil
 }
 
-// 自定义配置回调接口服务的日志打印器，默认为 api.DefaultJSMSLogger。
+// 自定义配置回调接口服务的日志打印器，默认为 api.DefaultJSmsLogger。
 func WithLogger(logger jiguang.Logger) ConfigOption {
 	return loggerOption{logger}
 }
@@ -134,7 +134,7 @@ func (o httpHandlerOption) apply(c *config) error {
 }
 
 // 自定义配置回调接口服务的 HTTP Handler，默认为使用 net/http 实现的一个简单的 Handler。
-func WithHTTPHandler(handler http.Handler) ConfigOption {
+func WithHttpHandler(handler http.Handler) ConfigOption {
 	return httpHandlerOption{handler}
 }
 

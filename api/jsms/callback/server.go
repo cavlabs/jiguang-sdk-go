@@ -48,7 +48,7 @@ func NewServer(appKey, masterSecret string, opts ...ConfigOption) (*Server, erro
 	c := config{
 		addr:   defaultAddr,
 		path:   defaultPath,
-		logger: api.DefaultJSMSLogger,
+		logger: api.DefaultJSmsLogger,
 	}
 
 	for _, opt := range opts {
