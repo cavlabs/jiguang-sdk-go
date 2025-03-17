@@ -68,7 +68,7 @@ func TestMain(m *testing.M) {
 	//  - 12. 点击 (6) 回调数据处理器 (click)，为 nil 时不处理；
 	//  - 13. 撤回成功 (7) 回调数据处理器 (retractedSucc)，为 nil 时不处理；
 	//  - 14. 撤回失败 (8) 回调数据处理器 (retractedFail)，为 nil 时不处理；
-	//  - 15. 统一的回调数据列表处理器（所有类型的回调数据汇总到此处理器中进行统一处理）(unified)，为 nil 时不处理。
+	//  - 15. 统一的回调数据列表处理器（所有类型的回调数据汇总到此处理器中进行统一处理）(unified)，为 nil 时不处理（如果 6-14 选项都没有配置的话，这里设置为 nil 会按默认的打印 DEBUG 日志到控制台）。
 	/*callbackConfigOptions := []jums.CallbackConfigOption{
 		jums.WithCallbackAddr(":8081"),
 		jums.WithCallbackPath("/jums/callback"),
