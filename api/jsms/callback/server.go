@@ -57,18 +57,18 @@ func NewServer(appKey, masterSecret string, opts ...ConfigOption) (*Server, erro
 		}
 	}
 
-	p := loggingDataProcessor{logger: c.logger}
+	p := loggingDataProcessor{logger: c.logger}      // 需要使用用户可能自定义设置的 logger
 	if c.flag&flagReply == 0 {
-		c.reply = loggingReplyDataProcessor(p)
+		c.reply = loggingReplyDataProcessor(p)       // 「用户回复消息」SMS_REPLY
 	}
 	if c.flag&flagReport == 0 {
-		c.report = loggingReportDataProcessor(p)
+		c.report = loggingReportDataProcessor(p)     // 「短信送达状态」SMS_REPORT
 	}
 	if c.flag&flagTemplate == 0 {
-		c.template = loggingTemplateDataProcessor(p)
+		c.template = loggingTemplateDataProcessor(p) // 「模板审核结果」SMS_TEMPLATE
 	}
 	if c.flag&flagSign == 0 {
-		c.sign = loggingSignDataProcessor(p)
+		c.sign = loggingSignDataProcessor(p)         // 「签名审核结果」SMS_SIGN
 	}
 
 	if c.handler == nil {

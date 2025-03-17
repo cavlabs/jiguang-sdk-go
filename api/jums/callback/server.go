@@ -45,25 +45,11 @@ type Server struct {
 
 // 创建新的 Server 回调接口服务实例。
 func NewServer(channelKey, masterSecret string, opts ...ConfigOption) (*Server, error) {
-	defaultLogger := api.DefaultJUmsLogger
-	defaultDataProcessor := loggingDataProcessor{logger: defaultLogger}
-	defaultDataListProcessor := loggingDataListProcessor{logger: defaultLogger}
-
 	c := config{
 		addr:          defaultAddr,
 		path:          defaultPath,
-		logger:        defaultLogger,
+		logger:        api.DefaultJUmsLogger,
 		checkAuth:     true,
-		targetValid:   defaultDataProcessor,
-		targetInvalid: defaultDataProcessor,
-		sentSucc:      defaultDataProcessor,
-		sentFail:      defaultDataProcessor,
-		receivedSucc:  defaultDataProcessor,
-		receivedFail:  defaultDataProcessor,
-		click:         defaultDataProcessor,
-		retractedSucc: defaultDataProcessor,
-		retractedFail: defaultDataProcessor,
-		unified:       defaultDataListProcessor,
 	}
 
 	for _, opt := range opts {
@@ -74,6 +60,39 @@ func NewServer(channelKey, masterSecret string, opts ...ConfigOption) (*Server, 
 
 	if c.flag > 0 {
 		c.unified = nil
+	} else {
+		if c.unified == nil {
+			c.unified = loggingDataListProcessor{logger: c.logger} // 需要使用用户可能自定义设置的 logger
+		}
+	}
+
+	p := loggingDataProcessor{logger: c.logger}  // 需要使用用户可能自定义设置的 logger
+	if c.flag&flagTargetValid == 0 {    // 目标有效 (0)
+		c.targetValid = p
+	}
+	if c.flag&flagTargetInvalid == 0 {  // 目标无效 (1)
+		c.targetInvalid = p
+	}
+	if c.flag&flagSentSucc == 0 {       // 提交成功 (2)
+		c.sentSucc = p
+	}
+	if c.flag&flagSentFail == 0 {       // 提交失败 (3)
+		c.sentFail = p
+	}
+	if c.flag&flagReceivedSucc == 0 {   // 送达成功 (4)
+		c.receivedSucc = p
+	}
+	if c.flag&flagReceivedFail == 0 {   // 送达失败 (5)
+		c.receivedFail = p
+	}
+	if c.flag&flagClick == 0 {          // 点击 (6)
+		c.click = p
+	}
+	if c.flag&flagRetractedSucc == 0 {  // 撤回成功 (7)
+		c.retractedSucc = p
+	}
+	if c.flag&flagRetractedFail == 0 {  // 撤回失败 (8)
+		c.retractedFail = p
 	}
 
 	if c.handler == nil {
