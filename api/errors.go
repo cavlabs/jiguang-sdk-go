@@ -33,6 +33,7 @@ var (
 	ErrNilJPushReportAPIv3      = newNilAPIError("jpush", "report", 3)
 	ErrNilJPushGroupReportAPIv3 = newNilAPIError("jpush", "group report", 3)
 	ErrNilJSmsAPIv1             = newNilAPIError("jsms", "", 1)
+	ErrNilJUmsAPIv1             = newNilAPIError("jums", "", 1)
 )
 
 // ---------------------------------------------------------------------------------------------------------------------

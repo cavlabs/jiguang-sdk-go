@@ -16,7 +16,7 @@
 
 ### 特性
 
-- 全面支持 “极光推送（JPush）” 和 “极光短信（JSMS v1）” 相关功能模块；
+- 全面支持 “极光推送（JPush）”、“极光短信（JSMS v1）” 和 “极光统一消息（JUMS v1）” 相关功能模块；
 - 简单易用的 Go 接口；
 - 支持 Go 1.16 及其以上版本。
 
@@ -24,9 +24,9 @@
 
 ## 一、极光文档
 
-以下是 SDK 支持的极光 REST API 功能模块及官方文档链接：
+以下是本 SDK 支持的极光 REST API 功能模块及官方文档链接：
 
-### 1. 极光推送（JPush）
+### [1. 极光推送（JPush）](https://docs.jiguang.cn/jpush/server/push)
 
 - [x] [应用管理 - Admin API v1](https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1)
 - [x] [设备/标签/别名 - Device API v3](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device)
@@ -38,7 +38,7 @@
 - [x] [推送统计 - Report API v3](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report)
 - [x] [分组推送统计 - Group Report API v3](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report)
 
-### 2. 极光短信（JSMS v1）
+### [2. 极光短信（JSMS v1）](https://docs.jiguang.cn/jsms/server/restapi)
 
 - [x] [短信签名 - Sign API](https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign)
 - [x] [短信模板 - Template API](https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates)
@@ -47,6 +47,16 @@
 - [x] [短信余量查询 - Account Dev/App Balance API](https://docs.jiguang.cn/jsms/server/rest_jsms_api_account)
 - [x] [短信回执 - Inquire Report/Reply API](https://docs.jiguang.cn/jsms/server/rest_api_jsms_inquire)
 - [x] [回调接口 - Callback Server (SMS_SIGN, SMS_TEMPLATE, SMS_REPORT, SMS_REPLY)](https://docs.jiguang.cn/jsms/server/callback)
+
+### [3. 极光统一消息（JUMS v1）](https://docs.jiguang.cn/jums/server/restapi)
+
+- [x] [普通消息发送 - Custom Message API](https://docs.jiguang.cn/jums/server/rest_api_jums_custom_message)
+- [x] [模板消息发送 - Template Message API](https://docs.jiguang.cn/jums/server/rest_api_jums_template_message)
+- [x] [消息撤回 - Retract Message API](https://docs.jiguang.cn/jums/server/rest_api_jums_retract_message)
+- [x] [用户管理 - User API](https://docs.jiguang.cn/jums/server/rest_api_jums_user)
+- [x] [素材管理 - Material API](https://docs.jiguang.cn/jums/server/rest_api_jums_material)
+- [x] [获取通道 Token - Token API](https://docs.jiguang.cn/jums/server/rest_api_jums_token)
+- [x] [回调接口 - Callback Server (目标有效/无效, 提交成功/失败, 送达成功/失败, 点击, 撤回成功/失败)](https://docs.jiguang.cn/jums/advanced/callback)
 
 ---
 

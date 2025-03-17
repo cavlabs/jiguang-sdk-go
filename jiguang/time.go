@@ -166,7 +166,7 @@ func (t LocalTime) Format() string {
 	return t.Time.Format(localTimeFormat)
 }
 
-func (t LocalTime) FormatUsingTimeUnit(tu TimeUnit) string {
+func (t LocalTime) FormatUsingTimeUnit(_ TimeUnit) string {
 	panic("not supported")
 }
 

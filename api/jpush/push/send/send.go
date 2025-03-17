@@ -33,7 +33,7 @@ type Param struct {
 	CID string `json:"cid,omitempty"`
 	// 【必填】推送平台，支持 2 种类型值：
 	//  - platform.All：推送到所有平台；
-	//  - platform.Android、platform.IOS、platform.HMOS、platform.QuickApp 的组合列表：指定特定推送平台。
+	//  - platform.Android、platform.IOS、platform.QuickApp、platform.HMOS 的组合列表：指定特定推送平台。
 	// 注意事项：
 	//  - 如果目标平台为 iOS 平台，推送 Notification 时需要在 Options 中通过 ApnsProduction 字段来设定推送环境；
 	//  - true 表示推送生产环境，false 表示要推送开发环境，如果不指定则为推送生产环境，一次只能推送给一个环境。
@@ -45,7 +45,7 @@ type Param struct {
 	// 备注：
 	//  - 基于业务优化的需求，极光于 2020 年 3 月 10 日对「广播推送」的频率进行限制，调整为 10 次每天，超过调用限制时将返回报错码 2008，官网控制台将与 Push API 同步调整。
 	//  - 本次调整仅限制广播，对广播外的推送不影响。
-	Audience interface{} `json:"audience"`
+	Audience interface{} `json:"audience,omitempty"`
 	// 【可选】推送可选项。
 	//  - 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#options%EF%BC%9A%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0。
 	Options *options.Options `json:"options,omitempty"`

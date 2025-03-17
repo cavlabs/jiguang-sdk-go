@@ -90,7 +90,7 @@ type batchSendParam struct {
 type BatchPushParam struct {
 	// 【必填】推送平台，支持 2 种类型值：
 	//  - platform.All：推送到所有平台；
-	//  - platform.Android、platform.IOS、platform.HMOS、platform.QuickApp 的组合列表：指定特定推送平台。
+	//  - platform.Android、platform.IOS、platform.QuickApp、platform.HMOS 的组合列表：指定特定推送平台。
 	Platform interface{} `json:"platform"`
 	// 【必填】推送目标，此处填写的是 Registration ID 值或者 Alias 值。
 	Target string `json:"target"`
