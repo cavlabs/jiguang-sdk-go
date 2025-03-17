@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 calvinit/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,10 @@
  *
  */
 
-package sdk
+package audience
 
-// 当前极光 SDK 的版本号。
-const Version = "v0.3.0"
+// [自定义通道] 注册 ID 发送目标。
+type CustomChannel struct {
+	Instance string   `json:"instance,omitempty"` // 【可选】目标标识，预留字段，目前无效。
+	Data     []string `json:"data"`               // 【必填】通道注册 ID 列表。一次发送最多 1000 个。有效性遵循各通道的要求即可。
+}

@@ -32,7 +32,7 @@ const (
 
 // 标志位：是否已经设置了自定义的回执数据回调处理器
 const (
-	flagReply = 1 << iota
+	flagReply int8 = 1 << iota
 	flagReport
 	flagTemplate
 	flagSign

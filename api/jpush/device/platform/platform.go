@@ -18,35 +18,42 @@
 
 package platform
 
-import "strings"
+import (
+	"strings"
+)
 
-// 「极光推送」设备平台，当前支持 android、ios、hmos、quickapp 4 个平台。
+// 「极光推送」设备平台，当前支持 android、ios、web、quickapp、hmos 5 个平台，其中 “web 平台” 在 JUMS 的【模板消息发送 API】的 [APP 参数] 中可用。
+//
+// [APP 参数]: https://docs.jiguang.cn/jums/server/rest_api_jums_template_message#app_para%EF%BC%9Aapp-%E5%8F%82%E6%95%B0
 type Platform string
 
 const (
-	All = Platform("all") // 所有平台，即 android、ios、hmos、quickapp 4 个平台。
+	All = Platform("all") // 所有平台
 
 	// ↓↓↓ 支持的设备平台枚举值 ↓↓↓
 
 	Android  = Platform("android")  // Android 平台
 	IOS      = Platform("ios")      // iOS 平台
-	HMOS     = Platform("hmos")     // 鸿蒙平台
+	Web      = Platform("web")      // Web 平台
 	QuickApp = Platform("quickapp") // 快应用平台
+	HMOS     = Platform("hmos")     // 鸿蒙平台
 )
 
 func (p *Platform) UnmarshalJSON(data []byte) error {
 	val := string(data)
 	switch val {
-	case `"all"`:
+	case `"all"`, `-1`:
 		*p = All
-	case `"android"`:
+	case `"android"`, `0`:
 		*p = Android
-	case `"ios"`:
+	case `"ios"`, `1`:
 		*p = IOS
-	case `"hmos"`:
-		*p = HMOS
-	case `"quickapp"`:
+	case `"web"`, `2`:
+		*p = Web
+	case `"quickapp"`, `3`:
 		*p = QuickApp
+	case `"hmos"`, `4`:
+		*p = HMOS
 	}
 	return nil
 }
@@ -55,10 +62,29 @@ func (p Platform) MarshalJSON() ([]byte, error) {
 	switch p {
 	case All:
 		return []byte(`"all"`), nil
-	case Android, IOS, HMOS, QuickApp:
+	case Android, IOS, Web, QuickApp, HMOS:
 		return []byte(`"` + string(p) + `"`), nil
 	default:
 		return nil, nil
+	}
+}
+
+func (p Platform) Index() int {
+	switch p {
+	case All:
+		return -1
+	case Android:
+		return 0
+	case IOS:
+		return 1
+	case Web:
+		return 2
+	case QuickApp:
+		return 3
+	case HMOS:
+		return 4
+	default:
+		return -2
 	}
 }
 

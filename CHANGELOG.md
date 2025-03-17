@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.3.0) - 2025-03-17
+
+### 新特性
+
+- 全面支持 “极光统一消息（JUMS v1）” 相关功能模块。
+
+---
+
 ## [v0.2.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.2.0) - 2025-02-10
 
 ### 新特性

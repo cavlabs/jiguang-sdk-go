@@ -27,6 +27,7 @@ import (
 var (
 	DefaultJPushLogger jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JPush] "))
 	DefaultJSmsLogger  jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JSMS] "))
+	DefaultJUmsLogger  jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JUMS] "))
 )
 
 // HTTP 请求和响应的日志记录器。
@@ -56,12 +57,7 @@ const (
 
 // 判断 level 是否是有效的 HTTP 日志记录级别。
 func (level HttpLogLevel) IsValid() bool {
-	switch level {
-	case HttpLogLevelNone, HttpLogLevelBasic, HttpLogLevelHeaders, HttpLogLevelFull:
-		return true
-	default:
-		return false
-	}
+	return level >= HttpLogLevelNone && level <= HttpLogLevelFull
 }
 
 func (level HttpLogLevel) String() string {

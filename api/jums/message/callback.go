@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 calvinit/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,10 @@
  *
  */
 
-package sdk
+package message
 
-// 当前极光 SDK 的版本号。
-const Version = "v0.3.0"
+// 消息回调参数。
+type Callback struct {
+	URL    string                 `json:"url,omitempty"`    // 【可选】数据临时回调地址，仅针对这一次消息发送请求生效，该地址必须在极光后台有校验通过方可使用；不指定则以极光后台配置的默认地址为准。
+	Params map[string]interface{} `json:"params,omitempty"` // 【可选】需要回调给用户的自定义参数。
+}

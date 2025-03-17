@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 calvinit/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,16 @@
  *
  */
 
-package sdk
+package message
 
-// 当前极光 SDK 的版本号。
-const Version = "v0.3.0"
+// [邮件] 消息。
+type Email struct {
+	// 【必填】邮件标题。
+	Subject string `json:"subject"`
+	// 【必填】邮件内容，支持 HTML 格式。
+	Text string `json:"text"`
+	// 【可选】邮件附件。
+	//  - 使用 APIv1.UploadMaterial 上传附件，然后将获得的 URL 传值在此；
+	//  - 将任意 URL 地址传值在此，需保证该地址可被 UMS 访问。
+	Files []string `json:"files,omitempty"`
+}

@@ -244,9 +244,9 @@ var mimeRegexp = regexp.MustCompile(`^(.*?)(;.*)?$`)
 // 提取 MIME 类型的基础部分
 func getBaseMimeType(mimeType string) string {
 	// 用正则去掉参数部分，例如 `;charset=utf-8`。
-	match := mimeRegexp.FindStringSubmatch(mimeType)
-	if len(match) > 1 {
-		return match[1] // 返回 MIME 类型的基础部分
+	matches := mimeRegexp.FindStringSubmatch(mimeType)
+	if len(matches) > 1 {
+		return matches[1] // 返回 MIME 类型的基础部分
 	}
 	return mimeType
 }

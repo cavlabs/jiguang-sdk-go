@@ -26,4 +26,5 @@ const (
 	HostJPushPushV3   = "https://api.jpush.cn"
 	HostJPushReportV3 = "https://report.jpush.cn"
 	HostJSmsV1        = "https://api.sms.jpush.cn"
+	HostJUmsV1        = "https://api.ums.jiguang.cn"
 )

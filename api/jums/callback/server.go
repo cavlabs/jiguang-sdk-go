@@ -44,11 +44,26 @@ type Server struct {
 }
 
 // 创建新的 Server 回调接口服务实例。
-func NewServer(appKey, masterSecret string, opts ...ConfigOption) (*Server, error) {
+func NewServer(channelKey, masterSecret string, opts ...ConfigOption) (*Server, error) {
+	defaultLogger := api.DefaultJUmsLogger
+	defaultDataProcessor := loggingDataProcessor{logger: defaultLogger}
+	defaultDataListProcessor := loggingDataListProcessor{logger: defaultLogger}
+
 	c := config{
-		addr:   defaultAddr,
-		path:   defaultPath,
-		logger: api.DefaultJSmsLogger,
+		addr:          defaultAddr,
+		path:          defaultPath,
+		logger:        defaultLogger,
+		checkAuth:     true,
+		targetValid:   defaultDataProcessor,
+		targetInvalid: defaultDataProcessor,
+		sentSucc:      defaultDataProcessor,
+		sentFail:      defaultDataProcessor,
+		receivedSucc:  defaultDataProcessor,
+		receivedFail:  defaultDataProcessor,
+		click:         defaultDataProcessor,
+		retractedSucc: defaultDataProcessor,
+		retractedFail: defaultDataProcessor,
+		unified:       defaultDataListProcessor,
 	}
 
 	for _, opt := range opts {
@@ -57,28 +72,25 @@ func NewServer(appKey, masterSecret string, opts ...ConfigOption) (*Server, erro
 		}
 	}
 
-	p := loggingDataProcessor{logger: c.logger}
-	if c.flag&flagReply == 0 {
-		c.reply = loggingReplyDataProcessor(p)
-	}
-	if c.flag&flagReport == 0 {
-		c.report = loggingReportDataProcessor(p)
-	}
-	if c.flag&flagTemplate == 0 {
-		c.template = loggingTemplateDataProcessor(p)
-	}
-	if c.flag&flagSign == 0 {
-		c.sign = loggingSignDataProcessor(p)
+	if c.flag > 0 {
+		c.unified = nil
 	}
 
 	if c.handler == nil {
 		h := defaultHandler{
-			appKey:       appKey,
-			masterSecret: masterSecret,
-			reply:        c.reply,
-			report:       c.report,
-			template:     c.template,
-			sign:         c.sign,
+			channelKey:    channelKey,
+			masterSecret:  masterSecret,
+			checkAuth:     c.checkAuth,
+			targetValid:   c.targetValid,
+			targetInvalid: c.targetInvalid,
+			sentSucc:      c.sentSucc,
+			sentFail:      c.sentFail,
+			receivedSucc:  c.receivedSucc,
+			receivedFail:  c.receivedFail,
+			click:         c.click,
+			retractedSucc: c.retractedSucc,
+			retractedFail: c.retractedFail,
+			unified:       c.unified,
 		}
 		c.handler = http.HandlerFunc(h.Callback)
 	}
@@ -102,7 +114,7 @@ func (srv *Server) Handle(w http.ResponseWriter, r *http.Request) error {
 // 启动回调接口服务。
 func (srv *Server) Run() error {
 	if srv.hasStarted() {
-		return errors.New("JSMS callback server is already running")
+		return errors.New("JUMS callback server is already running")
 	}
 
 	srv.start()
@@ -110,7 +122,7 @@ func (srv *Server) Run() error {
 	var wg sync.WaitGroup
 	wg.Add(1)
 
-	srv.logger.Infof(context.TODO(), "正在启动极光短信回调接口服务，监听地址为 %s，回调路径为 %s", srv.server.Addr, srv.path)
+	srv.logger.Infof(context.TODO(), "正在启动极光统一消息回调接口服务，监听地址为 %s，回调路径为 %s", srv.server.Addr, srv.path)
 
 	startCh, errorCh := make(chan struct{}), make(chan error, 1)
 
@@ -133,13 +145,13 @@ func (srv *Server) Run() error {
 
 	select {
 	case <-startCh:
-		srv.logger.Infof(context.TODO(), "极光短信回调接口服务启动成功！")
+		srv.logger.Infof(context.TODO(), "极光统一消息回调接口服务启动成功！")
 	case err := <-errorCh:
-		srv.logger.Errorf(context.TODO(), "极光短信回调接口服务启动失败：%s", err)
+		srv.logger.Errorf(context.TODO(), "极光统一消息回调接口服务启动失败：%s", err)
 		return err
 	case <-time.After(time.Second * 5):
-		srv.logger.Error(context.TODO(), "极光短信回调接口服务启动超时！")
-		return errors.New("JSMS callback server startup timeout")
+		srv.logger.Error(context.TODO(), "极光统一消息回调接口服务启动超时！")
+		return errors.New("JUMS callback server startup timeout")
 	}
 
 	wg.Wait()
@@ -159,22 +171,22 @@ func (srv *Server) autoStop() {
 	if srv.hasStarted() {
 		srv.stop()
 	} else {
-		srv.logger.Info(context.TODO(), "极光短信回调接口服务已停止！")
+		srv.logger.Info(context.TODO(), "极光统一消息回调接口服务已停止！")
 		os.Exit(-1)
 	}
 
-	srv.logger.Info(context.TODO(), "正在停止极光短信回调接口服务...")
+	srv.logger.Info(context.TODO(), "正在停止极光统一消息回调接口服务...")
 	// 使用 5 秒钟的宽限时间来优雅关闭服务。
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if err := srv.server.Shutdown(ctx); err != nil {
-		srv.logger.Warnf(context.TODO(), "极光短信回调接口服务优雅停止失败：%s，正在尝试强制停止...", err)
+		srv.logger.Warnf(context.TODO(), "极光统一消息回调接口服务优雅停止失败：%s，正在尝试强制停止...", err)
 		if err = srv.server.Close(); err != nil {
-			srv.logger.Errorf(context.TODO(), "极光短信回调接口服务强制停止失败：%s，直接退出！", err)
+			srv.logger.Errorf(context.TODO(), "极光统一消息回调接口服务强制停止失败：%s，直接退出！", err)
 			os.Exit(1)
 		}
 	}
-	srv.logger.Info(context.TODO(), "极光短信回调接口服务已停止！")
+	srv.logger.Info(context.TODO(), "极光统一消息回调接口服务已停止！")
 	os.Exit(0)
 }
 

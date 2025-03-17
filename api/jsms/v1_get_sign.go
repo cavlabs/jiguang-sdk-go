@@ -96,7 +96,7 @@ func (rs *SignGetResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (rs *SignGetResult) MarshalJSON() ([]byte, error) {
+func (rs SignGetResult) MarshalJSON() ([]byte, error) {
 	if rs.Error != nil {
 		data := make(map[string]*api.CodeError, 1)
 		data["error"] = rs.Error
@@ -108,9 +108,9 @@ func (rs *SignGetResult) MarshalJSON() ([]byte, error) {
 	aux := struct {
 		IsDefault int `json:"is_default"`
 		UseStatus int `json:"use_status"`
-		*Alias
+		Alias
 	}{
-		Alias: (*Alias)(rs),
+		Alias: (Alias)(rs),
 	}
 
 	if rs.IsDefault {
