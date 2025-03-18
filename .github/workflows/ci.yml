@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go-version: [ 1.16, 1.17, 1.18, 1.19, 1.20, 1.21, 1.22, 1.23, 1.24 ]
+        # See issue #507 of actions/setup-go for the reason why we are wrapping the version in single quotation marks.
+        go-version: [ '1.16', '1.17', '1.18', '1.19', '1.20', '1.21', '1.22', '1.23', '1.24' ]
 
     steps:
       - uses: actions/checkout@v4
