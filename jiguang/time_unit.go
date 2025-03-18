@@ -46,8 +46,7 @@ func (tu TimeUnit) IsValid() bool {
 }
 
 func (tu TimeUnit) Layout() string {
-	layout, _ := timeUnitLayouts[tu]
-	return layout
+	return timeUnitLayouts[tu]
 }
 
 func (tu TimeUnit) Format(st time.Time) string {

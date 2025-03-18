@@ -184,7 +184,10 @@ func (fv *FileValidator) Validate(fileReader io.Reader, fileName string) error {
 
 			// 重置 fileReader 的读取位置
 			if seeker, ok := fileReader.(io.Seeker); ok {
-				seeker.Seek(0, io.SeekStart)
+				_, err = seeker.Seek(0, io.SeekStart)
+				if err != nil {
+					return err
+				}
 			} else {
 				return fmt.Errorf("%q does not support seeking", fileName)
 			}
@@ -214,7 +217,10 @@ func (fv *FileValidator) Validate(fileReader io.Reader, fileName string) error {
 
 		// 重置 fileReader 的读取位置
 		if seeker, ok := fileReader.(io.Seeker); ok {
-			seeker.Seek(0, io.SeekStart)
+			_, err := seeker.Seek(0, io.SeekStart)
+			if err != nil {
+				return err
+			}
 		} else {
 			return fmt.Errorf("%q does not support seeking", fileName)
 		}

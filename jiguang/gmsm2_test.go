@@ -19,7 +19,6 @@
 package jiguang_test
 
 import (
-	"crypto/elliptic"
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
@@ -40,7 +39,24 @@ const (
 
 // 打印 SM2 公钥的 Base64 格式
 func sprintB64PubKey(pubKey *sm2.PublicKey) string {
-	pubBytes := elliptic.Marshal(sm2.P256Sm2(), pubKey.X, pubKey.Y)
+	curve, x, y := sm2.P256Sm2(), pubKey.X, pubKey.Y
+
+	// Note: `elliptic.Marshal` has been deprecated since Go 1.21.
+
+	// (0, 0) is the point at infinity by convention. It's ok to operate on it,
+	// although IsOnCurve is documented to return false for it. See Issue 37294.
+	if !(x.Sign() == 0 && y.Sign() == 0) && !curve.IsOnCurve(x, y) {
+		panic("gmsm2: attempted operation on invalid point")
+	}
+
+	byteLen := (curve.Params().BitSize + 7) / 8
+
+	pubBytes := make([]byte, 1+2*byteLen)
+	pubBytes[0] = 4 // uncompressed point
+
+	x.FillBytes(pubBytes[1 : 1+byteLen])
+	y.FillBytes(pubBytes[1+byteLen : 1+2*byteLen])
+
 	return base64.StdEncoding.EncodeToString(pubBytes)
 }
 
@@ -53,6 +69,7 @@ func sprintPrivKey(privKey *sm2.PrivateKey) string {
 	return fmt.Sprintf("私钥 (D): %s\n公钥 (X, Y):\nX: %s\nY: %s\n", dHex, xHex, yHex)
 }
 
+// nolint:unused
 func rebuildSm2PrivKey() (*sm2.PrivateKey, error) {
 	// 解码 Base64 私钥
 	privKeyBytes, _ := base64.StdEncoding.DecodeString(sm2B64PrivKey)
@@ -76,6 +93,7 @@ func rebuildSm2PrivKey() (*sm2.PrivateKey, error) {
 	}, nil
 }
 
+// nolint:unused
 func rebuildSm2PrivKeyByDXY() (*sm2.PrivateKey, error) {
 	// 将十六进制字符串转换为大整数
 	d, _ := new(big.Int).SetString(sm2PrivKeyD, 16)
@@ -130,7 +148,7 @@ func TestGmSm2(t *testing.T) {
 	t.Log("\n==== 解密 ====")
 	plainBytes, err := jiguang.DecryptWithSM2(cipherB64)
 	if err != nil {
-		fmt.Printf("解密失败: %v\n", err)
+		t.Errorf("解密失败: %v\n", err)
 		return
 	}
 	t.Logf("解密结果: %s\n", plainBytes)

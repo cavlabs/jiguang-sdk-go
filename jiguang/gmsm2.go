@@ -19,7 +19,6 @@
 package jiguang
 
 import (
-	"crypto/elliptic"
 	"crypto/rand"
 	"encoding/base64"
 	"errors"
@@ -30,7 +29,7 @@ import (
 )
 
 const (
-	sm2B64PubKey = "BPj6Mj/T444gxPaHc6CDCizMRp4pEl14WI2lvIbdEK2c+5XiSqmQt2TQc8hMMZqfxcDqUNQW95puAfQx1asv3rU="
+	sm2B64PubKey  = "BPj6Mj/T444gxPaHc6CDCizMRp4pEl14WI2lvIbdEK2c+5XiSqmQt2TQc8hMMZqfxcDqUNQW95puAfQx1asv3rU="
 	sm2B64PrivKey = "EjRWeJA=" // N/A: 在客户端 SDK 中不会使用私钥，因此不提供私钥，私钥应该由极光服务端保存。
 )
 
@@ -62,10 +61,32 @@ func desm2PubKey(b64PubKey string) (*sm2.PublicKey, error) {
 		return nil, fmt.Errorf("failed to decode Base64 SM2 public key: %w", err)
 	}
 
-	curve := sm2.P256Sm2()                         // 使用 sm2p256v1 曲线
-	x, y := elliptic.Unmarshal(curve, pubKeyBytes) // 反序列化为椭圆曲线点
-	if x == nil || y == nil {
-		return nil, errors.New("invalid SM2 public key: unable to unmarshal curve point")
+	// Note: `elliptic.Unmarshal` has been deprecated since Go 1.21.
+
+	// 使用 sm2p256v1 曲线
+	curve := sm2.P256Sm2()
+
+	// 检查公钥长度
+	byteLen := (curve.Params().BitSize + 7) / 8
+	if len(pubKeyBytes) != 1+2*byteLen {
+		return nil, fmt.Errorf("invalid SM2 public key length: expected %d, got %d", 1+2*byteLen, len(pubKeyBytes))
+	}
+	// 检查公钥格式
+	if pubKeyBytes[0] != 4 { // uncompressed form
+		return nil, fmt.Errorf("invalid SM2 public key format: expected uncompressed form (0x04), got 0x%02x", pubKeyBytes[0])
+	}
+
+	// 解析公钥坐标
+	p := curve.Params().P
+	x := new(big.Int).SetBytes(pubKeyBytes[1 : 1+byteLen])
+	y := new(big.Int).SetBytes(pubKeyBytes[1+byteLen:])
+	// 检查坐标范围
+	if x.Cmp(p) >= 0 || y.Cmp(p) >= 0 {
+		return nil, fmt.Errorf("invalid SM2 public key coordinates: x or y out of range")
+	}
+	// 检查坐标是否在曲线上
+	if !curve.IsOnCurve(x, y) {
+		return nil, fmt.Errorf("invalid SM2 public key coordinates: point not on curve")
 	}
 
 	// 返回解析后的公钥
@@ -83,7 +104,8 @@ func desm2PrivKey(b64PrivKey string) (*sm2.PrivateKey, error) {
 		return nil, fmt.Errorf("failed to decode Base64 SM2 private key: %w", err)
 	}
 
-	curve := sm2.P256Sm2() // 使用 sm2p256v1 曲线
+	// 使用 sm2p256v1 曲线
+	curve := sm2.P256Sm2()
 	privKey := new(sm2.PrivateKey)
 	privKey.D = new(big.Int).SetBytes(privKeyBytes)                               // 将字节数组转换为大整数
 	privKey.PublicKey.Curve = curve                                               // 设置公钥曲线
