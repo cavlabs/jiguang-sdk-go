@@ -147,10 +147,10 @@ func (srv *Server) Run() error {
 	return nil
 }
 
-// 监听系统信号（如 SIGINT、SIGTERM、SIGKILL 等），自动停止回调接口服务。
+// 监听系统信号（如 SIGINT、SIGTERM 等），自动停止回调接口服务。
 func (srv *Server) autoStop() {
 	stopCh := make(chan os.Signal, 1)
-	signal.Notify(stopCh, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
+	signal.Notify(stopCh, syscall.SIGINT, syscall.SIGTERM)
 
 	sig := <-stopCh // 等待接收到停止信号。
 

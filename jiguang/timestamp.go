@@ -79,7 +79,7 @@ func (t *Timestamp) GetTime() *time.Time {
 }
 
 func (t Timestamp) ToLocalDateTime() LocalDateTime {
-	return LocalDateTime{t.Time}
+	return LocalDateTime(t)
 }
 
 func (t Timestamp) Equal(u Timestamp) bool {

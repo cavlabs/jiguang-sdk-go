@@ -46,10 +46,10 @@ type Server struct {
 // 创建新的 Server 回调接口服务实例。
 func NewServer(channelKey, masterSecret string, opts ...ConfigOption) (*Server, error) {
 	c := config{
-		addr:          defaultAddr,
-		path:          defaultPath,
-		logger:        api.DefaultJUmsLogger,
-		checkAuth:     true,
+		addr:      defaultAddr,
+		path:      defaultPath,
+		logger:    api.DefaultJUmsLogger,
+		checkAuth: true,
 	}
 
 	for _, opt := range opts {
@@ -62,11 +62,15 @@ func NewServer(channelKey, masterSecret string, opts ...ConfigOption) (*Server, 
 		c.unified = nil
 	} else {
 		if c.unified == nil {
-			c.unified = loggingDataListProcessor{logger: c.logger} // 需要使用用户可能自定义设置的 logger
+			c.unified = loggingDataListProcessor{
+				logger: c.logger,       // 需要使用用户可能自定义设置的 logger
+			}
 		}
 	}
 
-	p := loggingDataProcessor{logger: c.logger}  // 需要使用用户可能自定义设置的 logger
+	p := loggingDataProcessor{
+		logger: c.logger,               // 需要使用用户可能自定义设置的 logger
+	}
 	if c.flag&flagTargetValid == 0 {    // 目标有效 (0)
 		c.targetValid = p
 	}
@@ -178,10 +182,10 @@ func (srv *Server) Run() error {
 	return nil
 }
 
-// 监听系统信号（如 SIGINT、SIGTERM、SIGKILL 等），自动停止回调接口服务。
+// 监听系统信号（如 SIGINT、SIGTERM 等），自动停止回调接口服务。
 func (srv *Server) autoStop() {
 	stopCh := make(chan os.Signal, 1)
-	signal.Notify(stopCh, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
+	signal.Notify(stopCh, syscall.SIGINT, syscall.SIGTERM)
 
 	sig := <-stopCh // 等待接收到停止信号。
 

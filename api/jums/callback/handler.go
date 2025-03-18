@@ -67,7 +67,11 @@ func (h defaultHandler) Callback(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(echostr))
+		_, err := w.Write([]byte(echostr))
+		if err != nil {
+			http.Error(w, "failed to write response", http.StatusInternalServerError)
+			return
+		}
 	case http.MethodPost:
 		body, err := io.ReadAll(r.Body)
 		if err != nil {
