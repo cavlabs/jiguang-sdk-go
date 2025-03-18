@@ -2,7 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/calvinit/jiguang-sdk-go.svg)](https://pkg.go.dev/github.com/calvinit/jiguang-sdk-go)
 [![GitHub release](https://img.shields.io/github/v/release/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/releases)
-[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/calvinit/jiguang-sdk-go)](https://golang.org/doc/devel/release.html)
+![CI Status](https://img.shields.io/github/actions/workflow/status/calvinit/jiguang-sdk-go/ci.yml?label=CI&logo=github)
 [![Go Report Card](https://goreportcard.com/badge/github.com/calvinit/jiguang-sdk-go)](https://goreportcard.com/report/github.com/calvinit/jiguang-sdk-go)
 [![GitHub issues](https://img.shields.io/github/issues/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/pulls)
