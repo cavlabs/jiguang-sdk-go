@@ -20,7 +20,7 @@ package message
 
 import "errors"
 
-// [企业微信] / [企业微信互联企业] 消息类型。
+// # 【企业微信】/【企业微信互联企业】消息类型
 type WechatwkMsgType string
 
 const (
@@ -34,7 +34,7 @@ const (
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// [企业微信] / [企业微信互联企业] 消息。
+// # 【企业微信】/【企业微信互联企业】消息
 type Wechatwk struct {
 	// 【必填】消息类型。
 	//  - [文本消息] 类型为: WechatwkMsgTypeText，此时 Text 字段必填；
@@ -99,12 +99,12 @@ func (w *Wechatwk) Validate() error {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// [企业微信] / [企业微信互联企业] 消息 - 文本消息。
+// # 【企业微信】/【企业微信互联企业】消息 - 文本消息
 type WechatwkText struct {
 	Content string `json:"content"` // 【必填】消息内容，最长不超过 2048 个字节。
 }
 
-// [企业微信] / [企业微信互联企业] 消息 - 图片消息。
+// # 【企业微信】/【企业微信互联企业】消息 - 图片消息
 type WechatwkImage struct {
 	// 【必填】图片媒体文件 ID，可以调用 [上传临时素材] 接口获取。
 	//
@@ -112,7 +112,7 @@ type WechatwkImage struct {
 	MediaID string `json:"media_id"`
 }
 
-// [企业微信] / [企业微信互联企业] 消息 - 文件消息。
+// # 【企业微信】/【企业微信互联企业】消息 - 文件消息
 type WechatwkFile struct {
 	// 【必填】媒体文件 ID，可以调用 [上传临时素材] 接口获取。
 	//
@@ -120,12 +120,12 @@ type WechatwkFile struct {
 	MediaID string `json:"media_id"`
 }
 
-// [企业微信] / [企业微信互联企业] 消息 - 外链图文消息。
+// # 【企业微信】/【企业微信互联企业】消息 - 外链图文消息
 type WechatwkNews struct {
 	Articles []WechatwkNewsArticle `json:"articles"` // 【必填】[外链图文消息] 列表，一个图文消息支持 1 到 8 条图文。
 }
 
-// [企业微信] / [企业微信互联企业] 消息 - [外链图文消息] 明细。
+// # 【企业微信】/【企业微信互联企业】消息 - 外链图文消息 - 明细
 type WechatwkNewsArticle struct {
 	Title       string `json:"title"`                 // 【必填】标题，不超过 128 个字节。
 	Description string `json:"description,omitempty"` // 【可选】描述，不超过 512 个字节。
@@ -135,12 +135,12 @@ type WechatwkNewsArticle struct {
 	PagePath    string `json:"pagepath,omitempty"`    // 【可选】点击消息卡片后的小程序页面，仅限本小程序内的页面。AppID 和 PagePath 必须同时填写，填写后会忽略 URL 字段。
 }
 
-// [企业微信] / [企业微信互联企业] 消息 - 图文消息。
+// # 【企业微信】/【企业微信互联企业】消息 - 图文消息
 type WechatwkMpnews struct {
 	Articles []WechatwkMpnewsArticle `json:"articles"` // 【必填】[图文消息] 列表，一个图文消息支持 1 到 8 条图文。
 }
 
-// [企业微信] / [企业微信互联企业] 消息 - [图文消息] 明细。
+// # 【企业微信】/【企业微信互联企业】消息 - 图文消息 - 明细
 type WechatwkMpnewsArticle struct {
 	// 【必填】图文消息缩略图的 MediaID，可以通过 [素材管理] 接口获得。此处 ThumbMediaID 即上传接口返回的 media_id。
 	//
@@ -158,7 +158,7 @@ type WechatwkMpnewsArticle struct {
 	ContentSourceURL string `json:"content_source_url,omitempty"`
 }
 
-// [企业微信] / [企业微信互联企业] 消息 - 小程序通知消息。
+// # 【企业微信】/【企业微信互联企业】消息 - 小程序通知消息
 type WechatwkMiniProgramNotice struct {
 	AppID             string                                 `json:"appid"`                         // 【必填】小程序 AppID，必须是与当前应用关联的小程序。
 	Page              string                                 `json:"page,omitempty"`                // 【可选】点击消息卡片后的小程序页面，仅限本小程序内的页面。该字段不填则消息点击后不跳转。
@@ -168,7 +168,7 @@ type WechatwkMiniProgramNotice struct {
 	ContentItems      []WechatwkMiniProgramNoticeContentItem `json:"content_item,omitempty"`        // 【可选】消息内容键值对，最多允许 10 个项。
 }
 
-// [企业微信] / [企业微信互联企业] 消息 - [小程序通知消息] 内容键值对项。
+// # 【企业微信】/【企业微信互联企业】消息 - 小程序通知消息 - 内容键值对项
 type WechatwkMiniProgramNoticeContentItem struct {
 	Key   string `json:"key"`   // 【必填】消息内容键，长度 10 个汉字以内。
 	Value string `json:"value"` // 【必填】消息内容值，长度 30 个汉字以内。

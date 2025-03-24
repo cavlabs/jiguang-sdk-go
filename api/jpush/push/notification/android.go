@@ -24,51 +24,54 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// Android 平台上的通知。
+// # Android 平台上的通知
 type Android struct {
 	// 【必填】通知内容。
 	//  - 这里指定后会覆盖上级统一指定的 Alert 信息；
 	//  - 内容可以为空字符串，表示不展示到通知栏；
-	//  - 各推送通道对此字段的限制详见【推送限制】：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83。
+	//  - 各推送通道对此字段的限制详见 [推送限制] 文档说明。
+	// [推送限制]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83
 	Alert string `json:"alert"`
 	// 【可选】通知标题。
 	//  - 如果指定了，则通知里原来展示 APP 名称的地方，将展示 Title；
-	//  - 各推送通道对此字段的限制详见【推送限制】：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83。
+	//  - 各推送通道对此字段的限制详见 [推送限制] 文档说明。
+	// [推送限制]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83
 	Title string `json:"title,omitempty"`
 	// 【可选】通知栏样式 ID。
-	//  - Android SDK 可【设置通知栏样式】：https://docs.jiguang.cn/jpush/client/Android/android_api#%E9%80%9A%E7%9F%A5%E6%A0%8F%E6%A0%B7%E5%BC%8F%E5%AE%9A%E5%88%B6-api；
+	//  - Android SDK 可 [设置通知栏样式]；
 	//  - 根据样式 ID 来指定通知样式；
-	//  - Android 8.0 开始建议采用【NotificationChannel 配置】：https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE。
+	//  - Android 8.0 开始建议采用 [NotificationChannel 配置]。
+	// [设置通知栏样式]: https://docs.jiguang.cn/jpush/client/Android/android_api#%E9%80%9A%E7%9F%A5%E6%A0%8F%E6%A0%B7%E5%BC%8F%E5%AE%9A%E5%88%B6-api
+	// [NotificationChannel 配置]: https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE
 	BuilderID int `json:"builder_id,omitempty"`
 	// 【可选】Android 通知 ChannelID。
 	//  - 根据 ChannelID 来指定通知栏展示效果，不超过 1000 字节；
-	//  - Android 8.0 开始可以进行【NotificationChannel 配置】：https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE；
+	//  - Android 8.0 开始可以进行 [NotificationChannel 配置]；
 	//  - Options.ThirdPartyChannel 下的小米、OPPO 和华为厂商参数也有 ChannelID 字段，若有填充，则优先使用，若无填充则以本字段定义为准。
+	// [NotificationChannel 配置]: https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE
 	ChannelID string `json:"channel_id,omitempty"`
 	// 【可选】通知栏消息分类条目。
 	//  - 完全依赖 ROM 厂商对 Category 的处理策略；
-	//  - 华为从 2023.09.15 开始基于《华为消息分类标准》对其本地通知进行管控推送，参考《华为本地通知频次及分类管控通知》，
+	//  - 华为从 2023.09.15 开始基于《[华为消息分类标准]》对其本地通知进行管控推送，参考《[华为本地通知频次及分类管控通知]》，
 	//  此字段值对应华为「本地通知」category 取值，开发者通过极光服务发起推送时如果传递了此字段值，请务必按照华为官方要求传递，
 	//  极光会自动适配华为本地通知 importance 取值，无需开发者额外处理；
 	//  - 考虑到一次推送包含多个厂商用户的情况，建议此处传递的字段值要和您 APP 开发代码中创建的 channel 效果对应（Category 值一致），最好创建新的 ChannelID，避免曾经已经创建了无法修改；
-	//  - 官方 Category 分类取值规则也可参考《华为消息分类对应表》。
-	// 文档链接：
-	//  1. 《华为消息分类标准》：https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835#section153801515616；
-	//  2. 《华为本地通知频次及分类管控通知》：https://developer.huawei.com/consumer/cn/doc/development/hmscore-common-Guides/push_notice_local-0000001615143510；
-	//  3. 《华为消息分类对应表》：https://docs.jiguang.cn/jpush/client/Android/android_channel_id#%E5%8D%8E%E4%B8%BA%E6%B6%88%E6%81%AF%E5%88%86%E7%B1%BB%E8%AF%B4%E6%98%8E。
+	//  - 官方 Category 分类取值规则也可参考《[华为消息分类对应表]》。
+	// [华为消息分类标准]: https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835#section153801515616
+	// [华为本地通知频次及分类管控通知]: https://developer.huawei.com/consumer/cn/doc/development/hmscore-common-Guides/push_notice_local-0000001615143510
+	// [华为消息分类对应表]: https://docs.jiguang.cn/jpush/client/Android/android_channel_id#%E5%8D%8E%E4%B8%BA%E6%B6%88%E6%81%AF%E5%88%86%E7%B1%BB%E8%AF%B4%E6%98%8E
 	Category string `json:"category,omitempty"`
 	// 【可选】通知栏展示优先级。
 	//  - 默认为 0，范围为 -2～2；
-	//  - 华为从 2023.09.15 开始基于《华为消息分类标准》对其本地通知进行管控推送，参考《华为本地通知频次及分类管控通知》，
+	//  - 华为从 2023.09.15 开始基于《[华为消息分类标准]》对其本地通知进行管控推送，参考《[华为本地通知频次及分类管控通知]》，
 	//  开发者通过极光服务发起推送时，如果有传递此字段值，请注意此字段要和 Category 同时使用；
 	//  反之，如果传了 Category，没传递此值时极光会自动帮您适配处理优先级；
 	//  - Priority = -2 时，对应华为本地通知 importance 级别为 IMPORTANCE_MIN；Priority = 0 时，对应华为本地通知 importance 级别为 IMPORTANCE_DEFAULT；
-	//  - 官方消息优先级取值规则也可参考《华为消息分类对应表》；
+	//  - 官方消息优先级取值规则也可参考《[华为消息分类对应表]》；
 	//  - 极光取值 -2～-1 对应 FCM 取值 normal，极光取值 0～2 对应 FCM 取值 high。
-	// 文档链接：
-	//  1. 《华为消息分类标准》：https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835#section153801515616；
-	//  2. 《华为本地通知频次及分类管控通知》：https://developer.huawei.com/consumer/cn/doc/development/hmscore-common-Guides/push_notice_local-0000001615143510；
-	//  3. 《华为消息分类对应表》：https://docs.jiguang.cn/jpush/client/Android/android_channel_id#%E5%8D%8E%E4%B8%BA%E6%B6%88%E6%81%AF%E5%88%86%E7%B1%BB%E8%AF%B4%E6%98%8E。
+	// [华为消息分类标准]: https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835#section153801515616
+	// [华为本地通知频次及分类管控通知]: https://developer.huawei.com/consumer/cn/doc/development/hmscore-common-Guides/push_notice_local-0000001615143510
+	// [华为消息分类对应表]: https://docs.jiguang.cn/jpush/client/Android/android_channel_id#%E5%8D%8E%E4%B8%BA%E6%B6%88%E6%81%AF%E5%88%86%E7%B1%BB%E8%AF%B4%E6%98%8E
 	Priority *int `json:"priority,omitempty"`
 	// 【可选】通知栏样式类型，默认为 0，其他枚举值：
 	//  - style.BigText：大文本通知栏样式，1；
@@ -81,24 +84,28 @@ type Android struct {
 	AlertType alert.Type `json:"alert_type,omitempty"`
 	// 【可选】大文本通知栏样式。
 	//  - 当 Style = style.BigText 时可用，内容会被通知栏以大文本的形式展示出来；
-	//  - 若没有填充【厂商 BigText】，则也默认使用该字段展示：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E；
+	//  - 若没有填充 [厂商 BigText]，则也默认使用该字段展示；
 	//  - 支持 API 16 以上的 ROM。
+	// [厂商 BigText]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E
 	BigText string `json:"big_text,omitempty"`
 	// 【可选】文本条目通知栏样式。
 	//  - 当 Style = style.Inbox 时可用，JSON 的每个 key 对应的 value 会被当作文本条目逐条展示；
-	//  - 若没有填充【厂商 Inbox】，则默认使用该 Inbox 字段展示：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E；
+	//  - 若没有填充 [厂商 Inbox]，则默认使用该 Inbox 字段展示；
 	//  - 支持 API 16 以上的 ROM。
+	// [厂商 Inbox]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E
 	Inbox map[string]interface{} `json:"inbox,omitempty"`
 	// 【可选】大图片通知栏样式。
-	//  - 当 Style = style.BigPicture 时可用，目前支持 .jpg 和 .png 格式的图片，使用详情参见【设置大图片文档】：https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82；
-	//  - 支持网络图片 URL、本地图片的 Path、【极光 MediaID】（推荐使用，参考链接：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image），
-	//  如果是 http/https 的 URL，会自动下载；如果要指定开发者准备的本地图片就填 SD 卡的相对路径；
-	//  - 若没有填充【厂商 BigPicture】，则默认使用该字段展示：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E；
+	//  - 当 Style = style.BigPicture 时可用，目前支持 .jpg 和 .png 格式的图片，使用详情参见 [设置大图片文档]；
+	//  - 支持网络图片 URL、本地图片的 Path、[极光 MediaID]，如果是 http/https 的 URL，会自动下载；如果要指定开发者准备的本地图片就填 SD 卡的相对路径；
+	//  - 若没有填充 [厂商 BigPicture]，则默认使用该字段展示；
 	//  - 支持 API 16 以上的 ROM。
+	// [设置大图片文档]: https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82
+	// [极光 MediaID]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image
+	// [厂商 BigPicture]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E
 	BigPicture string `json:"big_pic_path,omitempty"`
 	// 【可选】扩展字段。
 	//  - 这里自定义 JSON 格式的 key/value 信息，以供业务使用。
-	//  - 针对部分厂商跳转地址异常，可通过 third_url_encode 兼容处理，详情参考【厂商通道无法跳转问题分析】：https://docs.jiguang.cn/jpush/faq/tech_faq#%E5%8E%82%E5%95%86%E9%80%9A%E9%81%93%E6%97%A0%E6%B3%95%E8%B7%B3%E8%BD%AC%EF%BC%9F；
+	//  - 针对部分厂商跳转地址异常，可通过 third_url_encode 兼容处理，详情参考 [厂商通道无法跳转问题分析]；
 	//  - 当通知内容超过厂商的限制时，厂商通道会推送失败，可以在 Extras 中配置 xx_content_forshort 参数传入对应厂商的通知内容，详情说明如下！
 	// xx_content_forshort 参数：
 	//  - mipns_content_forshort：【可选】小米通知内容。由于小米官方的通知内容长度限制为 128 个字符以内（中英文都算一个），当通知内容（极光的 Alert 字段的值）长度超过 128 时，小米通道会推送失败。
@@ -109,19 +116,26 @@ type Android struct {
 	//  此时调用极光 API 推送通知时，可使用此字段传入不超过 100 字符的通知内容作为 vivo 通道通知内容；
 	//  - mzpns_content_forshort：【可选】魅族通知内容。由于魅族官方的通知内容长度限制为 100 个字符以内（中英文都算一个），当通知内容（极光的 Alert 字段的值）长度超过 100 时，魅族通道会推送失败。
 	//  此时调用极光 API 推送通知时，可使用此字段传入不超过 100 字符的通知内容作为魅族通道通知内容。
+	// [厂商通道无法跳转问题分析]: https://docs.jiguang.cn/jpush/faq/tech_faq#%E5%8E%82%E5%95%86%E9%80%9A%E9%81%93%E6%97%A0%E6%B3%95%E8%B7%B3%E8%BD%AC%EF%BC%9F
 	Extras map[string]interface{} `json:"extras,omitempty"`
 	// 【可选】通知栏大图标。
-	//  - 图标大小不超过 30k（注：从 JPush Android SDK v4.0.0 版本开始，图片大小限制提升至 300k），使用详情参见【设置图标文档】：https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82；
-	//  - 支持网络图片 URL、本地图片的 Path、【极光 MediaID】（推荐使用，参考链接：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image），
+	//  - 图标大小不超过 30k（注：从 JPush Android SDK v4.0.0 版本开始，图片大小限制提升至 300k），使用详情参见 [设置图标文档]；
+	//  - 支持网络图片 URL、本地图片的 Path、[极光 MediaID]，
 	//  如果是 http/https 的 URL，会自动下载；如果要指定开发者准备的本地图片就填 SD 卡的相对路径；
 	//  - 此字段值，若是 MediaID, 则对其它厂商通道生效，若非 MediaID，则对走华硕通道和极光通道下发的消息生效，不影响请求走其它厂商通道；
-	//  - 若没有填充【厂商 LargeIcon】，则默认使用该字段展示：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E。
+	//  - 若没有填充 [厂商 LargeIcon]，则默认使用该字段展示。
+	// [设置图标文档]: https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82
+	// [极光 MediaID]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image
+	// [厂商 LargeIcon]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E
 	LargeIcon string `json:"large_icon,omitempty"`
 	// 【可选】通知栏小图标。
-	//  - 图标大小不超过 30k（注：从 JPush Android SDK v4.0.0 版本开始，图片大小限制提升至 300k），使用详情参见【设置图标文档】：https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82；
-	//  - 支持以 http/https 开头的网络图片和通过极光图片上传接口得到的 MediaID 值（推荐使用，参考链接：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image）；
+	//  - 图标大小不超过 30k（注：从 JPush Android SDK v4.0.0 版本开始，图片大小限制提升至 300k），使用详情参见 [设置图标文档]；
+	//  - 支持以 http/https 开头的网络图片和通过极光图片上传接口得到的 [MediaID] 值；
 	//  - 此字段值，若是 MediaID, 则对其它厂商通道生效，若非 MediaID，则对走华硕通道和极光通道下发的消息生效，不影响请求走其它厂商通道；
-	//  - 若没有填充【厂商 SmallIcon】，则默认使用该字段展示：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E。
+	//  - 若没有填充 [厂商 SmallIcon]，则默认使用该字段展示。
+	// [设置图标文档]: https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82
+	// [MediaID]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image
+	// [厂商 SmallIcon]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E
 	SmallIcon string `json:"small_icon_uri,omitempty"`
 	// 【可选】设置通知小图标背景色。
 	//  - 该字段仅对消息走极光通道下发生效；

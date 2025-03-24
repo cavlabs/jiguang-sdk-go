@@ -18,7 +18,7 @@
 
 package message
 
-// 消息对象可选参数。
+// # 消息对象可选参数
 type Option struct {
 	SendNo   string `json:"sendno,omitempty"`   // 【可选】纯粹用来作为 API 调用标识，API 返回时被原样返回，以方便 API 调用方匹配请求与返回。
 	Owner    string `json:"owner,omitempty"`    // 【可选】提交者用户名，当渠道开启了 API 消息审核时必填。

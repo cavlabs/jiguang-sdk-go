@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 查询指定文件详情
-//  - 功能说明：查询保存在极光服务器的，指定文件的详细信息。
-//	- 调用地址：GET `/v3/files/{fileID}`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E6%9F%A5%E8%AF%A2%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%E8%AF%A6%E6%83%85
+// # 查询指定文件详情
+//   - 功能说明：查询保存在极光服务器的，指定文件的详细信息。
+//   - 调用地址：GET `/v3/files/{fileID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E6%9F%A5%E8%AF%A2%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%E8%AF%A6%E6%83%85
 func (f *apiv3) GetFile(ctx context.Context, fileID string) (*FileGetResult, error) {
 	if f == nil {
 		return nil, api.ErrNilJPushFileAPIv3

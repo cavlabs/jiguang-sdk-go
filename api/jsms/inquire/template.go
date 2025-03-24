@@ -18,7 +18,9 @@
 
 package inquire
 
-// 「模板审核结果」SMS_TEMPLATE 回执数据。
+// # 模板审核结果
+//
+// SMS_TEMPLATE 回执数据。
 type TemplateData struct {
 	RawJSON      string `json:"-"`                      // 原始 JSON 数据
 	TempID       int64  `json:"tempId"`                 // 模板 ID

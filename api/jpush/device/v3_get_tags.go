@@ -26,10 +26,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 查询标签列表
-//  - 功能说明：获取当前应用的所有标签列表，每个平台最多返回 100 个。
-//	- 调用地址：GET `/v3/tags`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9F%A5%E8%AF%A2%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8
+// # 查询标签列表
+//   - 功能说明：获取当前应用的所有标签列表，每个平台最多返回 100 个。
+//   - 调用地址：GET `/v3/tags`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9F%A5%E8%AF%A2%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8
 func (d *apiv3) GetTags(ctx context.Context) (*TagsGetResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3

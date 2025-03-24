@@ -18,7 +18,7 @@
 
 package alert
 
-// iOS 通知优先级和投递时间的中断级别。
+// # iOS 通知优先级和投递时间的中断级别
 type IosInterruptionLevel string
 
 const (

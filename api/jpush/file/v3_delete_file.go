@@ -27,15 +27,17 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 删除指定文件
-//  - 功能说明：删除保存在极光服务器的指定文件。
-//	- 调用地址：DELETE `/v3/files/{fileID}`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6
+// # 删除指定文件
+//   - 功能说明：删除保存在极光服务器的指定文件。
+//   - 调用地址：DELETE `/v3/files/{fileID}`
+//   - 接口文档：[docs.jiguang.cn]
 //
 // 注意事项：
-//  - fileID 不存在当成功处理。
-//  - 对于即时推送，建议创建推送任务 5 分钟后再执行文件删除操作，否则推送任务可能会失败；
-//  - 对于文件定时推送，创建定时任务成功后，若任务被执行前文件被删除，则任务执行时推送动作将会失败。
+//   - fileID 不存在当成功处理。
+//   - 对于即时推送，建议创建推送任务 5 分钟后再执行文件删除操作，否则推送任务可能会失败；
+//   - 对于文件定时推送，创建定时任务成功后，若任务被执行前文件被删除，则任务执行时推送动作将会失败。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6
 func (f *apiv3) DeleteFile(ctx context.Context, fileID string) (*FileDeleteResult, error) {
 	if f == nil {
 		return nil, api.ErrNilJPushFileAPIv3

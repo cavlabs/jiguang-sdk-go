@@ -23,7 +23,7 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/notification/style"
 )
 
-// 鸿蒙（HarmonyOS）平台上的通知。
+// # 鸿蒙（HarmonyOS）平台上的通知
 type HMOS struct {
 	// 【必填】通知内容。
 	//  - 这里指定后会覆盖上级统一指定的 Alert 信息；
@@ -34,7 +34,8 @@ type HMOS struct {
 	Title string `json:"title,omitempty"`
 	// 【必填】通知栏消息分类条目。
 	//  - 此字段由于厂商为必填字段，效果也完全依赖 ROM 厂商对 Category 的处理策略，请开发者务必填写。极光内部对此字段实际未进行必填校验，请开发者按照必填处理；
-	//  - 此字段值对应官方「云端 Category」取值，开发者通过极光服务发起推送时如果传递了此字段值，请务必按照官方要求传递，官方 Category 分类取值规则也可参考【鸿蒙消息分类标准】：https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/push-noti-classification-0000001727885246#section1521814368537。
+	//  - 此字段值对应官方「云端 Category」取值，开发者通过极光服务发起推送时如果传递了此字段值，请务必按照官方要求传递，官方 Category 分类取值规则也可参考 [鸿蒙消息分类标准]。
+	// [鸿蒙消息分类标准]: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/push-noti-classification-0000001727885246#section1521814368537
 	Category string `json:"category"`
 	// 【可选】通知栏大图标。
 	//  - 要求传递网络地址，使用 https 协议，取值样例：https://example.com/image.png；
@@ -61,7 +62,8 @@ type HMOS struct {
 	//  - true：测试消息。
 	TestMessage *bool `json:"test_message,omitempty"`
 	// 【可选】华为回执 ID。
-	//  - 输入一个唯一的回执 ID 指定本次下行消息的回执地址及配置，该回执 ID 可以在【鸿蒙回执参数配置】中查看：https://docs.jiguang.cn/jpush/client/HarmonyOS/hmos_3rd_param#%E9%B8%BF%E8%92%99%E9%80%9A%E9%81%93%E5%9B%9E%E6%89%A7%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97。
+	//  - 输入一个唯一的回执 ID 指定本次下行消息的回执地址及配置，该回执 ID 可以在 [鸿蒙回执参数配置] 中查看。
+	// [鸿蒙回执参数配置]: https://docs.jiguang.cn/jpush/client/HarmonyOS/hmos_3rd_param#%E9%B8%BF%E8%92%99%E9%80%9A%E9%81%93%E5%9B%9E%E6%89%A7%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97
 	ReceiptID string `json:"receipt_id,omitempty"`
 	// 【可选】扩展字段。
 	//  - 这里自定义 JSON 格式的 key/value 信息，以供业务使用。

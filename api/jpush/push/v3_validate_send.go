@@ -27,15 +27,19 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 推送校验
-//  - 功能说明：该 API 只用于验证推送调用是否能够成功，与推送 API 的区别在于：不向用户发送任何消息。
-//	- 调用地址：POST `/v3/push/validate`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E6%8E%A8%E9%80%81%E6%A0%A1%E9%AA%8C-api
+// # 推送校验
+//   - 功能说明：该 API 只用于验证推送调用是否能够成功，与推送 API 的区别在于：不向用户发送任何消息。
+//   - 调用地址：POST `/v3/push/validate`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E6%8E%A8%E9%80%81%E6%A0%A1%E9%AA%8C-api
 func (p *apiv3) ValidateSend(ctx context.Context, param *SendParam) (*SendResult, error) {
 	return p.ValidateCustomSend(ctx, param)
 }
 
-// 自定义推送校验：如果遇到 ValidateSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
+// # 自定义推送校验
+//
+// 如果遇到 ValidateSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
 func (p *apiv3) ValidateCustomSend(ctx context.Context, param interface{}) (*SendResult, error) {
 	if p == nil {
 		return nil, api.ErrNilJPushPushAPIv3

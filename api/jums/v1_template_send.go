@@ -29,10 +29,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jums/message"
 )
 
-// 模板消息 - 其他方式发送
-//  - 功能说明：模板消息发送。
-//  - 调用地址：POST `/v1/template/sent`
-//  - 接口文档：https://docs.jiguang.cn/jums/server/rest_api_jums_template_message
+// # 模板消息 - 其他方式发送
+//   - 功能说明：模板消息发送。
+//   - 调用地址：POST `/v1/template/sent`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/rest_api_jums_template_message
 func (u *apiv1) TemplateSend(ctx context.Context, param *TemplateSendParam) (*TemplateSendResult, error) {
 	if u == nil {
 		return nil, api.ErrNilJUmsAPIv1

@@ -29,8 +29,11 @@ const (
 	headerRateReset     = "X-Rate-Limit-Reset"
 )
 
-// API 频率控制信息。
-//  - 参见文档：https://docs.jiguang.cn/jpush/server/push/server_overview#%E8%8E%B7%E5%8F%96%E9%A2%91%E7%8E%87%E4%BF%A1%E6%81%AF
+// # API 频率控制信息
+//
+// 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/server_overview#%E8%8E%B7%E5%8F%96%E9%A2%91%E7%8E%87%E4%BF%A1%E6%81%AF
 type Rate struct {
 	Limit     int   `json:"limit"`     // 当前在一个时间窗口内可调用次数。
 	Remaining int   `json:"remaining"` // 当前的时间窗口剩余的可用次数。

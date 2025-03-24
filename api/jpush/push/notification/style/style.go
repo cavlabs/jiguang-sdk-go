@@ -18,7 +18,7 @@
 
 package style
 
-// 通知栏样式类型。
+// # 通知栏样式类型
 type Style int
 
 const (

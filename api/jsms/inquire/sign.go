@@ -18,7 +18,9 @@
 
 package inquire
 
-// 「签名审核结果」SMS_SIGN 回执数据。
+// # 签名审核结果
+//
+// SMS_SIGN 回执数据。
 type SignData struct {
 	RawJSON      string `json:"-"`                      // 原始 JSON 数据
 	SignID       int    `json:"signId"`                 // 签名 ID

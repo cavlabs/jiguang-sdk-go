@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 查询设备与标签的绑定关系
-//  - 功能说明：查询某个设备是否在 tag 下。
-//	- 调用地址：GET `/v3/tags/{tag}/registration_ids/{registrationID}`，`tag` 为指定的标签值；`registrationID` 为设备标识 Registration ID。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9F%A5%E8%AF%A2%E8%AE%BE%E5%A4%87%E4%B8%8E%E6%A0%87%E7%AD%BE%E7%9A%84%E7%BB%91%E5%AE%9A%E5%85%B3%E7%B3%BB
+// # 查询设备与标签的绑定关系
+//   - 功能说明：查询某个设备是否在 tag 下。
+//   - 调用地址：GET `/v3/tags/{tag}/registration_ids/{registrationID}`，`tag` 为指定的标签值；`registrationID` 为设备标识 Registration ID。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9F%A5%E8%AF%A2%E8%AE%BE%E5%A4%87%E4%B8%8E%E6%A0%87%E7%AD%BE%E7%9A%84%E7%BB%91%E5%AE%9A%E5%85%B3%E7%B3%BB
 func (d *apiv3) GetTag(ctx context.Context, tag string, registrationID string) (*TagGetResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3

@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 查询签名
-//  - 功能说明：查询短信签名。
-//  - 调用地址：GET `/v1/sign/{signID}`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign#%E6%9F%A5%E8%AF%A2%E7%AD%BE%E5%90%8Dapi
+// # 查询签名
+//   - 功能说明：查询短信签名。
+//   - 调用地址：GET `/v1/sign/{signID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign#%E6%9F%A5%E8%AF%A2%E7%AD%BE%E5%90%8Dapi
 func (s *apiv1) GetSign(ctx context.Context, signID int) (*SignGetResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

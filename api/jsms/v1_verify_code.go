@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 验证码验证
+// # 验证码验证
 //   - 功能说明：验证验证码是否有效。
 //   - 调用地址：POST `/v1/codes/{msgID}/valid`，其中 `msgID` 为发送验证码短信时返回的消息 ID，`code` 为用户输入的验证码。
-//   - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms#%E9%AA%8C%E8%AF%81%E7%A0%81%E9%AA%8C%E8%AF%81-api
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms#%E9%AA%8C%E8%AF%81%E7%A0%81%E9%AA%8C%E8%AF%81-api
 func (s *apiv1) VerifyCode(ctx context.Context, msgID, code string) (*CodeVerifyResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

@@ -20,12 +20,12 @@ package message
 
 import "github.com/calvinit/jiguang-sdk-go/api/jpush/push"
 
-// [APP] 消息。
+// # 【APP】消息
 type App = push.SendParam
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// APP 参数。
+// # APP 参数
 type AppParams struct {
 	// 【必填】APP 推送平台设置，支持 2 种类型值：
 	//  - platform.All：推送到所有平台；

@@ -18,16 +18,18 @@
 
 package message
 
-// [短信] 消息，包括：
-//  - 极光短信 (jsms): JSMS
-//  - CMPP 短信 (cmpp): CMPP
+// # 【短信】消息
+//
+// 包括：极光短信 (JSMS)、CMPP 短信 (CMPP)。
 type SMS interface {
 	getType() string // jsms: 极光短信；cmpp: CMPP 短信
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// 极光 [短信] 消息，可参考 jsms.MessageSendParam。
+// # 极光【短信】消息
+//
+// 可参考 jsms.MessageSendParam。
 type JSMS struct {
 	SignID     int                    `json:"sign_id,omitempty"`   // 【可选】签名 ID，该字段为空则使用应用默认签名。
 	TempID     int64                  `json:"temp_id"`             // 【必填】模板 ID。
@@ -40,7 +42,7 @@ func (m *JSMS) getType() string { return "jsms" }
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// CMPP [短信] 消息。
+// # CMPP【短信】消息
 type CMPP struct {
 	Content string `json:"content"` // 【必填】消息内容。
 }

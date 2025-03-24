@@ -18,8 +18,11 @@
 
 package hmos
 
-// 华为场景化消息类型。
-//  - 参考文档：https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-struct-V5
+// # 华为场景化消息类型
+//
+// 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-struct-V5
 type PushType int
 
 const (

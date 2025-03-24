@@ -18,7 +18,7 @@
 
 package alert
 
-// iOS 消息通知内容。
+// # iOS 消息通知内容
 type IosAlert struct {
 	// 【可选】通知的标题。Apple Watch 会在简短通知界面中显示该字符串。应指定一个用户可以快速理解的简短文本。
 	Title string `json:"title,omitempty"`

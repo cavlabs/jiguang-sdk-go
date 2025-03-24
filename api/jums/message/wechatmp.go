@@ -18,7 +18,7 @@
 
 package message
 
-// [微信小程序] 模板消息。
+// # 【微信小程序】模板消息
 type Wechatmp struct {
 	// 【必填】模板 ID。
 	TemplateID string `json:"template_id"`

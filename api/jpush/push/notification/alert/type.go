@@ -18,7 +18,7 @@
 
 package alert
 
-// 通知提醒方式。
+// # 通知提醒方式
 type Type int
 
 const (

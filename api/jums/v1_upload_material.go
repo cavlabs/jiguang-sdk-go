@@ -29,10 +29,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 上传素材
-//  - 功能说明：可以上传图片、视频、文件等素材。
-//  - 调用地址：POST `/v1/material`
-//  - 接口文档：https://docs.jiguang.cn/jums/server/rest_api_jums_material#%E4%B8%8A%E4%BC%A0%E7%B4%A0%E6%9D%90
+// # 上传素材
+//   - 功能说明：可以上传图片、视频、文件等素材。
+//   - 调用地址：POST `/v1/material`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/rest_api_jums_material#%E4%B8%8A%E4%BC%A0%E7%B4%A0%E6%9D%90
 func (u *apiv1) UploadMaterial(ctx context.Context, param *MaterialUploadParam) (*MaterialUploadResult, error) {
 	if u == nil {
 		return nil, api.ErrNilJUmsAPIv1

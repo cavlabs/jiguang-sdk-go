@@ -20,18 +20,18 @@ package message
 
 import "errors"
 
-// [钉钉] 工作通知消息类型。
+// # 【钉钉】工作通知消息类型
 type DingtalkCCMsgType string
 
 const DingtalkCCMsgTypeText DingtalkCCMsgType = "text" // 文本消息
 
-// [钉钉] 工作通知。
+// # 【钉钉】工作通知
 type DingtalkCC struct {
 	// 【必填】消息。
 	Msg *DingtalkCCMsg `json:"msg"`
 }
 
-// // [钉钉] 工作通知 - 消息。
+// # 【钉钉】工作通知 - 消息
 type DingtalkCCMsg struct {
 	// 【必填】消息类型。
 	//  - [文本消息] 类型为: DingtalkCCMsgTypeText，此时 Text 字段必填。
@@ -53,7 +53,7 @@ func (d *DingtalkCCMsg) Validate() error {
 	return nil
 }
 
-// [钉钉] 工作通知 - 文本消息。
+// # 【钉钉】工作通知 - 文本消息
 type DingtalkCCMsgText struct {
 	Content string `json:"content"` // 【必填】消息内容，建议 500 字符以内。
 }

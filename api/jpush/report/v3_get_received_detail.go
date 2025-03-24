@@ -28,12 +28,14 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 送达统计详情
-//  - 功能说明：获取指定 msgIDs（最多支持 100 个）的送达统计数据。如果一次 API 调用推送有很多对象（比如广播推送），则此 API 返回的统计数据会因为持续有客户端送达而持续增加。
-//  此接口会根据消息是通过极光自有通道下发、Android 厂商通道下发进行数据统计区分。
-//  每条推送消息的送达统计数据最多保留一个月。即发起推送请求后从最后一个推送送达记录时间点开始保留一个月，如果保留期间有新的送达，将在这个新送达的时间点起再往后保留一个月。
-//  - 调用地址：GET `/v3/received/detail`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report#%E9%80%81%E8%BE%BE%E7%BB%9F%E8%AE%A1%E8%AF%A6%E6%83%85
+// # 送达统计详情
+//   - 功能说明：获取指定 msgIDs（最多支持 100 个）的送达统计数据。如果一次 API 调用推送有很多对象（比如广播推送），则此 API 返回的统计数据会因为持续有客户端送达而持续增加。
+//     此接口会根据消息是通过极光自有通道下发、Android 厂商通道下发进行数据统计区分。
+//     每条推送消息的送达统计数据最多保留一个月。即发起推送请求后从最后一个推送送达记录时间点开始保留一个月，如果保留期间有新的送达，将在这个新送达的时间点起再往后保留一个月。
+//   - 调用地址：GET `/v3/received/detail`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report#%E9%80%81%E8%BE%BE%E7%BB%9F%E8%AE%A1%E8%AF%A6%E6%83%85
 func (r *apiv3) GetReceivedDetail(ctx context.Context, msgIDs []string) (*ReceivedDetailGetResult, error) {
 	if r == nil {
 		return nil, api.ErrNilJPushReportAPIv3

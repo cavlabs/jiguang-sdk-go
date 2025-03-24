@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 发送单条模板短信
+// # 发送单条模板短信
 //   - 功能说明：发送单条模板短信。
 //   - 调用地址：POST `/v1/messages`
-//   - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms#%E5%8F%91%E9%80%81%E5%8D%95%E6%9D%A1%E6%A8%A1%E6%9D%BF%E7%9F%AD%E4%BF%A1-api
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms#%E5%8F%91%E9%80%81%E5%8D%95%E6%9D%A1%E6%A8%A1%E6%9D%BF%E7%9F%AD%E4%BF%A1-api
 func (s *apiv1) SendMessage(ctx context.Context, param *MessageSendParam) (*MessageSendResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

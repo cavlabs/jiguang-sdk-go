@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 单条定时短信修改
-//  - 功能说明：修改单条模版短信定时发送任务。
-//  - 调用地址：PUT `/v1/schedule/{scheduleID}`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_schedule#%E5%8D%95%E6%9D%A1%E5%AE%9A%E6%97%B6%E7%9F%AD%E4%BF%A1%E4%BF%AE%E6%94%B9-api
+// # 单条定时短信修改
+//   - 功能说明：修改单条模版短信定时发送任务。
+//   - 调用地址：PUT `/v1/schedule/{scheduleID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_schedule#%E5%8D%95%E6%9D%A1%E5%AE%9A%E6%97%B6%E7%9F%AD%E4%BF%A1%E4%BF%AE%E6%94%B9-api
 func (s *apiv1) UpdateSchedule(ctx context.Context, scheduleID string, param *ScheduleUpdateParam) (*ScheduleUpdateResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

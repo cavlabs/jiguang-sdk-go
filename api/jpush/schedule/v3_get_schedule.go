@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 获取定时任务详情
-//  - 功能说明：获取当前用户指定定时任务的详细信息。
-//	- 调用地址：GET `/v3/schedules/{scheduleID}`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_push_schedule#%E8%8E%B7%E5%8F%96%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%AF%A6%E6%83%85
+// # 获取定时任务详情
+//   - 功能说明：获取当前用户指定定时任务的详细信息。
+//   - 调用地址：GET `/v3/schedules/{scheduleID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_push_schedule#%E8%8E%B7%E5%8F%96%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%AF%A6%E6%83%85
 func (s *apiv3) GetSchedule(ctx context.Context, scheduleID string) (*ScheduleGetResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJPushScheduleAPIv3
@@ -67,7 +69,7 @@ type ScheduleGetResult struct {
 
 type scheduleDetail = SendParam
 
-// 定时任务详情。
+// # 定时任务详情
 type Schedule struct {
 	ScheduleID string `json:"schedule_id,omitempty"` // 任务 ID
 	scheduleDetail

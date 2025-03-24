@@ -29,10 +29,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/report"
 )
 
-// 消息统计详情（VIP）
-//  - 功能说明：针对分组应用，获取指定 groupMsgIDs（最多支持 10 个）的消息统计数据。只支持查询 30 天以内的推送信息。
-//  - 调用地址：GET `/v3/group/messages/detail`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report#%E5%88%86%E7%BB%84%E7%BB%9F%E8%AE%A1-%E6%B6%88%E6%81%AF%E7%BB%9F%E8%AE%A1%EF%BC%88vip%EF%BC%89
+// # 消息统计详情（VIP）
+//   - 功能说明：针对分组应用，获取指定 groupMsgIDs（最多支持 10 个）的消息统计数据。只支持查询 30 天以内的推送信息。
+//   - 调用地址：GET `/v3/group/messages/detail`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report#%E5%88%86%E7%BB%84%E7%BB%9F%E8%AE%A1-%E6%B6%88%E6%81%AF%E7%BB%9F%E8%AE%A1%EF%BC%88vip%EF%BC%89
 func (gr *apiv3) GetMessageDetail(ctx context.Context, groupMsgIDs []string) (*MessageDetailGetResult, error) {
 	if gr == nil {
 		return nil, api.ErrNilJPushGroupReportAPIv3

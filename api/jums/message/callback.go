@@ -18,7 +18,7 @@
 
 package message
 
-// 消息回调参数。
+// # 消息回调参数
 type Callback struct {
 	URL    string                 `json:"url,omitempty"`    // 【可选】数据临时回调地址，仅针对这一次消息发送请求生效，该地址必须在极光后台有校验通过方可使用；不指定则以极光后台配置的默认地址为准。
 	Params map[string]interface{} `json:"params,omitempty"` // 【可选】需要回调给用户的自定义参数。

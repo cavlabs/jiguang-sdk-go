@@ -30,7 +30,7 @@ var (
 	DefaultJUmsLogger  jiguang.Logger = jiguang.NewStdLogger(jiguang.WithLogPrefix("[JUMS] "))
 )
 
-// HTTP 请求和响应的日志记录器。
+// # HTTP 请求和响应的日志记录器
 type httpLogger struct {
 	jiguang.Logger              // 底层使用的日志记录器。
 	Level          HttpLogLevel // HTTP 日志记录级别。
@@ -45,7 +45,9 @@ func newHttpLogger(logger jiguang.Logger, level HttpLogLevel) *httpLogger {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// HTTP 日志记录级别：用于指定记录 API 的 HTTP 请求和响应的日志信息的详细程度。
+// # HTTP 日志记录级别
+//
+// 用于指定记录 API 的 HTTP 请求和响应的日志信息的详细程度。
 type HttpLogLevel uint8
 
 const (
@@ -57,7 +59,7 @@ const (
 
 // 判断 level 是否是有效的 HTTP 日志记录级别。
 func (level HttpLogLevel) IsValid() bool {
-	return level >= HttpLogLevelNone && level <= HttpLogLevelFull
+	return level <= HttpLogLevelFull // uint8 is always >= 0 (HttpLogLevelNone)
 }
 
 func (level HttpLogLevel) String() string {

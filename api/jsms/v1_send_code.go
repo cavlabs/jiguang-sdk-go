@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 发送文本验证码短信
+// # 发送文本验证码短信
 //   - 功能说明：发送文本验证码短信。
 //   - 调用地址：POST `/v1/codes`
-//   - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms#%E5%8F%91%E9%80%81%E6%96%87%E6%9C%AC%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9F%AD%E4%BF%A1-api
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms#%E5%8F%91%E9%80%81%E6%96%87%E6%9C%AC%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9F%AD%E4%BF%A1-api
 func (s *apiv1) SendCode(ctx context.Context, param *CodeSendParam) (*CodeSendResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

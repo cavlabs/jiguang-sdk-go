@@ -29,7 +29,7 @@ import (
 	"strings"
 )
 
-// 多部分表单数据的正文负载。
+// # 多部分表单数据的正文负载
 type MultipartFormDataBody struct {
 	Fields        []FormField    // 普通表单字段列表
 	Files         []FormFile     // 文件表单字段列表
@@ -55,13 +55,13 @@ func (mfd MultipartFormDataBody) Prepare(writer *multipart.Writer) error {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// 普通表单字段。
+// # 普通表单字段
 type FormField struct {
 	Name  string // 字段名称
 	Value string // 字段值
 }
 
-// 文件表单字段。
+// # 文件表单字段
 type FormFile struct {
 	FieldName string      // 字段名称
 	FileName  string      // 文件名（如果 FileData 能获取到，该字段可选）
@@ -146,7 +146,9 @@ func (ff FormFile) process(fv *FileValidator, writer *multipart.Writer) error {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// 文件校验器，用于校验文件的大小、MIME 类型和扩展名等。
+// # 文件校验器
+//
+// 用于校验文件的大小、MIME 类型和扩展名等。
 type FileValidator struct {
 	MaxSize      int64    // 最大文件大小（字节）
 	AllowedMimes []string // 允许的文件 MIME 类型（如 "image/png"、"text/plain" 等）

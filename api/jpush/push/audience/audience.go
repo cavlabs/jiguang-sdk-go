@@ -20,8 +20,13 @@ package audience
 
 const All = "all" // 广播推送，表示推送给所有设备 (all)。
 
-// 推送设备对象，表示一条推送可以被推送到哪些设备列表。确认推送设备对象，JPush 提供了多种方式，比如：别名、标签、注册 ID、分群、广播等。
-//  - 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#audience%EF%BC%9A%E6%8E%A8%E9%80%81%E7%9B%AE%E6%A0%87。
+// # 推送设备对象
+//
+// 表示一条推送可以被推送到哪些设备列表。
+//
+// 确认推送设备对象，JPush 提供了多种方式，比如：别名、标签、注册 ID、分群、广播等，详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#audience%EF%BC%9A%E6%8E%A8%E9%80%81%E7%9B%AE%E6%A0%87
 type Audience struct {
 	// 【可选】注册 ID 列表，多个注册 ID 之间是 OR 的关系，即取并集。
 	//  - 设备标识 Registration ID，客户端集成 SDK 后可获取到该值；
@@ -61,6 +66,7 @@ type Audience struct {
 
 	// 【可选】指定文件推送。
 	//  - 可用于包括 SendByFile（文件立即推送）和 ScheduleSend（文件定时推送）等相关接口。
-	//  - 详见【文件推送 API】：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E6%96%87%E4%BB%B6%E6%8E%A8%E9%80%81-api。
+	//  - 详见 [文件推送 API] 文档说明。
+	// [文件推送 API]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E6%96%87%E4%BB%B6%E6%8E%A8%E9%80%81-api
 	File *File `json:"file,omitempty"`
 }

@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 查询设备的标签、别名与手机号码
-//  - 功能说明：获取当前设备的所有属性，包含 tags、alias 与 mobile。
-//	- 调用地址：GET `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9F%A5%E8%AF%A2%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
+// # 查询设备的标签、别名与手机号码
+//   - 功能说明：获取当前设备的所有属性，包含 tags、alias 与 mobile。
+//   - 调用地址：GET `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9F%A5%E8%AF%A2%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
 func (d *apiv3) GetDevice(ctx context.Context, registrationID string) (*DeviceGetResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3

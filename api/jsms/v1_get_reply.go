@@ -27,10 +27,14 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jsms/inquire"
 )
 
-// 获取上行短信消息 (SMS_REPLY - 用户回复消息)
-//  - 功能说明：获取 appKey 下的上行短信消息；API 调用频率为 5 秒/次，每次调用最多可获取 500 条数据；每条上行短信消息数据最多保留七天，即极光收到运营商返回上行消息后的七天。
-//  - 调用地址：GET `/v1/reply`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_inquire#%E8%8E%B7%E5%8F%96%E4%B8%8A%E8%A1%8C%E7%9F%AD%E4%BF%A1%E6%B6%88%E6%81%AF
+// # 获取上行短信消息
+//
+// SMS_REPLY - 用户回复消息。
+//   - 功能说明：获取 appKey 下的上行短信消息；API 调用频率为 5 秒/次，每次调用最多可获取 500 条数据；每条上行短信消息数据最多保留七天，即极光收到运营商返回上行消息后的七天。
+//   - 调用地址：GET `/v1/reply`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_inquire#%E8%8E%B7%E5%8F%96%E4%B8%8A%E8%A1%8C%E7%9F%AD%E4%BF%A1%E6%B6%88%E6%81%AF
 func (s *apiv1) GetReply(ctx context.Context) (*ReplyGetResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

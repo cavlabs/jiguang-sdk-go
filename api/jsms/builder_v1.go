@@ -85,8 +85,10 @@ func (b *APIv1Builder) SetMasterSecret(masterSecret string) *APIv1Builder {
 }
 
 // 【可选】设置 API 的开发者标识。
-//  - 当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devKey`；
-//  - 参考文档：https://docs.jiguang.cn/jsms/server/rest_jsms_api_account#http-%E9%AA%8C%E8%AF%81
+//   - 当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devKey`；
+//   - 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_jsms_api_account#http-%E9%AA%8C%E8%AF%81
 func (b *APIv1Builder) SetDevKey(devKey string) *APIv1Builder {
 	if devKey == "" {
 		b.err = errors.New("`devKey` cannot be empty")
@@ -96,8 +98,10 @@ func (b *APIv1Builder) SetDevKey(devKey string) *APIv1Builder {
 }
 
 // 【可选】设置 API 的开发者密钥。
-//  - 当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devSecret`；
-//  - 参考文档：https://docs.jiguang.cn/jsms/server/rest_jsms_api_account#http-%E9%AA%8C%E8%AF%81
+//   - 当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devSecret`；
+//   - 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_jsms_api_account#http-%E9%AA%8C%E8%AF%81
 func (b *APIv1Builder) SetDevSecret(devSecret string) *APIv1Builder {
 	if devSecret == "" {
 		b.err = errors.New("`devSecret` cannot be empty")

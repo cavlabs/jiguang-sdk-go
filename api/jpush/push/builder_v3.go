@@ -89,8 +89,8 @@ func (b *APIv3Builder) SetLogger(logger jiguang.Logger) *APIv3Builder {
 }
 
 // 【可选】设置 API 的 HTTP 日志记录级别，用于指定记录 API 的 HTTP 请求和响应的日志信息的详细程度，默认为 api.HttpLogLevelBasic。
-//  - 可用的级别：api.HttpLogLevelNone、api.HttpLogLevelBasic、api.HttpLogLevelHeaders、api.HttpLogLevelFull；
-//  - 若要禁用 HTTP 日志记录，可使用 DisableHttpLogging。
+//   - 可用的级别：api.HttpLogLevelNone、api.HttpLogLevelBasic、api.HttpLogLevelHeaders、api.HttpLogLevelFull；
+//   - 若要禁用 HTTP 日志记录，可使用 DisableHttpLogging。
 func (b *APIv3Builder) SetHttpLogLevel(httpLogLevel api.HttpLogLevel) *APIv3Builder {
 	b.httpLogLevel = httpLogLevel
 	return b

@@ -30,16 +30,22 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/send"
 )
 
-// 定时模板推送（VIP） - 指定模板，指定时间，定时推送。
-//  - 功能说明：开发者可以将推送时所需参数通过极光 WebPortal 页面提前配置好，形成一套 “推送模板”，然后通过此 API 接口，指定 “模板 ID” 推送，大大降低开发难度，节省开发调试时间，节省服务器带宽成本。
-//	- 调用地址：POST `/v3/push/template/schedule`，`id` 为模板 ID（创建模板后，由极光服务器生成），`params` 为模板参数（创建模板时，开发者设置的变量参数）列表，`scheduleName` 为任务名称，`trigger` 为任务触发条件。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_template#%E6%8C%87%E5%AE%9A%E6%A8%A1%E6%9D%BF%E3%80%90%E5%AE%9A%E6%97%B6%E6%8E%A8%E9%80%81%E3%80%91
+// # 定时模板推送（VIP）
+//
+// 指定模板，指定时间，定时推送。
+//   - 功能说明：开发者可以将推送时所需参数通过极光 WebPortal 页面提前配置好，形成一套 “推送模板”，然后通过此 API 接口，指定 “模板 ID” 推送，大大降低开发难度，节省开发调试时间，节省服务器带宽成本。
+//   - 调用地址：POST `/v3/push/template/schedule`，`id` 为模板 ID（创建模板后，由极光服务器生成），`params` 为模板参数（创建模板时，开发者设置的变量参数）列表，`scheduleName` 为任务名称，`trigger` 为任务触发条件。
+//   - 接口文档：[docs.jiguang.cn]
+//
 // 注意事项：不支持多种不同 Audience 类型的组合（Tags、AndTags、NotTags 除外）！
 //  1. params 数组里面，同一个推送里面的 Audience 不允许不同类型组合（Tags、AndTags、NotTags 除外）；
 //  2. params 数组里面，不同推送的 Audience 也不允许不同类型（Tags、AndTags、NotTags 除外）；
 //  3. 如果是文件方式推送，一次推送只支持指定一个文件；
 //  4. 如果是地理围栏方式推送，一次推送仅支持指定一个地理围栏。
+//
 // 也就是说：假设数组长度是 3，那么就表示有 3 个推送，这 3 个推送要么都是 Registration ID 方式推送，要么都是 Alias 方式推送。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_template#%E6%8C%87%E5%AE%9A%E6%A8%A1%E6%9D%BF%E3%80%90%E5%AE%9A%E6%97%B6%E6%8E%A8%E9%80%81%E3%80%91
 func (s *apiv3) ScheduleTemplateSend(ctx context.Context, id string, params []TemplateParam, scheduleName string, trigger *Trigger) (*TemplateSendResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJPushScheduleAPIv3
@@ -98,7 +104,9 @@ type templateSendParam struct {
 
 // ↓↓↓ 这是为了方便 SDK 的使用者，提供了一些共享模型的别名定义。↓↓↓
 
-// 模板参数（创建模板时，开发者设置的变量参数）。
+// # 模板参数
+//
+// 创建模板时，开发者设置的变量参数。
 type TemplateParam = send.TemplateParam
 
 // ↑↑↑ 这是为了方便 SDK 的使用者，提供了一些共享模型的别名定义。↑↑↑

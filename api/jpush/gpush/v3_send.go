@@ -30,16 +30,21 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/push"
 )
 
-// 分组推送
-//  - 功能说明：该 API 用于为开发者在 portal 端创建的应用分组创建推送。
-//	- 调用地址：POST `/v3/grouppush`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_grouppush
+// # 分组推送
+//   - 功能说明：该 API 用于为开发者在 portal 端创建的应用分组创建推送。
+//   - 调用地址：POST `/v3/grouppush`
+//   - 接口文档：[docs.jiguang.cn]
+//
 // 注意：暂不支持 Options 中 OverrideMsgID 的属性；分组推送仅在官网支持设置定时，调 Schedule API 时不支持。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_grouppush
 func (gp *apiv3) Send(ctx context.Context, param *SendParam) (*SendResult, error) {
 	return gp.CustomSend(ctx, param)
 }
 
-// 自定义分组推送：如果遇到 Send 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
+// # 自定义分组推送
+//
+// 如果遇到 Send 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
 func (gp *apiv3) CustomSend(ctx context.Context, param interface{}) (*SendResult, error) {
 	if gp == nil {
 		return nil, api.ErrNilJPushGroupPushAPIv3

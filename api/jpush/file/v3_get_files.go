@@ -26,10 +26,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 查询有效文件列表
-//  - 功能说明：获取当前保存在极光服务器的有效文件列表。
-//	- 调用地址：GET `/v3/files`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E6%9F%A5%E8%AF%A2%E6%9C%89%E6%95%88%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8
+// # 查询有效文件列表
+//   - 功能说明：获取当前保存在极光服务器的有效文件列表。
+//   - 调用地址：GET `/v3/files`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E6%9F%A5%E8%AF%A2%E6%9C%89%E6%95%88%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8
 func (f *apiv3) GetFiles(ctx context.Context) (*FilesGetResult, error) {
 	if f == nil {
 		return nil, api.ErrNilJPushFileAPIv3

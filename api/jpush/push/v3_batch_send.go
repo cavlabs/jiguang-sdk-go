@@ -33,18 +33,22 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/options"
 )
 
-// 批量单推（Registration ID 方式）
-//  - 功能说明：如果您在给每个用户的推送内容都不同的情况下，可以使用此接口。使用此接口前，您需要配合使用 GetCidForPush 接口提前获取到 CID 池。
-//	- 调用地址：POST `/v3/push/batch/regid/single`，`pushList` 的 key 为 CID 值，最多支持填写 1000 个。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_single
+// # 批量单推（Registration ID 方式）
+//   - 功能说明：如果您在给每个用户的推送内容都不同的情况下，可以使用此接口。使用此接口前，您需要配合使用 GetCidForPush 接口提前获取到 CID 池。
+//   - 调用地址：POST `/v3/push/batch/regid/single`，`pushList` 的 key 为 CID 值，最多支持填写 1000 个。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_single
 func (p *apiv3) BatchSendByRegistrationID(ctx context.Context, pushList map[string]BatchPushParam) (*BatchSendResult, error) {
 	return p.batchSend(ctx, "regid", pushList)
 }
 
-// 批量单推（Alias 方式）
-//  - 功能说明：如果您在给每个用户的推送内容都不同的情况下，可以使用此接口。使用此接口前，您需要配合使用 GetCidForPush 接口提前获取到 CID 池。
-//	- 调用地址：POST `/v3/push/batch/alias/single`，`pushList` 的 key 为 CID 值，最多支持填写 1000 个。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_single
+// # 批量单推（Alias 方式）
+//   - 功能说明：如果您在给每个用户的推送内容都不同的情况下，可以使用此接口。使用此接口前，您需要配合使用 GetCidForPush 接口提前获取到 CID 池。
+//   - 调用地址：POST `/v3/push/batch/alias/single`，`pushList` 的 key 为 CID 值，最多支持填写 1000 个。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_single
 func (p *apiv3) BatchSendByAlias(ctx context.Context, pushList map[string]BatchPushParam) (*BatchSendResult, error) {
 	return p.batchSend(ctx, "alias", pushList)
 }
@@ -86,7 +90,7 @@ type batchSendParam struct {
 	PushList map[string]BatchPushParam `json:"pushlist"` // 【必填】key 为 CID 值，最多支持填写 1000 个。
 }
 
-// 批量推送参数。
+// # 批量推送参数
 type BatchPushParam struct {
 	// 【必填】推送平台，支持 2 种类型值：
 	//  - platform.All：推送到所有平台；
@@ -94,20 +98,25 @@ type BatchPushParam struct {
 	Platform interface{} `json:"platform"`
 	// 【必填】推送目标，此处填写的是 Registration ID 值或者 Alias 值。
 	Target string `json:"target"`
-	// 【可选】推送可选项。
-	//  - 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#options%EF%BC%9A%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0。
+	// 【可选】推送可选项，详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#options%EF%BC%9A%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0。
 	Options *options.Options `json:"options,omitempty"`
-	// 【可选】通知内容，是被推送到客户端的内容；与 CustomMessage 一起二者必须有其一，可以二者并存。
-	//  - 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification%EF%BC%9A%E9%80%9A%E7%9F%A5。
+	// 【可选】通知内容，是被推送到客户端的内容；与 CustomMessage 一起二者必须有其一，可以二者并存，详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification%EF%BC%9A%E9%80%9A%E7%9F%A5。
 	Notification *notification.Notification `json:"notification,omitempty"`
-	// 【可选】自定义消息内容，是被推送到客户端的内容；与 Notification 一起二者必须有其一，可以二者并存。
-	//  - 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#message%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF。
+	// 【可选】自定义消息内容，是被推送到客户端的内容；与 Notification 一起二者必须有其一，可以二者并存，详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#message%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF。
 	CustomMessage *message.Custom `json:"message,omitempty"`
-	// 【可选】短信渠道补充送达内容。
-	//  - 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#sms_message%EF%BC%9A%E7%9F%AD%E4%BF%A1。
+	// 【可选】短信渠道补充送达内容，详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#sms_message%EF%BC%9A%E7%9F%AD%E4%BF%A1。
 	SmsMessage *message.SMS `json:"sms_message,omitempty"`
-	// 【可选】回调参数。
-	//  - 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#callback%EF%BC%9A%E5%9B%9E%E8%B0%83%E5%8F%82%E6%95%B0。
+	// 【可选】回调参数，详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#callback%EF%BC%9A%E5%9B%9E%E8%B0%83%E5%8F%82%E6%95%B0。
 	Callback *callback.Callback `json:"callback,omitempty"`
 }
 

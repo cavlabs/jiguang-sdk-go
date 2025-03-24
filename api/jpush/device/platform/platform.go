@@ -18,11 +18,11 @@
 
 package platform
 
-import (
-	"strings"
-)
+import "strings"
 
-// 「极光推送」设备平台，当前支持 android、ios、web、quickapp、hmos 5 个平台，其中 “web 平台” 在 JUMS 的【模板消息发送 API】的 [APP 参数] 中可用。
+// # 设备平台
+//
+// 当前支持 android、ios、web、quickapp、hmos 5 个平台，其中 “web 平台” 在 JUMS 的【模板消息发送 API】的 [APP 参数] 中可用。
 //
 // [APP 参数]: https://docs.jiguang.cn/jums/server/rest_api_jums_template_message#app_para%EF%BC%9Aapp-%E5%8F%82%E6%95%B0
 type Platform string

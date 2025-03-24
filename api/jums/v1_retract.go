@@ -27,11 +27,13 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 撤回消息
-//  - 功能说明：撤回消息发送，[撤回效果说明]。
-//  - 调用地址：POST `/v1/retract/{msgID}`，msgID 为请求发送消息成功后返回的 ID 值，一次仅允许传 1 个 msgID。
-//  - 接口文档：https://docs.jiguang.cn/jums/server/rest_api_jums_template_message
+// # 撤回消息
+//   - 功能说明：撤回消息发送，[撤回效果说明]。
+//   - 调用地址：POST `/v1/retract/{msgID}`，`msgID` 为请求发送消息成功后返回的 ID 值，一次仅允许传 1 个 `msgID`。
+//   - 接口文档：[docs.jiguang.cn]
+//
 // [撤回效果说明]: https://docs.jiguang.cn/jums/server/rest_api_jums_retract_message#%E6%92%A4%E5%9B%9E%E6%95%88%E6%9E%9C%E8%AF%B4%E6%98%8E
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/rest_api_jums_template_message
 func (u *apiv1) Retract(ctx context.Context, msgID string) (*RetractResult, error) {
 	if u == nil {
 		return nil, api.ErrNilJUmsAPIv1

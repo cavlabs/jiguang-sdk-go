@@ -18,11 +18,14 @@
 
 package message
 
-// 短信渠道补充送达内容。
-//  - 需要先把用户的手机号码与设备标识 Registration ID 匹配；
-//  - 短信补发：在指定时间之内，判断推送是否成功，若没有达到成功标准则补发短信，请设置 DelayTime 为非 0 值；
-//  - 短信并发：极光推送支持同时下发推送和短信，请设置 DelayTime 为 0。
-// 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#sms_message%EF%BC%9A%E7%9F%AD%E4%BF%A1。
+// # 短信渠道补充送达内容
+//   - 需要先把用户的手机号码与设备标识 Registration ID 匹配；
+//   - 短信补发：在指定时间之内，判断推送是否成功，若没有达到成功标准则补发短信，请设置 DelayTime 为非 0 值；
+//   - 短信并发：极光推送支持同时下发推送和短信，请设置 DelayTime 为 0。
+//
+// 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#sms_message%EF%BC%9A%E7%9F%AD%E4%BF%A1
 type SMS struct {
 	// 【必填】短信补充的内容模板 ID，没有填写该字段即表示不使用短信补充功能。
 	TempID int64 `json:"temp_id"`

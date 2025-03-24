@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 获取用户在线状态（VIP）
+// # 获取用户在线状态（VIP）
 //   - 功能说明：查询用户是否在线。
 //   - 调用地址：POST `/v3/devices/status`，`registrationIDs` 为必填参数，需要获取在线状态的设备标识 Registration ID 集合，最多支持 1000 个。
-//   - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%9C%A8%E7%BA%BF%E7%8A%B6%E6%80%81%EF%BC%88vip%EF%BC%89
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%9C%A8%E7%BA%BF%E7%8A%B6%E6%80%81%EF%BC%88vip%EF%BC%89
 func (d *apiv3) GetDeviceStatus(ctx context.Context, registrationIDs []string) (*DeviceStatusGetResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3

@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 更新图片（文件方式）
-//  - 功能说明：通过上传图片文件形式来修改或更新适配结果，该接口目前仅支持 OPPO。
-//	- 调用地址：PUT `/v3/images/byfiles/{mediaID}`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image#%E6%9B%B4%E6%96%B0%E5%9B%BE%E7%89%87%EF%BC%88%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%EF%BC%89
+// # 更新图片（文件方式）
+//   - 功能说明：通过上传图片文件形式来修改或更新适配结果，该接口目前仅支持 OPPO。
+//   - 调用地址：PUT `/v3/images/byfiles/{mediaID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_image#%E6%9B%B4%E6%96%B0%E5%9B%BE%E7%89%87%EF%BC%88%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%EF%BC%89
 func (i *apiv3) UpdateImageByFile(ctx context.Context, mediaID string, param *UpdateByFileParam) (*UpdateByFileResult, error) {
 	if i == nil {
 		return nil, api.ErrNilJPushImageAPIv3
@@ -98,11 +100,13 @@ func (i *apiv3) UpdateImageByFile(ctx context.Context, mediaID string, param *Up
 // 更新图片（文件方式）请求参数正文。
 type UpdateByFileParam struct {
 	// 【可选】上传配置小米通道的图片文件。
-	//  - 本接口将会对该图片文件大小进行校验，若不适配小米对该图片的要求，则返回错误，小米对该图片对要求参考【小米-图片上传】：https://dev.mi.com/console/doc/detail?pId=1278#4_4_2；
+	//  - 本接口将会对该图片文件大小进行校验，若不适配小米对该图片的要求，则返回错误，小米对该图片对要求参考 [小米-图片上传]；
 	//  - 小米从 2023.08 开始不再支持推送时动态设置小图标、右侧图标、大图片功能，开发者可不再设置此字段值。
+	// [小米-图片上传]: https://dev.mi.com/console/doc/detail?pId=1278#4_4_2
 	XiaomiImageFile interface{} `json:"xiaomi_file,omitempty"`
 	// 【可选】上传配置 OPPO 通道的图片文件；
-	//  - 本接口将会对该图片文件大小进行校验，若不适配 OPPO 对该图片的要求，则返回错误，OPPO 对该图片对要求参考【OPPO-图片上传】：https://open.oppomobile.com/new/developmentDoc/info?id=11241。
+	//  - 本接口将会对该图片文件大小进行校验，若不适配 OPPO 对该图片的要求，则返回错误，OPPO 对该图片对要求参考 [OPPO-图片上传]。
+	// [OPPO-图片上传]: https://open.oppomobile.com/new/developmentDoc/info?id=11241
 	OppoImageFile interface{} `json:"oppo_file,omitempty"`
 }
 

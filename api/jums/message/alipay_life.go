@@ -25,13 +25,13 @@ import (
 	"strings"
 )
 
-// [支付宝生活号] 消息。
+// # 【支付宝生活号】消息
 type AlipayLife struct {
 	TemplateID string             `json:"template_id"`       // 【必填】消息模板 ID，最大长度 128。
 	Context    *AlipayLifeContext `json:"context,omitempty"` // 【必填】消息模板上下文，即模板中定义的参数及参数值。
 }
 
-// [支付宝生活号] 消息 - 模板上下文。
+// # 【支付宝生活号】消息 - 模板上下文
 type AlipayLifeContext struct {
 	// 【必填】顶部色条的色值，最大长度 10。
 	HeadColor string `json:"head_color"`
@@ -136,7 +136,7 @@ func (rs AlipayLifeContext) MarshalJSON() ([]byte, error) {
 	return json.Marshal(data)
 }
 
-// [支付宝生活号] 消息 - 模板上下文关键字。
+// # 【支付宝生活号】消息 - 模板上下文 - 关键字
 type AlipayLifeContextKeyword struct {
 	Color string `json:"color"` // 【必填】当前文字颜色。
 	Value string `json:"value"` // 【必填】模板中占位符的值，最大长度 128。

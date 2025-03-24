@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 送达状态查询（VIP）
-//  - 功能说明：查询已推送的一条消息在一组设备上的送达状态。
-//  - 调用地址：POST `/v3/status/message`，`msgID` 为指定的消息 ID；`registrationIDs` 为必填参数，即需要获取在线状态的设备标识 Registration ID 集合，最多支持 1000 个。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report#%E9%80%81%E8%BE%BE%E7%8A%B6%E6%80%81%E6%9F%A5%E8%AF%A2%EF%BC%88vip%EF%BC%89
+// # 送达状态查询（VIP）
+//   - 功能说明：查询已推送的一条消息在一组设备上的送达状态。
+//   - 调用地址：POST `/v3/status/message`，`msgID` 为指定的消息 ID；`registrationIDs` 为必填参数，即需要获取在线状态的设备标识 Registration ID 集合，最多支持 1000 个。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report#%E9%80%81%E8%BE%BE%E7%8A%B6%E6%80%81%E6%9F%A5%E8%AF%A2%EF%BC%88vip%EF%BC%89
 func (r *apiv3) GetMessageStatus(ctx context.Context, msgID string, registrationIDs []string, date *jiguang.LocalDate) (*MessageStatusGetResult, error) {
 	if r == nil {
 		return nil, api.ErrNilJPushReportAPIv3

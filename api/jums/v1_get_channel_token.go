@@ -28,15 +28,18 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 获取通道 Token
-//  - 功能说明：获取通道 Token。
-//  - 调用地址：GET `/v1/token?type={channelType}`，channelType 为所需要获取的通道的类型，通过渠道鉴权，可以取到本渠道授权的通道的 Token 值。
-//  - 接口文档：https://docs.jiguang.cn/jums/server/rest_api_jums_token
-// channelType 的取值说明如下：
-//  - wechatoa：微信公众号；
-//  - wechatmp：微信小程序；
-//  - dingtalkcc：钉钉；
-//  - wechatwk：企业微信。
+// # 获取通道 Token
+//   - 功能说明：获取通道 Token。
+//   - 调用地址：GET `/v1/token?type={channelType}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// channelType 为所需要获取的通道的类型，通过渠道鉴权，可以取到本渠道授权的通道的 Token 值，它的取值说明如下：
+//   - wechatoa：微信公众号；
+//   - wechatmp：微信小程序；
+//   - dingtalkcc：钉钉；
+//   - wechatwk：企业微信。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/rest_api_jums_token
 func (u *apiv1) GetChannelToken(ctx context.Context, channelType string) (*ChannelTokenGetResult, error) {
 	if u == nil {
 		return nil, api.ErrNilJUmsAPIv1

@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 删除模板
-//  - 功能说明：删除短信模板。
-//  - 调用地址：DELETE `/v1/templates/{tempID}`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates#%E5%88%A0%E9%99%A4%E6%A8%A1%E6%9D%BF-api
+// # 删除模板
+//   - 功能说明：删除短信模板。
+//   - 调用地址：DELETE `/v1/templates/{tempID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates#%E5%88%A0%E9%99%A4%E6%A8%A1%E6%9D%BF-api
 func (s *apiv1) DeleteTemplate(ctx context.Context, tempID int64) (*TemplateDeleteResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

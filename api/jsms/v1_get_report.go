@@ -27,10 +27,14 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jsms/inquire"
 )
 
-// 获取短信发送状态 (SMS_REPORT - 短信送达状态)
-//  - 功能说明：获取 appKey 下短信的发送状态报告；API 调用频率为 5 秒/次，每次调用最多可获取 500 条数据；每条短信发送状态报告数据最多保留七天，即极光收到运营商返回状态报告后的七天。
-//  - 调用地址：GET `/v1/report`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_inquire#%E8%8E%B7%E5%8F%96%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81%E7%8A%B6%E6%80%81
+// # 获取短信发送状态
+//
+// SMS_REPORT - 短信送达状态。
+//   - 功能说明：获取 appKey 下短信的发送状态报告；API 调用频率为 5 秒/次，每次调用最多可获取 500 条数据；每条短信发送状态报告数据最多保留七天，即极光收到运营商返回状态报告后的七天。
+//   - 调用地址：GET `/v1/report`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_inquire#%E8%8E%B7%E5%8F%96%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81%E7%8A%B6%E6%80%81
 func (s *apiv1) GetReport(ctx context.Context) (*ReportGetResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

@@ -23,7 +23,9 @@ import (
 	"time"
 )
 
-// 「用户回复消息」SMS_REPLY 回执数据。
+// # 用户回复消息
+//
+// SMS_REPLY 回执数据。
 type ReplyData struct {
 	RawJSON   string    `json:"-"`         // 原始 JSON 数据
 	Phone     string    `json:"phone"`     // 主叫号码（用户手机号码）

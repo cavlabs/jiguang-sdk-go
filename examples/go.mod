@@ -7,7 +7,7 @@ retract [v0.0.0-0, v0.0.0-99991231235959-zzzzzzzzzzzz] // Wiping out this module
 require (
 	github.com/calvinit/jiguang-sdk-go v0.3.0
 	github.com/go-resty/resty/v2 v2.16.5
-	github.com/rs/zerolog v1.33.0
+	github.com/rs/zerolog v1.34.0
 	github.com/sirupsen/logrus v1.9.3
 	go.uber.org/zap v1.27.0
 )

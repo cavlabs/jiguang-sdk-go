@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/device/platform"
 )
 
-// 删除标签
-//  - 功能说明：删除一个标签，以及标签与设备之间的关联关系。
-//	- 调用地址：DELETE `/v3/tags/{tag}`，`tag` 为指定的标签值；`plats` 为可选参数，不填则默认为所有平台。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E5%88%A0%E9%99%A4%E6%A0%87%E7%AD%BE
+// # 删除标签
+//   - 功能说明：删除一个标签，以及标签与设备之间的关联关系。
+//   - 调用地址：DELETE `/v3/tags/{tag}`，`tag` 为指定的标签值；`plats` 为可选参数，不填则默认为所有平台。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E5%88%A0%E9%99%A4%E6%A0%87%E7%AD%BE
 func (d *apiv3) DeleteTag(ctx context.Context, tag string, plats ...platform.Platform) (*TagDeleteResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3

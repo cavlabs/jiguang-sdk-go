@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 删除签名
-//  - 功能说明：删除短信签名。
-//  - 调用地址：DELETE `/v1/sign/{signID}`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign#%E5%88%A0%E9%99%A4%E7%AD%BE%E5%90%8D-api
+// # 删除签名
+//   - 功能说明：删除短信签名。
+//   - 调用地址：DELETE `/v1/sign/{signID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign#%E5%88%A0%E9%99%A4%E7%AD%BE%E5%90%8D-api
 func (s *apiv1) DeleteSign(ctx context.Context, signID int) (*SignDeleteResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1
