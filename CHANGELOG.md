@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.4.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.0) - 2025-03-24
+
+### 重构
+
+- 利用了 Go 1 的兼容性承诺，本 SDK 使用了最新版本的 Go SDK，但不会破坏原有的 API 兼容性承诺（Go 1.16+）；
+- 添加了 GitHub 工作流，以用于自动化构建和测试，达成上述目标；
+- 更新代码文档注释以提高多个文件的清晰度和一致性。
+
+---
+
 ## [v0.3.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.3.0) - 2025-03-17
 
 ### 新特性
