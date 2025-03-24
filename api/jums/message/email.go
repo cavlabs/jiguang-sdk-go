@@ -18,14 +18,14 @@
 
 package message
 
-// [邮件] 消息。
+// # 【邮件】消息
 type Email struct {
 	// 【必填】邮件标题。
 	Subject string `json:"subject"`
 	// 【必填】邮件内容，支持 HTML 格式。
 	Text string `json:"text"`
 	// 【可选】邮件附件。
-	//  - 使用 APIv1.UploadMaterial 上传附件，然后将获得的 URL 传值在此；
+	//  - 使用 UploadMaterial 上传附件，然后将获得的 URL 传值在此；
 	//  - 将任意 URL 地址传值在此，需保证该地址可被 UMS 访问。
 	Files []string `json:"files,omitempty"`
 }

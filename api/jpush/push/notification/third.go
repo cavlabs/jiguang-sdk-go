@@ -18,14 +18,16 @@
 
 package notification
 
-// 自定义消息转厂商通知内容。
+// # 自定义消息转厂商通知内容
 //
 // Push API 发起自定义消息类型的推送请求时，针对 Android 设备，如果 APP 长连接不在线，则消息没法及时的下发，针对这种情况，极光推出了 “自定义消息转厂商通知” 的功能。
 //
 // 也就是说，针对用户一些重要的自定义消息，可以申请开通极光 VIP 厂商通道功能，开通后，通过 APP 长连接不在线时没法及时下发的消息，可以通过厂商通道下发以厂商通知形式展示，及时提醒到用户。
 // 极光内部会有去重处理，您不用担心消息重复下发问题。
 //
-// 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5。
+// 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
 type Third struct {
 	// 【可选】补发通知标题，如果为空则默认为应用名称。
 	Title string `json:"title,omitempty"`
@@ -74,7 +76,8 @@ type Third struct {
 	Sound string `json:"sound,omitempty"`
 	// 【可选】Android 通知 ChannelID。
 	//  - 根据 ChannelID 来指定通知栏展示效果，不超过 1000 字节；
-	//  - Android 8.0 开始可以进行【NotificationChannel 配置】：https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE。
+	//  - Android 8.0 开始可以进行 [NotificationChannel 配置]。
+	// [NotificationChannel 配置]: https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE
 	ChannelID string `json:"channel_id,omitempty"`
 	// 【可选】扩展字段。
 	//  - 这里自定义 JSON 格式的 key/value 信息，以供业务使用。

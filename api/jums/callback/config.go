@@ -341,7 +341,7 @@ func (o dataListProcessorOption) apply(c *config) error {
 }
 
 // 统一的回调数据列表处理器（所有类型的回调数据汇总到此处理器中进行统一处理）。注：你的自定义处理器需要实现 DataListProcessor 接口。
-//  - 如果你不希望根据不同的回调数据类型使用不同的处理器，可以仅配置使用此选项。
+//   - 如果你不希望根据不同的回调数据类型使用不同的处理器，可以仅配置使用此选项。
 func WithDataListProcessor(processor DataListProcessor) ConfigOption {
 	return dataListProcessorOption{processor}
 }

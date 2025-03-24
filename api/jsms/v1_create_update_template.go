@@ -28,18 +28,22 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 创建模板
-//  - 功能说明：创建短信模板。
-//  - 调用地址：POST `/v1/templates`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates#%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF-api
+// # 创建模板
+//   - 功能说明：创建短信模板。
+//   - 调用地址：POST `/v1/templates`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates#%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF-api
 func (s *apiv1) CreateTemplate(ctx context.Context, param *TemplateCreateParam) (*TemplateCreateResult, error) {
 	return s.template(ctx, 0, param, "create")
 }
 
-// 修改模板
-//  - 功能说明：修改审核不通过的模板，并再次提交审核。
-//  - 调用地址：PUT `/v1/templates/{tempID}`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates#%E4%BF%AE%E6%94%B9%E6%A8%A1%E6%9D%BF-api
+// # 修改模板
+//   - 功能说明：修改审核不通过的模板，并再次提交审核。
+//   - 调用地址：PUT `/v1/templates/{tempID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates#%E4%BF%AE%E6%94%B9%E6%A8%A1%E6%9D%BF-api
 func (s *apiv1) UpdateTemplate(ctx context.Context, tempID int64, param *TemplateUpdateParam) (*TemplateUpdateResult, error) {
 	return s.template(ctx, tempID, param, "update")
 }

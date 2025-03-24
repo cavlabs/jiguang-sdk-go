@@ -29,18 +29,23 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 定时推送（创建定时任务）
-//  - 功能说明：API 层面支持定时功能。这是一个相对独立的任务执行模块，维护一个 Schedule 对象。调 API 创建的定时任务只能调 API 获取/修改/删除。
-//	- 调用地址：POST `/v3/schedules`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_push_schedule#%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1
+// # 定时推送（创建定时任务）
+//   - 功能说明：API 层面支持定时功能。这是一个相对独立的任务执行模块，维护一个 Schedule 对象。调 API 创建的定时任务只能调 API 获取/修改/删除。
+//   - 调用地址：POST `/v3/schedules`
+//   - 接口文档：[docs.jiguang.cn]
+//
 // 注意事项：
 //  1. 文件定时推送 API 接口频率规则和 File API v3 频率规则一样 20 次/min，且各个文件相关接口频率会互相消耗；
 //  2. 对于文件定时推送，创建定时任务成功后，若任务被执行前文件被删除，则任务执行时推送动作将会失败。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_push_schedule#%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1
 func (s *apiv3) ScheduleSend(ctx context.Context, param *SendParam) (*SendResult, error) {
 	return s.CustomScheduleSend(ctx, param)
 }
 
-// 自定义定时推送：如果遇到 ScheduleSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
+// # 自定义定时推送
+//
+// 如果遇到 ScheduleSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
 func (s *apiv3) CustomScheduleSend(ctx context.Context, param interface{}) (*SendResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJPushScheduleAPIv3
@@ -72,7 +77,7 @@ func (s *apiv3) CustomScheduleSend(ctx context.Context, param interface{}) (*Sen
 
 // ↓↓↓ 这是为了方便 SDK 的使用者，提供了一些共享模型的别名定义。↓↓↓
 
-// 任务推送参数。
+// # 任务推送参数
 type Push = send.Param
 
 // ↑↑↑ 这是为了方便 SDK 的使用者，提供了一些共享模型的别名定义。↑↑↑
@@ -85,18 +90,18 @@ type SendParam struct {
 	Push    *Push    `json:"push"`          // 【必填】任务推送参数。
 }
 
-// 任务触发条件。
+// # 任务触发条件
 type Trigger struct {
 	Single     *Single     `json:"single,omitempty"`     // 【可选】定时任务，单次触发执行。
 	Periodical *Periodical `json:"periodical,omitempty"` // 【可选】定期任务，周期触发执行。
 }
 
-// 定时任务，单次触发条件。
+// # 【定时任务】单次触发条件
 type Single struct {
 	Time jiguang.LocalDateTime `json:"time"` // 【必填】最晚时间不能超过一年。
 }
 
-// 定期任务，周期触发条件。
+// # 【定期任务】周期触发条件
 type Periodical struct {
 	StartTime jiguang.LocalDateTime `json:"start"`           // 【必填】有效起始时间。
 	EndTime   jiguang.LocalDateTime `json:"end"`             // 【必填】有效结束时间。

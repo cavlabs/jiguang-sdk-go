@@ -28,13 +28,16 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 厂商配额查询
-//  - 功能说明：厂商为了控制应用推送消息的频率，会根据应用在厂商的日联网数计算每天推送数量上限。
-//  目前已知小米、OPPO、vivo 都有每天的额度控制，额度可以在厂商后台查询，也可以通过极光 WebPortal 控制台查询；
-//  为了进一步方便开发，极光汇总了三个平台的查询接口，供开发者调用查询。
-//	- 调用地址：GET `/v3/push/quota`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E5%8E%82%E5%95%86%E9%85%8D%E9%A2%9D%E6%9F%A5%E8%AF%A2-api
+// # 厂商配额查询
+//   - 功能说明：厂商为了控制应用推送消息的频率，会根据应用在厂商的日联网数计算每天推送数量上限。
+//     目前已知小米、OPPO、vivo 都有每天的额度控制，额度可以在厂商后台查询，也可以通过极光 WebPortal 控制台查询；
+//     为了进一步方便开发，极光汇总了三个平台的查询接口，供开发者调用查询。
+//   - 调用地址：GET `/v3/push/quota`
+//   - 接口文档：[docs.jiguang.cn]
+//
 // 注意：厂商配额查询 API 接口频率和 Push API 接口频率共享，消耗 Push API 接口频率。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E5%8E%82%E5%95%86%E9%85%8D%E9%A2%9D%E6%9F%A5%E8%AF%A2-api
 func (p *apiv3) GetQuota(ctx context.Context) (*QuotaGetResult, error) {
 	if p == nil {
 		return nil, api.ErrNilJPushPushAPIv3

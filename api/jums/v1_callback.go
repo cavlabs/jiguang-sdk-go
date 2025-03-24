@@ -25,7 +25,7 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jums/callback"
 )
 
-// 获取配置好的回调接口服务。
+// # 获取配置好的回调接口服务
 func (u *apiv1) Callback() (*Callback, error) {
 	if u == nil {
 		return nil, api.ErrNilJUmsAPIv1

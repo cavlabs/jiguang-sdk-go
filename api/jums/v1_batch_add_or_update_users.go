@@ -27,18 +27,21 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 批量添加、更新用户信息
-//  - 功能说明：批量添加、更新用户信息。
-//  - 调用地址：POST `/v1/user/opt`
-//  - 接口文档：https://docs.jiguang.cn/jums/server/rest_api_jums_user#%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%9B%B4%E6%96%B0-api
+// # 批量添加、更新用户信息
+//   - 功能说明：批量添加、更新用户信息。
+//   - 调用地址：POST `/v1/user/opt`
+//   - 接口文档：[docs.jiguang.cn]
+//
 // 支持批量添加与更新用户信息：如果 UserID 已存在，则为更新操作；如不存在，则为添加操作。
 //
 // 参数 accessAuth 为 true 时，使用全局 accessKey 和 accessMasterSecret 鉴权方式；否则为默认的渠道 channelKey 和 masterSecret 鉴权方式。
 //
 // 在导入 UserID 与各个通道注册 ID 的对应关系时，有一个重要的关键字段是 [bind_id]（绑定标识），它可以取值 all、通道编码、渠道 Key。
-//  - all 即全局设置，所有渠道、通道通用，对标签、手机号码、邮箱地址、钉钉 ID、企业微信 ID、企业微信互联企业 ID 有效，注意：钉钉 ID 的关联标识仅允许传 all；
-//  - 具体的 [Channel Key]，在渠道信息中可获取到该值，对标签、手机号码、邮箱地址有效，如果需要设置某一渠道的专属信息，则可以用 Channel Key 做标识，如不需要，则传 all；
-//  - 具体的 [通道编码]，在通道详情中可获取到该值（在创建通道时由运营人员自行设定），在为 UserID 绑定 APP 注册 ID、微信公众号 ID、微信小程序 ID、支付宝生活号 ID 时必须指定通道编码。
+//   - all 即全局设置，所有渠道、通道通用，对标签、手机号码、邮箱地址、钉钉 ID、企业微信 ID、企业微信互联企业 ID 有效，注意：钉钉 ID 的关联标识仅允许传 all；
+//   - 具体的 [Channel Key]，在渠道信息中可获取到该值，对标签、手机号码、邮箱地址有效，如果需要设置某一渠道的专属信息，则可以用 Channel Key 做标识，如不需要，则传 all；
+//   - 具体的 [通道编码]，在通道详情中可获取到该值（在创建通道时由运营人员自行设定），在为 UserID 绑定 APP 注册 ID、微信公众号 ID、微信小程序 ID、支付宝生活号 ID 时必须指定通道编码。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/rest_api_jums_user#%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%9B%B4%E6%96%B0-api
 // [bind_id]: https://img.jiguang.cn/docs/2021/jums/server/image/user1.png
 // [Channel Key]: https://img.jiguang.cn/docs/2023/jums/server/assets/16825055309596.jpg
 // [通道编码]: https://img.jiguang.cn/docs/2023/jums/server/assets/16825055860019.jpg

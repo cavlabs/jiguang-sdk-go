@@ -29,10 +29,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 删除设备的别名
-//  - 功能说明：批量解绑设备与别名之间的关系。
-//	- 调用地址：POST `/v3/aliases/{alias}`，`alias` 为指定的别名值；`registrationIDs` 为必填参数，需要和该 `alias` 解除绑定的设备标识 Registration ID 值集合，最多支持 1000 个。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E5%88%A0%E9%99%A4%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D
+// # 删除设备的别名
+//   - 功能说明：批量解绑设备与别名之间的关系。
+//   - 调用地址：POST `/v3/aliases/{alias}`，`alias` 为指定的别名值；`registrationIDs` 为必填参数，需要和该 `alias` 解除绑定的设备标识 Registration ID 值集合，最多支持 1000 个。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E5%88%A0%E9%99%A4%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D
 func (d *apiv3) DeleteAliases(ctx context.Context, alias string, registrationIDs []string) (*AliasesDeleteResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3

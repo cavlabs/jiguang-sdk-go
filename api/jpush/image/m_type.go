@@ -18,7 +18,7 @@
 
 package image
 
-// 图片类型
+// # 图片类型
 type Type int
 
 const (

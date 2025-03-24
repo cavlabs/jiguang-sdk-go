@@ -18,7 +18,7 @@
 
 package options
 
-// 极光 WebPortal 的附加属性。
+// # 极光 WebPortal 的附加属性
 type PortalExtraOptions struct {
 	// 【可选】任务属性。
 	Task string `json:"task,omitempty"`

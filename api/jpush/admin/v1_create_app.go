@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 创建极光 APP
-//  - 功能说明：在开发者账号下创建一个 APP。
-//  - 调用地址：POST `/v1/app`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1#%E5%88%9B%E5%BB%BA%E6%9E%81%E5%85%89-app
+// # 创建极光 APP
+//   - 功能说明：在开发者账号下创建一个 APP。
+//   - 调用地址：POST `/v1/app`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1#%E5%88%9B%E5%BB%BA%E6%9E%81%E5%85%89-app
 func (a *apiv1) CreateApp(ctx context.Context, param *AppCreateParam) (*AppCreateResult, error) {
 	if a == nil {
 		return nil, api.ErrNilJPushAdminAPIv1

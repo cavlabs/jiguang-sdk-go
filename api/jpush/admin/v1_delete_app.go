@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 删除极光 APP
-//  - 功能说明：删除开发者账号下的指定 APP。
-//  - 调用地址：POST `/v1/app/{appKey}/delete`，appKey 为 APP 的唯一标识。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1#app-%E5%88%A0%E9%99%A4
+// # 删除极光 APP
+//   - 功能说明：删除开发者账号下的指定 APP。
+//   - 调用地址：POST `/v1/app/{appKey}/delete`，`appKey` 为 APP 的唯一标识。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1#app-%E5%88%A0%E9%99%A4
 func (a *apiv1) DeleteApp(ctx context.Context, appKey string) (*AppDeleteResult, error) {
 	if a == nil {
 		return nil, api.ErrNilJPushAdminAPIv1

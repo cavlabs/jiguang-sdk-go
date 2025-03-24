@@ -30,10 +30,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jums/message"
 )
 
-// 普通消息 - 其他方式发送
-//  - 功能说明：普通消息发送。
-//  - 调用地址：POST `/v1/sent`
-//  - 接口文档：https://docs.jiguang.cn/jums/server/rest_api_jums_custom_message
+// # 普通消息 - 其他方式发送
+//   - 功能说明：普通消息发送。
+//   - 调用地址：POST `/v1/sent`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/rest_api_jums_custom_message
 func (u *apiv1) Send(ctx context.Context, param *SendParam) (*SendResult, error) {
 	if u == nil {
 		return nil, api.ErrNilJUmsAPIv1

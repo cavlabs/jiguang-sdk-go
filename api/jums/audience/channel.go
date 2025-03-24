@@ -18,7 +18,7 @@
 
 package audience
 
-// [自定义通道] 注册 ID 发送目标。
+// # 【自定义通道】注册 ID 发送目标
 type CustomChannel struct {
 	Instance string   `json:"instance,omitempty"` // 【可选】目标标识，预留字段，目前无效。
 	Data     []string `json:"data"`               // 【必填】通道注册 ID 列表。一次发送最多 1000 个。有效性遵循各通道的要求即可。

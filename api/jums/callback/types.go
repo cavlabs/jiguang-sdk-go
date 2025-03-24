@@ -18,7 +18,7 @@
 
 package callback
 
-// 回调数据类型。
+// # 回调数据类型
 type Type int
 
 const (

@@ -29,10 +29,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 查询别名
-//  - 功能说明：获取指定 alias 下的设备，正常情况下最多输出 10 个，超过 10 个默认输出 10 个。
-//	- 调用地址：GET `/v3/aliases/{alias}`，`alias` 为指定的别名值；`plats` 为可选参数，不填则默认为所有平台。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9F%A5%E8%AF%A2%E5%88%AB%E5%90%8D
+// # 查询别名
+//   - 功能说明：获取指定 alias 下的设备，正常情况下最多输出 10 个，超过 10 个默认输出 10 个。
+//   - 调用地址：GET `/v3/aliases/{alias}`，`alias` 为指定的别名值；`plats` 为可选参数，不填则默认为所有平台。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9F%A5%E8%AF%A2%E5%88%AB%E5%90%8D
 func (d *apiv3) GetAlias(ctx context.Context, alias string, plats ...platform.Platform) (*AliasGetResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3
@@ -67,7 +69,7 @@ type AliasGetResult struct {
 	Data          []AliasGetData `json:"data,omitempty"`
 }
 
-// AliasGetData 查询别名成功返回的数据结构
+// 查询别名成功返回的数据结构
 type AliasGetData struct {
 	RegistrationID string             `json:"registration_id"`  // 设备标识 Registration ID
 	Platform       platform.Platform  `json:"platform"`         // 平台

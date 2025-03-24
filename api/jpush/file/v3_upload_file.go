@@ -30,18 +30,22 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 上传文件 (Alias)
-//  - 功能说明：可以将要推送的 alias 值先写入本地文件，然后将本地文件上传到极光服务器，后续就可以直接指定文件推送了。
-//	- 调用地址：POST `/v3/files/alias`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6
+// # 上传文件 (Alias)
+//   - 功能说明：可以将要推送的 alias 值先写入本地文件，然后将本地文件上传到极光服务器，后续就可以直接指定文件推送了。
+//   - 调用地址：POST `/v3/files/alias`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6
 func (f *apiv3) UploadFileForAlias(ctx context.Context, param *FileUploadParam) (*FileUploadResult, error) {
 	return f.uploadFile(ctx, "alias", param)
 }
 
-// 上传文件 (Registration ID)
-//  - 功能说明：可以将要推送的 Registration ID 值先写入本地文件，然后将本地文件上传到极光服务器，后续就可以直接指定文件推送了。
-//	- 调用地址：POST `/v3/files/registration_id`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6
+// # 上传文件 (Registration ID)
+//   - 功能说明：可以将要推送的 Registration ID 值先写入本地文件，然后将本地文件上传到极光服务器，后续就可以直接指定文件推送了。
+//   - 调用地址：POST `/v3/files/registration_id`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6
 func (f *apiv3) UploadFileForRegistrationID(ctx context.Context, param *FileUploadParam) (*FileUploadResult, error) {
 	return f.uploadFile(ctx, "registration_id", param)
 }

@@ -29,18 +29,22 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 创建签名
-//  - 功能说明：创建短信签名。
-//  - 调用地址：POST `/v1/sign`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign#%E5%88%9B%E5%BB%BA%E7%AD%BE%E5%90%8D-api
+// # 创建签名
+//   - 功能说明：创建短信签名。
+//   - 调用地址：POST `/v1/sign`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign#%E5%88%9B%E5%BB%BA%E7%AD%BE%E5%90%8D-api
 func (s *apiv1) CreateSign(ctx context.Context, param *SignCreateParam) (*SignCreateResult, error) {
 	return s.sign(ctx, 0, param, "create")
 }
 
-// 修改签名
-//  - 功能说明：修改审核不通过的签名，并再次提交审核。
-//  - 调用地址：POST `/v1/sign/{signID}`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign#%E4%BF%AE%E6%94%B9%E7%AD%BE%E5%90%8Dapi
+// # 修改签名
+//   - 功能说明：修改审核不通过的签名，并再次提交审核。
+//   - 调用地址：POST `/v1/sign/{signID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_sign#%E4%BF%AE%E6%94%B9%E7%AD%BE%E5%90%8Dapi
 func (s *apiv1) UpdateSign(ctx context.Context, signID int, param *SignUpdateParam) (*SignUpdateResult, error) {
 	return s.sign(ctx, signID, param, "update")
 }
@@ -132,10 +136,11 @@ type SignCreateParam struct {
 	//  - 3、APP 应用名称或简称：需提供签名所属的任意应用商店的下载链接、APP 软著证明复印件图片及开发者的营业执照复印件图片、对应法人代表的身份证正反面复印件图片，均需加盖公章；
 	//  - 4、公众号小程序全称或简称：需提供签名所属的公众号小程序含主体的页面截图、开发者主体营业执照复印件图片、对应法人代表的身份证正反面复印件图片，均需加盖公章；
 	//  - 5、商标名称全称或简称：需提供签名所属商标注册证书复印件图片及商标主体营业执照复印件图片、对应法人代表身份证正反面复印件图片，均需加盖公章；
-	//  - 6、其他：申请的签名与所属主体不一致或涉及第三方权益时，需提供第三方授权委托书、第三方签名相关资质（详见类型 1-5），【授权委托书格式参考文档】：https://shimo.im/docs/vqqd6wgwhXCtHjC3。
+	//  - 6、其他：申请的签名与所属主体不一致或涉及第三方权益时，需提供第三方授权委托书、第三方签名相关资质（详见类型 1-5），[授权委托书格式参考文档]。
 	// 注意：
 	//  - 如果用户 A 创建自用签名，签名归属主体属于 A，则不涉及第三方权益；
 	//  - 如果用户 A 替公司 B 创建签名，签名归属主体属于公司 B，则涉及第三方权益，需要公司 B 给予 A 授权委托书。公司 B 为授权方，A 为被授权方，并需要加盖公司 B 的公章。
+	// [授权委托书格式参考文档]: https://shimo.im/docs/vqqd6wgwhXCtHjC3
 	Type int `json:"type,omitempty"`
 	// 【可选】上传签名相关的资质证件图片（文件支持 PNG、JPG、JPEG 格式，且每个大小不超过 2M）。
 	Images interface{} `json:"images,omitempty"`

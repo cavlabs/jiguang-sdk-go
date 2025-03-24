@@ -25,7 +25,7 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jsms/callback"
 )
 
-// 获取配置好的回调接口服务。
+// # 获取配置好的回调接口服务
 func (s *apiv1) Callback() (*Callback, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

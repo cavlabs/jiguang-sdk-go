@@ -18,9 +18,14 @@
 
 package liveactivity
 
-// 实时活动内容。
-//   - 实时活动消息要求使用 iOS P8 证书，对应【极光 WebPortal 集成设置中 iOS 鉴权方式需要选择「Token Authentication 配置」】方式：https://docs.jiguang.cn/jpush/console/push_setting/integration_set#ios。
-//   - 详见文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#live_activity%EF%BC%9A%E5%AE%9E%E6%97%B6%E6%B4%BB%E5%8A%A8%E6%B6%88%E6%81%AF。
+// # 实时活动内容
+//
+// 实时活动消息要求使用 iOS P8 证书，对应 [极光 WebPortal 集成设置中 iOS 鉴权方式需要选择「Token Authentication 配置」] 方式。
+//
+// 详见 [docs.jiguang.cn] 文档说明。
+//
+// [极光 WebPortal 集成设置中 iOS 鉴权方式需要选择「Token Authentication 配置」]: https://docs.jiguang.cn/jpush/console/push_setting/integration_set#ios
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#live_activity%EF%BC%9A%E5%AE%9E%E6%97%B6%E6%B4%BB%E5%8A%A8%E6%B6%88%E6%81%AF
 type Message struct {
 	// 【必填】iOS 的实时活动消息。
 	//   - iOS 实时活动消息（Live Activity）JPush 要转发给苹果服务器。苹果要求实时活动消息（ActivityKit）远程推送的动态更新数据大小不超过 4096 字节；
@@ -28,11 +33,13 @@ type Message struct {
 	IOS *IosMessage `json:"ios"`
 }
 
-// iOS 的实时活动消息。
+// # iOS 的实时活动消息
 type IosMessage struct {
 	// 【必填】实时活动事件类型。
 	Event Event `json:"event"`
-	// 【必填】实时活动动态内容，需与客户端 SDK 值匹配（对应 Apple 官方的【content-state 字段】：https://developer.apple.com/documentation/activitykit/updating-and-ending-your-live-activity-with-activitykit-push-notifications）。
+	// 【必填】实时活动动态内容，需与客户端 SDK 值匹配（对应 Apple 官方的 [content-state 字段]）。
+	//
+	// [content-state 字段]: https://developer.apple.com/documentation/activitykit/updating-and-ending-your-live-activity-with-activitykit-push-notifications
 	ContentState map[string]interface{} `json:"content-state"`
 	// 【可选】实时活动属性类型，开发者自定义值，当 Event 为 EventStart 时该参数必填。
 	AttributesType string `json:"attributes-type,omitempty"`
@@ -50,7 +57,7 @@ type IosMessage struct {
 	ApnsPriority int `json:"apns-priority,omitempty"`
 }
 
-// iOS 实时活动通知内容。
+// # iOS 实时活动通知内容
 type IosAlertMessage struct {
 	// 【可选】显示到 Apple Watch 的消息标题。
 	Title string `json:"title,omitempty"`
@@ -62,7 +69,7 @@ type IosAlertMessage struct {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// 实时活动事件类型。
+// # 实时活动事件类型
 type Event string
 
 const (

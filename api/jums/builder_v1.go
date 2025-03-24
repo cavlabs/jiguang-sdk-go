@@ -86,8 +86,10 @@ func (b *APIv1Builder) SetMasterSecret(masterSecret string) *APIv1Builder {
 }
 
 // 【可选】设置 API 的全局访问标识。
-//  - 当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessKey`；
-//  - 参考文档：https://docs.jiguang.cn/jums/server/ums_server_overview#%E9%89%B4%E6%9D%83%E6%96%B9%E5%BC%8F
+//   - 当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessKey`；
+//   - 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/ums_server_overview#%E9%89%B4%E6%9D%83%E6%96%B9%E5%BC%8F
 func (b *APIv1Builder) SetAccessKey(accessKey string) *APIv1Builder {
 	if accessKey == "" {
 		b.err = errors.New("`accessKey` cannot be empty")
@@ -97,8 +99,10 @@ func (b *APIv1Builder) SetAccessKey(accessKey string) *APIv1Builder {
 }
 
 // 【可选】设置 API 的全局访问主密钥。
-//  - 当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessMasterSecret`；
-//  - 参考文档：https://docs.jiguang.cn/jums/server/ums_server_overview#%E9%89%B4%E6%9D%83%E6%96%B9%E5%BC%8F
+//   - 当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessMasterSecret`；
+//   - 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/ums_server_overview#%E9%89%B4%E6%9D%83%E6%96%B9%E5%BC%8F
 func (b *APIv1Builder) SetAccessMasterSecret(accessMasterSecret string) *APIv1Builder {
 	if accessMasterSecret == "" {
 		b.err = errors.New("`accessMasterSecret` cannot be empty")

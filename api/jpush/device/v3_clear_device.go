@@ -28,58 +28,72 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 清空设备的标签
-//  - 功能说明：清空当前设备的 tags 属性。
-//	- 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
+// # 清空设备的标签
+//   - 功能说明：清空当前设备的 tags 属性。
+//   - 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
 func (d *apiv3) ClearDeviceTags(ctx context.Context, registrationID string) (*DeviceClearResult, error) {
 	return d.clearDevice(ctx, registrationID, true, false, false)
 }
 
-// 清空设备的别名
-//  - 功能说明：清空当前设备的 alias 属性。
-//	- 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
+// # 清空设备的别名
+//   - 功能说明：清空当前设备的 alias 属性。
+//   - 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
 func (d *apiv3) ClearDeviceAlias(ctx context.Context, registrationID string) (*DeviceClearResult, error) {
 	return d.clearDevice(ctx, registrationID, false, true, false)
 }
 
-// 清空设备的手机号码
-//  - 功能说明：清空当前设备的 mobile 属性。
-//	- 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
+// # 清空设备的手机号码
+//   - 功能说明：清空当前设备的 mobile 属性。
+//   - 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
 func (d *apiv3) ClearDeviceMobile(ctx context.Context, registrationID string) (*DeviceClearResult, error) {
 	return d.clearDevice(ctx, registrationID, false, false, true)
 }
 
-// 清空设备的标签与别名
-//  - 功能说明：清空当前设备的 tags 与 alias 属性。
-//	- 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
+// # 清空设备的标签与别名
+//   - 功能说明：清空当前设备的 tags 与 alias 属性。
+//   - 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
 func (d *apiv3) ClearDeviceTagsAndAlias(ctx context.Context, registrationID string) (*DeviceClearResult, error) {
 	return d.clearDevice(ctx, registrationID, true, true, false)
 }
 
-// 清空设备的标签与手机号码
-//  - 功能说明：清空当前设备的 tags 和 mobile 属性。
-//	- 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
+// # 清空设备的标签与手机号码
+//   - 功能说明：清空当前设备的 tags 和 mobile 属性。
+//   - 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
 func (d *apiv3) ClearDeviceTagsAndMobile(ctx context.Context, registrationID string) (*DeviceClearResult, error) {
 	return d.clearDevice(ctx, registrationID, true, false, true)
 }
 
-// 清空设备的别名与手机号码
-//  - 功能说明：清空当前设备的 alias 与 mobile 属性。
-//	- 调用地址：POST `/v3/devices/{registrationID}`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
+// # 清空设备的别名与手机号码
+//   - 功能说明：清空当前设备的 alias 与 mobile 属性。
+//   - 调用地址：POST `/v3/devices/{registrationID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
 func (d *apiv3) ClearDeviceAliasAndMobile(ctx context.Context, registrationID string) (*DeviceClearResult, error) {
 	return d.clearDevice(ctx, registrationID, false, true, true)
 }
 
-// 清空设备的标签、别名与手机号码
-//  - 功能说明：清空当前设备的 tags、alias 与 mobile 属性。
-//	- 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
+// # 清空设备的标签、别名与手机号码
+//   - 功能说明：清空当前设备的 tags、alias 与 mobile 属性。
+//   - 调用地址：POST `/v3/devices/{registrationID}`，`registrationID` 为设备标识 Registration ID。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%AE%BE%E7%BD%AE%E8%AE%BE%E5%A4%87%E7%9A%84%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A0%87%E7%AD%BE
 func (d *apiv3) ClearDeviceAll(ctx context.Context, registrationID string) (*DeviceClearResult, error) {
 	return d.clearDevice(ctx, registrationID, true, true, true)
 }
@@ -123,9 +137,9 @@ type deviceClearParam struct {
 }
 
 // newDeviceClearParam 创建一个新的 deviceClearParam 实例。
-//  - clearTags: 是否清空 tags；
-//  - clearAlias: 是否清空 alias；
-//  - clearMobile: 是否清空 mobile。
+//   - clearTags: 是否清空 tags；
+//   - clearAlias: 是否清空 alias；
+//   - clearMobile: 是否清空 mobile。
 func newDeviceClearParam(clearTags, clearAlias, clearMobile bool) *deviceClearParam {
 	param := deviceClearParam{}
 	if clearTags {

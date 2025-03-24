@@ -18,7 +18,7 @@
 
 package notification
 
-// 指定通知点击跳转页面。
+// # 指定通知点击跳转页面
 type Intent struct {
 	// 【必填】指定跳转页面 URL（指定点击通知栏后跳转的目标页面）。
 	//

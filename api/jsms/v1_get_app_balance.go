@@ -26,10 +26,14 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 应用余量查询 (appKey:masterSecret)
-//  - 功能说明：查询应用余量，应用余量指分配给某个应用单独使用的短信余量。
-//  - 调用地址：GET `/v1/accounts/app`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_jsms_api_account#%E5%BA%94%E7%94%A8%E4%BD%99%E9%87%8F%E6%9F%A5%E8%AF%A2-api
+// # 应用余量查询
+//
+// 使用 appKey:masterSecret 认证。
+//   - 功能说明：查询应用余量，应用余量指分配给某个应用单独使用的短信余量。
+//   - 调用地址：GET `/v1/accounts/app`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_jsms_api_account#%E5%BA%94%E7%94%A8%E4%BD%99%E9%87%8F%E6%9F%A5%E8%AF%A2-api
 func (s *apiv1) GetAppBalance(ctx context.Context) (*AppBalanceGetResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

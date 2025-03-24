@@ -27,10 +27,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 批量删除用户信息
-//  - 功能说明：本 API 将删除用户的唯一 ID 及其所绑定的所有信息，请谨慎操作。该操作必须使用全局 accessKey 进行鉴权。
-//  - 调用地址：POST `/v1/user/delete`，userIDs 为要批量删除的用户的唯一标识列表。
-//  - 接口文档：https://docs.jiguang.cn/jums/server/rest_api_jums_user#%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4-api
+// # 批量删除用户信息
+//   - 功能说明：本 API 将删除用户的唯一 ID 及其所绑定的所有信息，请谨慎操作。该操作必须使用全局 accessKey 和 accessMasterSecret 进行鉴权。
+//   - 调用地址：POST `/v1/user/delete`，`userIDs` 为要批量删除的用户的唯一标识列表。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jums/server/rest_api_jums_user#%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4-api
 func (u *apiv1) BatchDeleteUsers(ctx context.Context, userIDs []string) (*UsersBatchDeleteResult, error) {
 	if u == nil {
 		return nil, api.ErrNilJUmsAPIv1

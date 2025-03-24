@@ -24,13 +24,22 @@ import (
 	"time"
 )
 
-// 「短信送达状态」SMS_REPORT 回执数据。
+// # 短信送达状态
+//
+// SMS_REPORT 回执数据。
 type ReportData struct {
-	RawJSON     string    `json:"-"`           // 原始 JSON 数据
-	MsgID       string    `json:"msgId"`       // API 调用的时候返回的 msg_id
-	Status      int       `json:"status"`      // 发送状态返回码，详情参考：https://docs.jiguang.cn/jsms/server/callback#%E5%8F%91%E9%80%81%E7%8A%B6%E6%80%81%E8%BF%94%E5%9B%9E%E7%A0%81
-	Phone       string    `json:"phone"`       // 短信送达手机号
-	ReceiveTime time.Time `json:"receiveTime"` // 短信送达时间
+	// 原始 JSON 数据
+	RawJSON string `json:"-"`
+	// API 调用的时候返回的 msg_id
+	MsgID string `json:"msgId"`
+	// 发送状态返回码，详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/callback#%E5%8F%91%E9%80%81%E7%8A%B6%E6%80%81%E8%BF%94%E5%9B%9E%E7%A0%81
+	Status int `json:"status"`
+	// 短信送达手机号
+	Phone string `json:"phone"`
+	// 短信送达时间
+	ReceiveTime time.Time `json:"receiveTime"`
 }
 
 func (r *ReportData) UnmarshalJSON(data []byte) error {

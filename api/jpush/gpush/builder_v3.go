@@ -83,8 +83,10 @@ func (b *APIv3Builder) SetGroupMasterSecret(groupMasterSecret string) *APIv3Buil
 }
 
 // 【可选】设置 API 的开发者标识。
-//  - 当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devKey`；
-//  - 参考文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file
+//   - 当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devKey`；
+//   - 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file
 func (b *APIv3Builder) SetDevKey(devKey string) *APIv3Builder {
 	if devKey == "" {
 		b.err = errors.New("`devKey` cannot be empty")
@@ -94,8 +96,10 @@ func (b *APIv3Builder) SetDevKey(devKey string) *APIv3Builder {
 }
 
 // 【可选】设置 API 的开发者密钥。
-//  - 当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devSecret`；
-//  - 参考文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file
+//   - 当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devSecret`；
+//   - 详见 [docs.jiguang.cn] 文档说明。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file
 func (b *APIv3Builder) SetDevSecret(devSecret string) *APIv3Builder {
 	if devSecret == "" {
 		b.err = errors.New("`devSecret` cannot be empty")
@@ -111,8 +115,8 @@ func (b *APIv3Builder) SetLogger(logger jiguang.Logger) *APIv3Builder {
 }
 
 // 【可选】设置 API 的 HTTP 日志记录级别，用于指定记录 API 的 HTTP 请求和响应的日志信息的详细程度，默认为 api.HttpLogLevelBasic。
-//  - 可用的级别：api.HttpLogLevelNone、api.HttpLogLevelBasic、api.HttpLogLevelHeaders、api.HttpLogLevelFull；
-//  - 若要禁用 HTTP 日志记录，可使用 DisableHttpLogging。
+//   - 可用的级别：api.HttpLogLevelNone、api.HttpLogLevelBasic、api.HttpLogLevelHeaders、api.HttpLogLevelFull；
+//   - 若要禁用 HTTP 日志记录，可使用 DisableHttpLogging。
 func (b *APIv3Builder) SetHttpLogLevel(httpLogLevel api.HttpLogLevel) *APIv3Builder {
 	b.httpLogLevel = httpLogLevel
 	return b

@@ -20,7 +20,7 @@ package report
 
 import "fmt"
 
-// 消息推送送达状态。
+// # 消息推送送达状态
 type MessageStatus int
 
 const (

@@ -27,10 +27,14 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 账号余量查询 (devKey:devSecret)
-//  - 功能说明：查询账号余量，账号余量指未分配给某个应用，属于账号共享的短信余量。
-//  - 调用地址：GET `/v1/accounts/dev`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_jsms_api_account#%E8%B4%A6%E5%8F%B7%E4%BD%99%E9%87%8F%E6%9F%A5%E8%AF%A2-api
+// # 账号余量查询
+//
+// 使用 devKey:devSecret 认证。
+//   - 功能说明：查询账号余量，账号余量指未分配给某个应用，属于账号共享的短信余量。
+//   - 调用地址：GET `/v1/accounts/dev`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_jsms_api_account#%E8%B4%A6%E5%8F%B7%E4%BD%99%E9%87%8F%E6%9F%A5%E8%AF%A2-api
 func (s *apiv1) GetDevBalance(ctx context.Context) (*DevBalanceGetResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

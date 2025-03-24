@@ -27,19 +27,24 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 文件推送（文件立即推送）
-//  - 功能说明：支持指定文件唯一标识（fileID）进行推送，文件唯一标识（fileID）可以参考 File API v3 的 文件上传接口 获得。
-//	- 调用地址：POST `/v3/push/file`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E6%96%87%E4%BB%B6%E6%8E%A8%E9%80%81-api
+// # 文件推送（文件立即推送）
+//   - 功能说明：支持指定文件唯一标识（fileID）进行推送，文件唯一标识（fileID）可以参考 File API v3 的 文件上传接口 获得。
+//   - 调用地址：POST `/v3/push/file`
+//   - 接口文档：[docs.jiguang.cn]
+//
 // 注意事项：
 //  1. “文件定时推送” 请使用 ScheduleSend 接口；
 //  2. 厂商配额查询 API 接口频率和推送 API 接口频率共享，消耗推送 API 接口频率；
 //  3. 建议创建推送任务 5 分钟后再执行文件删除操作，否则推送任务可能会失败。
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E6%96%87%E4%BB%B6%E6%8E%A8%E9%80%81-api
 func (p *apiv3) SendByFile(ctx context.Context, param *SendParam) (*SendResult, error) {
 	return p.CustomSendByFile(ctx, param)
 }
 
-// 自定义文件推送：如果遇到 SendByFile 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
+// # 自定义文件推送
+//
+// 如果遇到 SendByFile 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
 func (p *apiv3) CustomSendByFile(ctx context.Context, param interface{}) (*SendResult, error) {
 	if p == nil {
 		return nil, api.ErrNilJPushPushAPIv3

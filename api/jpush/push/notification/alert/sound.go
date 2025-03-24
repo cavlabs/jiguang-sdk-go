@@ -18,7 +18,7 @@
 
 package alert
 
-// iOS 消息通知声音。
+// # iOS 消息通知声音
 type IosSound struct {
 	// “重要警告” 标志。设置为 1 以启用 “重要警告”。
 	Critical int `json:"critical"`

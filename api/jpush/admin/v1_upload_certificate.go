@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 极光 APP 证书上传
-//  - 功能说明：上传开发或生产证书到对应的极光 APP。
-//  - 调用地址：POST `/v1/app/{appKey}/certificate`，appKey 为 APP 的唯一标识。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1#%E8%AF%81%E4%B9%A6%E4%B8%8A%E4%BC%A0
+// # 极光 APP 证书上传
+//   - 功能说明：上传开发或生产证书到对应的极光 APP。
+//   - 调用地址：POST `/v1/app/{appKey}/certificate`，`appKey` 为 APP 的唯一标识。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1#%E8%AF%81%E4%B9%A6%E4%B8%8A%E4%BC%A0
 func (a *apiv1) UploadCertificate(ctx context.Context, appKey string, param *CertificateUploadParam) (*CertificateUploadResult, error) {
 	if a == nil {
 		return nil, api.ErrNilJPushAdminAPIv1

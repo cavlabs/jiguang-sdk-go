@@ -18,7 +18,9 @@
 
 package audience
 
-// 文件推送对象，用于指定文件推送。
+// # 文件推送对象
+//
+// 用于指定文件推送。
 type File struct {
 	// 【必填】文件唯一标识，可通过文件上传接口 UploadFileForAlias 或 UploadFileForRegistrationID 获得。
 	FileID string `json:"file_id"`

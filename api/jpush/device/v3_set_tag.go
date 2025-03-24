@@ -29,10 +29,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 更新标签
-//  - 功能说明：为一个标签添加或者删除设备。
-//	- 调用地址：POST `/v3/tags/{tag}`，`tag` 为指定的标签值；`adds`/`removes` 为增加或删除的设备标识 Registration ID 集合，最多各支持 1000 个，不能同时为空。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9B%B4%E6%96%B0%E6%A0%87%E7%AD%BE
+// # 更新标签
+//   - 功能说明：为一个标签添加或者删除设备。
+//   - 调用地址：POST `/v3/tags/{tag}`，`tag` 为指定的标签值；`adds`/`removes` 为增加或删除的设备标识 Registration ID 集合，最多各支持 1000 个，不能同时为空。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%9B%B4%E6%96%B0%E6%A0%87%E7%AD%BE
 func (d *apiv3) SetTag(ctx context.Context, tag string, adds, removes []string) (*TagSetResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3

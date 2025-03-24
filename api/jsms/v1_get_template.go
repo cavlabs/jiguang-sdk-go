@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 查询模板
-//  - 功能说明：查询短信模板。
-//  - 调用地址：GET `/v1/templates/{tempID}`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates#%E6%9F%A5%E8%AF%A2%E6%A8%A1%E6%9D%BF-api
+// # 查询模板
+//   - 功能说明：查询短信模板。
+//   - 调用地址：GET `/v1/templates/{tempID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates#%E6%9F%A5%E8%AF%A2%E6%A8%A1%E6%9D%BF-api
 func (s *apiv1) GetTemplate(ctx context.Context, tempID int64) (*TemplateGetResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

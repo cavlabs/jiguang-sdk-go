@@ -27,13 +27,13 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 回调数据列表。
+// # 回调数据列表
 type DataList struct {
 	RawJSON string `json:"-"`     // 原始 JSON 数据
 	Items   []Data `json:"items"` // 回调参数数据项列表
 }
 
-// 回调数据项。
+// # 回调数据项
 type Data struct {
 	Type           Type                            `json:"type"`                      // 回调数据类型
 	ChannelKey     string                          `json:"channelkey,omitempty"`      // 该条记录所对应的渠道的唯一标识

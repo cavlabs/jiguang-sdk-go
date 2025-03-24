@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 单条定时短信提交
-//  - 功能说明：提交单条模板短信定时发送任务。
-//  - 调用地址：POST `/v1/schedule`
-//  - 接口文档：https://docs.jiguang.cn/jsms/server/rest_api_jsms_schedule#%E5%8D%95%E6%9D%A1%E5%AE%9A%E6%97%B6%E7%9F%AD%E4%BF%A1%E6%8F%90%E4%BA%A4-api
+// # 单条定时短信提交
+//   - 功能说明：提交单条模板短信定时发送任务。
+//   - 调用地址：POST `/v1/schedule`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jsms/server/rest_api_jsms_schedule#%E5%8D%95%E6%9D%A1%E5%AE%9A%E6%97%B6%E7%9F%AD%E4%BF%A1%E6%8F%90%E4%BA%A4-api
 func (s *apiv1) SendSchedule(ctx context.Context, param *ScheduleSendParam) (*ScheduleSendResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJSmsAPIv1

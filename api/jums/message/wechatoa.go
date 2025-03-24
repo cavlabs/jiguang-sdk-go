@@ -18,9 +18,11 @@
 
 package message
 
-// [微信公众号] 消息，包括：
-//  - 模板消息 (0): WechatoaTemplate
-//  - 订阅通知 (1): WechatoaSubscription
+// # 【微信公众号】消息
+//
+// 当前支持以下 2 种消息：
+//   - 模板消息 (0): WechatoaTemplate；
+//   - 订阅通知 (1): WechatoaSubscription。
 type Wechatoa interface {
 	setType() Wechatoa
 	getType() int
@@ -28,7 +30,7 @@ type Wechatoa interface {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// [微信公众号] 模板消息。
+// # 【微信公众号】模板消息
 type WechatoaTemplate struct {
 	// 【必填】消息类型，模板消息类型取值为 0。
 	Type int `json:"type"`
@@ -62,7 +64,7 @@ func (m *WechatoaTemplate) getType() int      { return 0 }
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// [微信公众号] 订阅通知。
+// # 【微信公众号】订阅通知
 type WechatoaSubscription struct {
 	// 【必填】消息类型，订阅通知类型取值为 1。
 	Type int `json:"type"`

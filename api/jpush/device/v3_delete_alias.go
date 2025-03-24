@@ -28,10 +28,12 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/device/platform"
 )
 
-// 删除别名
-//  - 功能说明：删除一个别名，以及该别名与设备的绑定关系。
-//	- 调用地址：DELETE `/v3/aliases/{alias}`，`alias` 为指定的别名值；`plats` 为可选参数，不填则默认为所有平台。
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E5%88%A0%E9%99%A4%E5%88%AB%E5%90%8D
+// # 删除别名
+//   - 功能说明：删除一个别名，以及该别名与设备的绑定关系。
+//   - 调用地址：DELETE `/v3/aliases/{alias}`，`alias` 为指定的别名值；`plats` 为可选参数，不填则默认为所有平台。
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E5%88%A0%E9%99%A4%E5%88%AB%E5%90%8D
 func (d *apiv3) DeleteAlias(ctx context.Context, alias string, plats ...platform.Platform) (*AliasDeleteResult, error) {
 	if d == nil {
 		return nil, api.ErrNilJPushDeviceAPIv3

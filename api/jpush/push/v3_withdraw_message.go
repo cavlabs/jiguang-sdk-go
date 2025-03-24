@@ -27,12 +27,14 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api"
 )
 
-// 推送撤销
-//  - 功能说明：撤销操作首先会从服务端尝试撤销（Android 消息，排队中/发送中状态可以服务端撤销；
-//  iOS 消息，排队中状态可以服务端撤销）；其次，针对 Push SDK（JPush Android SDK v3.5.0 及以上和 JPush iOS SDK v3.2.8 及以上），
-//  会尝试从设备端撤销已展示但未被点击的消息。
-//	- 调用地址：DELETE `/v3/push/{msgID}`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E6%8E%A8%E9%80%81%E6%92%A4%E9%94%80-api
+// # 推送撤销
+//   - 功能说明：撤销操作首先会从服务端尝试撤销（Android 消息，排队中/发送中状态可以服务端撤销；
+//     iOS 消息，排队中状态可以服务端撤销）；其次，针对 Push SDK（JPush Android SDK v3.5.0 及以上和 JPush iOS SDK v3.2.8 及以上），
+//     会尝试从设备端撤销已展示但未被点击的消息。
+//   - 调用地址：DELETE `/v3/push/{msgID}`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E6%8E%A8%E9%80%81%E6%92%A4%E9%94%80-api
 func (p *apiv3) WithdrawMessage(ctx context.Context, msgID string) (*WithdrawMessageResult, error) {
 	if p == nil {
 		return nil, api.ErrNilJPushPushAPIv3

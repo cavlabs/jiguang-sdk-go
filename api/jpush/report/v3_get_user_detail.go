@@ -30,12 +30,14 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 用户统计（VIP）
-//  - 功能说明：提供近 2 个月内某时间段的用户相关统计数据：新增用户、在线用户、活跃用户。
-//  `start` 起始时间，它的时间单位支持：HOUR（小时，格式例：2014-06-11 09）、DAY（天，格式例：2014-06-11）、MONTH（月，格式例：2014-06）。
-//  `duration` 持续时长，如果时间单位是天，则是持续的天数，以此类推；只支持查询 60 天以内的用户信息，对于时间单位为 HOUR 的，只支持输出当天的统计结果。
-//  - 调用地址：GET `/v3/users`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report#%E7%94%A8%E6%88%B7%E7%BB%9F%E8%AE%A1%EF%BC%88vip%EF%BC%89
+// # 用户统计（VIP）
+//   - 功能说明：提供近 2 个月内某时间段的用户相关统计数据：新增用户、在线用户、活跃用户。
+//     `start` 起始时间，它的时间单位支持：HOUR（小时，格式例：2014-06-11 09）、DAY（天，格式例：2014-06-11）、MONTH（月，格式例：2014-06）；
+//     `duration` 持续时长，如果时间单位是天，则是持续的天数，以此类推；只支持查询 60 天以内的用户信息，对于时间单位为 HOUR 的，只支持输出当天的统计结果。
+//   - 调用地址：GET `/v3/users`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report#%E7%94%A8%E6%88%B7%E7%BB%9F%E8%AE%A1%EF%BC%88vip%EF%BC%89
 func (r *apiv3) GetUserDetail(ctx context.Context, start jiguang.UnitTime, duration int) (*UserDetailGetResult, error) {
 	if r == nil {
 		return nil, api.ErrNilJPushReportAPIv3

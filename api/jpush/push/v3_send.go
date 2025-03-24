@@ -28,15 +28,19 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/jiguang"
 )
 
-// 普通推送
-//  - 功能说明：向某单个设备或者某设备列表推送一条通知或者消息。推送的内容只能是 JSON 表示的一个推送对象。
-//	- 调用地址：POST `/v3/push`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push
+// # 普通推送
+//   - 功能说明：向某单个设备或者某设备列表推送一条通知或者消息。推送的内容只能是 JSON 表示的一个推送对象。
+//   - 调用地址：POST `/v3/push`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push
 func (p *apiv3) Send(ctx context.Context, param *SendParam) (*SendResult, error) {
 	return p.CustomSend(ctx, param)
 }
 
-// 自定义推送：如果遇到 Send 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
+// # 自定义推送
+//
+// 如果遇到 Send 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
 func (p *apiv3) CustomSend(ctx context.Context, param interface{}) (*SendResult, error) {
 	if p == nil {
 		return nil, api.ErrNilJPushPushAPIv3
@@ -66,10 +70,12 @@ func (p *apiv3) CustomSend(ctx context.Context, param interface{}) (*SendResult,
 	return result, nil
 }
 
-// 普通推送（SM2 加密）
-//  - 功能说明：向某单个设备或者某设备列表推送一条通知或者消息。推送的内容只能是 JSON 表示的一个推送对象。
-//	- 调用地址：POST `/v3/push`
-//  - 接口文档：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push
+// # 普通推送（SM2 加密）
+//   - 功能说明：向某单个设备或者某设备列表推送一条通知或者消息。推送的内容只能是 JSON 表示的一个推送对象。
+//   - 调用地址：POST `/v3/push`
+//   - 接口文档：[docs.jiguang.cn]
+//
+// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push
 func (p *apiv3) SendWithSM2(ctx context.Context, param *SendParam) (*SendResult, error) {
 	if p == nil {
 		return nil, api.ErrNilJPushPushAPIv3
