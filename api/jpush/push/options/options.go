@@ -83,7 +83,8 @@ type Options struct {
 	// [SDK 如何上报自定义事件]: https://docs.jiguang.cn/public_service/client/Android/sdk_api#%E4%B8%8A%E6%8A%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6
 	TargetEvent []string `json:"target_event,omitempty"`
 	// 【可选】测试消息标识。
-	//  - 指定鸿蒙平台通知和自定义消息推送配置，优先级大于 HMOS 通知体内的 TestMessage 字段（同样适配鸿蒙自定义消息，如果推送鸿蒙自定义消息，请传递此字段）。
+	//  - 指定鸿蒙平台通知和自定义消息推送配置，优先级大于 HMOS 通知体内的 TestMessage 字段（同样适配鸿蒙自定义消息，如果推送鸿蒙自定义消息，请传递此字段）；
+	//  - 请注意区别于 TestMode 功能字段，TestMessage 仅用于适配厂商的测试消息功能，并非表示处于测试模式下推送。
 	TestMessage *bool `json:"test_message,omitempty"`
 	// 【可选】华为回执 ID。
 	//  - 指定鸿蒙平台通知和自定义消息推送配置，优先级大于 HMOS 通知体内的 ReceiptID 字段。
@@ -109,10 +110,16 @@ type Options struct {
 	//  - 需先通过极光 WebPortal 创建计划标识值，创建步骤参考 [推送计划文档]。
 	// [推送计划文档]: https://docs.jiguang.cn/jpush/console/config_manage/push_plan
 	BusinessOperationCode string `json:"business_operation_code,omitempty"`
+	// 【可选】是否测试模式推送。
+	//  - false：正式模式推送消息（默认值），true：测试模式推送消息；
+	//  - 测试模式推送消息仅推送给到测试设备；
+	//  - 功能逻辑可参考文档 [测试模式]。
+	// [测试模式]: https://docs.jiguang.cn/jpush/console/push_manage/testmode
+	TestMode *bool `json:"test_mode,omitempty"`
 	// 【可选】是否设置个性化文案。
 	AlternateSet *bool `json:"alternate_set,omitempty"`
 	// 【可选】地理围栏配置参数。
-	GeoFence map[string]interface{} `json:"geofence,omitempty"`
+	Geofence map[string]interface{} `json:"geofence,omitempty"`
 	// 【可选】极光 WebPortal 的附加属性。
 	PortalExtra *PortalExtraOptions `json:"portal_extra,omitempty"`
 }
