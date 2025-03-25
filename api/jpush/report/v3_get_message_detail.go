@@ -141,6 +141,7 @@ type AndroidStats struct {
 	ASUS    *ChannelStats `json:"asus,omitempty"`       // 华硕厂商通道统计指标
 	FCM     *ChannelStats `json:"fcm,omitempty"`        // FCM 通道统计指标
 	Tuibida *ChannelStats `json:"tuibida,omitempty"`    // 推必达通道统计指标
+	NIO     *ChannelStats `json:"nio,omitempty"`        // 蔚来通道统计指标，2025.01.13 新增
 }
 
 // # iOS 平台的数据汇总统计
@@ -204,6 +205,7 @@ type LegacyAndroidPns struct {
 	VivoDetail   *LegacyChannelStats `json:"vivo_detail,omitempty"`  // 推送到 vivo 通道详情
 	AsusDetail   *LegacyChannelStats `json:"asus_detail,omitempty"`  // 推送到华硕通道详情
 	FcmDetail    *LegacyChannelStats `json:"fcm_detail,omitempty"`   // 推送到 FCM 通道详情
+	NioDetail    *LegacyChannelStats `json:"nio_detail,omitempty"`   // 推送到蔚来通道详情，2025.01.13 新增
 }
 
 // # 推送到厂商通道详情
