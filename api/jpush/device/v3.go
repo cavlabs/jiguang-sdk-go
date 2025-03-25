@@ -124,6 +124,42 @@ type APIv3 interface {
 
 	// -----------------------------------------------------------------------------------------------------------------
 
+	// # 新增测试设备（VIP）
+	//  - 功能说明：新增一个测试设备，确保测试模式下的每次推送仅触达测试用户。
+	//	- 调用地址：POST `/v3/test/model/add`
+	//  - 接口文档：[docs.jiguang.cn]
+	// 详细功能逻辑可参考文档：[测试模式]。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E6%96%B0%E5%A2%9E%E6%B5%8B%E8%AF%95%E8%AE%BE%E5%A4%87
+	// [测试模式]: https://docs.jiguang.cn/jpush/console/push_manage/testmode
+	AddTestDevice(ctx context.Context, param *TestDeviceAddParam) (*TestDeviceAddResult, error)
+
+	// # 修改测试设备（VIP）
+	//  - 功能说明：修改一个指定的测试设备。
+	//	- 调用地址：PUT `/v3/test/model/update`
+	//  - 接口文档：[docs.jiguang.cn]
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E4%BF%AE%E6%94%B9%E6%B5%8B%E8%AF%95%E8%AE%BE%E5%A4%87
+	UpdateTestDevice(ctx context.Context, param *TestDeviceUpdateParam) (*TestDeviceUpdateResult, error)
+
+	// # 删除测试设备（VIP）
+	//  - 功能说明：删除一个指定的测试设备。
+	//	- 调用地址：DELETE `/v3/test/model/delete/{registrationID}`，`registrationID` 为设备标识 Registration ID。
+	//  - 接口文档：[docs.jiguang.cn]
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E5%88%A0%E9%99%A4%E6%B5%8B%E8%AF%95%E8%AE%BE%E5%A4%87
+	DeleteTestDevice(ctx context.Context, registrationID string) (*TestDeviceDeleteResult, error)
+
+	// # 获取测试设备列表（VIP）
+	//  - 功能说明：分页获取测试设备列表。
+	//	- 调用地址：GET `/v3/test/model/list?page={page}&page_size={pageSize}&device_name={deviceName}&registration_id={registrationID}`；
+	//  `page` 为查询页码，`pageSize` 为每页记录条数，`deviceName` 为开发者自定义的设备名称（模糊查询），`registrationID` 为设备标识 Registration ID（精确查询）；
+	//	`page` 和 `pageSize` 不传（为 0）则默认返回所有数据（默认为 1 和 200），二者要么都传（都不为 0），要么两者都不传（都为 0）；
+	//	`deviceName` 和 `registrationID` 只能同时存在其一，如果两者同时存在（都不为空），只会传 `deviceName`。
+	//  - 接口文档：[docs.jiguang.cn]
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device#%E8%8E%B7%E5%8F%96%E6%B5%8B%E8%AF%95%E8%AE%BE%E5%A4%87%E5%88%97%E8%A1%A8
+	ListTestDevices(ctx context.Context, page, pageSize int, deviceName, registrationID string) (*TestDevicesListResult, error)
+
+	// -----------------------------------------------------------------------------------------------------------------
+
 	// # 查询标签列表
 	//  - 功能说明：获取当前应用的所有标签列表，每个平台最多返回 100 个。
 	//	- 调用地址：GET `/v3/tags`
