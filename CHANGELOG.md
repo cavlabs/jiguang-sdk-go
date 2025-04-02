@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.4.1](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.1) - 2025-04-02
+
+### 新特性
+
+- 新增 “测试设备管理” API 的支持；
+- 新增 “测试模式推送” 选项参数；
+- 新增 “蔚来系统通道” 厂商推送参数和统计数据。
+
+---
+
 ## [v0.4.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.0) - 2025-03-24
 
 ### 重构
