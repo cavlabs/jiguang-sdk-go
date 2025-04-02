@@ -247,3 +247,79 @@ func TestDeviceAPIv3_DeleteAliases(t *testing.T) {
 		t.Errorf(">>> IllegalRIDs: %s", result.Error.IllegalRIDs)
 	}
 }
+
+func TestDeviceAPIv3_AddTestDevice(t *testing.T) {
+	deviceName, registrationID := "device_name_1", "registration_id_1"
+	param := &device.TestDeviceAddParam{
+		DeviceName:     deviceName,
+		RegistrationID: registrationID,
+	}
+	result, err := deviceAPIv3.AddTestDevice(context.Background(), param)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	t.Logf("DeviceAPIv3_AddTestDevice: StatusCode: %d, RateLimit: %d, RateRemaining: %d, RateReset: %d.",
+		result.StatusCode, result.RateLimit(), result.RateRemaining(), result.RateReset())
+	if result.IsSuccess() {
+		t.Log("Success!")
+	} else {
+		t.Errorf("Failed! Error: %s", result.Error)
+	}
+}
+
+func TestDeviceAPIv3_UpdateTestDevice(t *testing.T) {
+	deviceName, registrationID := "device_name_1", "registration_id_1"
+	param := &device.TestDeviceUpdateParam{
+		DeviceName:     deviceName,
+		RegistrationID: registrationID,
+	}
+	result, err := deviceAPIv3.UpdateTestDevice(context.Background(), param)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	t.Logf("DeviceAPIv3_UpdateTestDevice: StatusCode: %d, RateLimit: %d, RateRemaining: %d, RateReset: %d.",
+		result.StatusCode, result.RateLimit(), result.RateRemaining(), result.RateReset())
+	if result.IsSuccess() {
+		t.Log("Success!")
+	} else {
+		t.Errorf("Failed! Error: %s", result.Error)
+	}
+}
+
+func TestDeviceAPIv3_DeleteTestDevice(t *testing.T) {
+	registrationID := "registration_id_1"
+	result, err := deviceAPIv3.DeleteTestDevice(context.Background(), registrationID)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	t.Logf("DeviceAPIv3_DeleteTestDevice: StatusCode: %d, RateLimit: %d, RateRemaining: %d, RateReset: %d.",
+		result.StatusCode, result.RateLimit(), result.RateRemaining(), result.RateReset())
+	if result.IsSuccess() {
+		t.Log("Success!")
+	} else {
+		t.Errorf("Failed! Error: %s", result.Error)
+	}
+}
+
+func TestDeviceAPIv3_ListTestDevices(t *testing.T) {
+	page, pageSize := 1, 10
+	deviceName, registrationID := "", ""
+	result, err := deviceAPIv3.ListTestDevices(context.Background(), page, pageSize, deviceName, registrationID)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	t.Logf("DeviceAPIv3_ListTestDevices: StatusCode: %d, RateLimit: %d, RateRemaining: %d, RateReset: %d.",
+		result.StatusCode, result.RateLimit(), result.RateRemaining(), result.RateReset())
+	if result.IsSuccess() {
+		t.Log("Success!")
+		t.Logf(">>> Total: %d", result.Total)
+		t.Logf(">>> Page: %d", result.Page)
+		t.Logf(">>> PageSize: %d", result.PageSize)
+		for i, detail := range result.Detail {
+			t.Logf(">>> %02d、DeviceName: %s, DeviceModel: %s, RegistrationID: %s, RegistrationTime: %s, CreateTime: %s",
+				i+1, detail.DeviceName, detail.DeviceModel, detail.RegistrationID, detail.RegistrationTime, detail.CreateTime)
+		}
+	} else {
+		t.Errorf("Failed! Error: %s", result.Error)
+	}
+}

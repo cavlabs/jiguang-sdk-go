@@ -56,7 +56,7 @@ type Options struct {
 	//  - 未设置则不是定速推送。
 	BigPushDuration int `json:"big_push_duration,omitempty"`
 	// 【可选】推送请求下发通道。
-	//  - 目前只支持 xiaomi、huawei、honor、meizu、oppo、vivo、fcm 类型用户，可以一个或者多个同时存在，未传递的通道类型其对应的厂商下发走「默认下发逻辑」：
+	//  - 目前只支持 xiaomi、huawei、honor、meizu、oppo、vivo、fcm、nio 类型用户，可以一个或者多个同时存在，未传递的通道类型其对应的厂商下发走「默认下发逻辑」：
 	//
 	//  1. 免费用户：Distribution 默认为 secondary_push，DistributionFcm 默认为 secondary_fcm_push；
 	//
@@ -113,7 +113,9 @@ type Options struct {
 	// 【可选】是否测试模式推送。
 	//  - false：正式模式推送消息（默认值），true：测试模式推送消息；
 	//  - 测试模式推送消息仅推送给到测试设备；
-	//  - 功能逻辑可参考文档 [测试模式]。
+	//  - 功能逻辑可参考文档 [测试模式]；
+	//  - 请注意区分区别 TestMessage 字段：TestMessage 仅用于适配厂商的测试消息功能，并非表示处于测试模式下推送；TestMode 则表示请求在极光平台下发消息时就已经控制，消息是否仅下发给到测试设备；
+	//  - 此功能为增值付费服务，需要额外申请权限。
 	// [测试模式]: https://docs.jiguang.cn/jpush/console/push_manage/testmode
 	TestMode *bool `json:"test_mode,omitempty"`
 	// 【可选】是否设置个性化文案。
@@ -133,6 +135,7 @@ type ThirdPartyChannel struct {
 	OPPO   *ThirdPartyChannelOptions `json:"oppo,omitempty"`   // OPPO 通道策略和属性参数。
 	Vivo   *ThirdPartyChannelOptions `json:"vivo,omitempty"`   // vivo 通道策略和属性参数。
 	FCM    *ThirdPartyChannelOptions `json:"fcm,omitempty"`    // FCM 通道策略和属性参数。
+	NIO    *ThirdPartyChannelOptions `json:"nio,omitempty"`    // 蔚来通道策略和属性参数。
 }
 
 // # 推送请求下发通道的策略和属性参数
@@ -161,7 +164,7 @@ type ThirdPartyChannelOptions struct {
 	DistributionCustomize string `json:"distribution_customize,omitempty"`
 
 	// 【可选】通知栏消息分类。
-	//  - 为了适配 小米、华为、OPPO 手机厂商通知栏消息分类，由开发者自行向手机厂商申请，具体申请规则参考 [厂商消息分类使用指南]；
+	//  - 为了适配 小米、华为、OPPO、蔚来 手机厂商通知栏消息分类，由开发者自行向手机厂商申请，具体申请规则参考 [厂商消息分类使用指南]；
 	//  - 注意华为数据处理位置为中国区的应用不支持该字段，详情参见 [华为自定义通知渠道]；
 	//  - Android 下也有 ChannelID 字段，若本字段有填充，则优先使用，若无填充则以 Android 的 ChannelID 的定义为准；
 	//  - 特别注意：由于 OPPO 厂商 2024.11.20 实施 [OPPO 消息分类新规]，建议您同时填写此字段和 Category, NotifyLevel 字段。
@@ -184,7 +187,8 @@ type ThirdPartyChannelOptions struct {
 	//
 	// 关于 Classification 和 SkipQuota 字段说明：
 	//  - 不传递 Classification 字段，但传递 SkipQuota 时，应用是否扣除配额以客户传递的 SkipQuota 为准，需开发者自己管理配额；
-	//  - 传递 Classification 时，会忽略 SkipQuota 值，极光会按照 [厂商系统消息、运营消息分类] 规则自动判断是否扣除配额，帮助开发者管理配额。
+	//  - 传递 Classification 时，会忽略 SkipQuota 值，极光会按照 [厂商系统消息、运营消息分类] 规则自动判断是否扣除配额，帮助开发者管理配额；
+	//  - 蔚来厂商根据该字段确定发送给厂商的 Category 字段，填 0 表示 mobile_marketing（运营消息），填 1 表示 mobile_service（系统消息）。
 	// [具体规则]: https://dev.vivo.com.cn/documentCenter/doc/359
 	// [厂商系统消息、运营消息分类]: https://docs.jiguang.cn/jpush/client/Android/android_channel_id
 	Classification *int `json:"classification,omitempty"`

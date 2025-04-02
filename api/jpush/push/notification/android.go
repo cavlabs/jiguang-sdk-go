@@ -47,7 +47,7 @@ type Android struct {
 	// 【可选】Android 通知 ChannelID。
 	//  - 根据 ChannelID 来指定通知栏展示效果，不超过 1000 字节；
 	//  - Android 8.0 开始可以进行 [NotificationChannel 配置]；
-	//  - Options.ThirdPartyChannel 下的小米、OPPO 和华为厂商参数也有 ChannelID 字段，若有填充，则优先使用，若无填充则以本字段定义为准。
+	//  - Options.ThirdPartyChannel 下的蔚来小米、OPPO 和华为厂商参数也有 ChannelID 字段，若有填充，则优先使用，若无填充则以本字段定义为准。
 	// [NotificationChannel 配置]: https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE
 	ChannelID string `json:"channel_id,omitempty"`
 	// 【可选】通知栏消息分类条目。
