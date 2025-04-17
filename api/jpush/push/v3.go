@@ -35,7 +35,7 @@ type (
 // # Push API v3
 //
 // 【极光推送 > REST API > 推送 API】
-//   - 功能说明：包括普通推送、定时推送、文件推送、批量单推、模板推送、自定义推送等相关 API。
+//   - 功能说明：包括普通推送、定时推送、文件推送、批量单推、模板推送、自定义推送、推送计划管理等相关 API。
 //   - 详见 [docs.jiguang.cn] 文档说明。
 //
 // [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/push
@@ -133,6 +133,30 @@ type APIv3 interface {
 	//
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_advanced#%E5%8E%82%E5%95%86%E9%85%8D%E9%A2%9D%E6%9F%A5%E8%AF%A2-api
 	GetQuota(ctx context.Context) (*QuotaGetResult, error)
+
+	// # 创建推送计划（VIP）
+	//  - 功能说明：API 层面支持按计划推送，具体推送方式参考 [推送计划使用指南]，此接口创建一个推送计划。最多允许创建 1000 个计划。
+	//	- 调用地址：POST `/v3/push_plan/create`
+	//  - 接口文档：[docs.jiguang.cn]
+	// [推送计划使用指南]: https://docs.jiguang.cn/jpush/console/config_manage/push_plan#%E9%80%9A%E8%BF%87-api-%E6%8E%A8%E9%80%81
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_plan#%E5%88%9B%E5%BB%BA%E6%8E%A8%E9%80%81%E8%AE%A1%E5%88%92
+	CreatePlan(ctx context.Context, param *PlanCreateParam) (*PlanCreateResult, error)
+
+	// # 修改推送计划（VIP）
+	//  - 功能说明：用于修改指定推送计划标识的描述。
+	//	- 调用地址：PUT `/v3/push_plan/update`
+	//  - 接口文档：[docs.jiguang.cn]
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_plan#%E4%BF%AE%E6%94%B9%E6%8E%A8%E9%80%81%E8%AE%A1%E5%88%92%E6%8F%8F%E8%BF%B0
+	UpdatePlan(ctx context.Context, param *PlanUpdateParam) (*PlanUpdateResult, error)
+
+	// # 查询推送计划列表（VIP）
+	//  - 功能说明：查询推送计划列表。
+	//	- 调用地址：GET `/v3/push_plan/list?page={page}&page_size={pageSize}&info={info}&send_source={sendSource}`；
+	//	`page` 为查询页码，`pageSize` 为每页记录条数，`info` 表示推送计划或者推送标识，只要其中之一匹配到即可（模糊查询），`sendSource` 为创建来源，0 表示 API，1 表示 web（控制台创建），不传或者非 0 和 1 值表示不区分；
+	//	`page` 和 `pageSize` 不传（为 0）则取默认值（分别为 1 和 50）。
+	//  - 接口文档：[docs.jiguang.cn]
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_plan#%E6%9F%A5%E8%AF%A2%E6%8E%A8%E9%80%81%E8%AE%A1%E5%88%92%E5%88%97%E8%A1%A8
+	ListPlans(ctx context.Context, page, pageSize int, info string, sendSource int) (*PlansListResult, error)
 
 	// ********************* ↓↓↓ 如果遇到此 API 没有及时补充字段的情况，可以自行构建 JSON，调用下面的接口 ↓↓↓ *********************
 

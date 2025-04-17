@@ -107,7 +107,7 @@ type Options struct {
 	//  - 当不使用兜底策略下发时：离线消息到期后未下发的直接丢弃，不区分是否厂商用户。
 	NeedBackup *bool `json:"need_backup,omitempty"`
 	// 【可选】推送计划标识。
-	//  - 需先通过极光 WebPortal 创建计划标识值，创建步骤参考 [推送计划文档]。
+	//  - 需先创建计划标识值，创建步骤参考 [推送计划文档]。
 	// [推送计划文档]: https://docs.jiguang.cn/jpush/console/config_manage/push_plan
 	BusinessOperationCode string `json:"business_operation_code,omitempty"`
 	// 【可选】是否测试模式推送。
