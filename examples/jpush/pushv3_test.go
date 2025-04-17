@@ -466,6 +466,61 @@ func TestPushAPIv3_GetQuota(t *testing.T) {
 	}
 }
 
+func TestPushAPIv3_CreatePlan(t *testing.T) {
+	param := &push.PlanCreateParam{
+		Name:        "test_plan",
+		Description: "test plan description",
+	}
+	result, err := pushAPIv3.CreatePlan(context.Background(), param)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	t.Logf("PushAPIv3_CreatePlan: StatusCode: %d, RateLimit: %d, RateRemaining: %d, RateReset: %d.",
+		result.StatusCode, result.RateLimit(), result.RateRemaining(), result.RateReset())
+	if result.IsSuccess() {
+		t.Log("Success!")
+	} else {
+		t.Errorf("Failed! Error: %s", result.CodeError)
+	}
+}
+
+func TestPushAPIv3_UpdatePlan(t *testing.T) {
+	param := &push.PlanUpdateParam{
+		Name:        "test_plan",
+		Description: "will update test plan description",
+	}
+	result, err := pushAPIv3.UpdatePlan(context.Background(), param)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	t.Logf("PushAPIv3_UpdatePlan: StatusCode: %d, RateLimit: %d, RateRemaining: %d, RateReset: %d.",
+		result.StatusCode, result.RateLimit(), result.RateRemaining(), result.RateReset())
+	if result.IsSuccess() {
+		t.Log("Success!")
+	} else {
+		t.Errorf("Failed! Error: %s", result.CodeError)
+	}
+}
+
+func TestPushAPIv3_ListPlans(t *testing.T) {
+	result, err := pushAPIv3.ListPlans(context.Background(), 1, 10, "test", 0)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	t.Logf("PushAPIv3_ListPlans: StatusCode: %d, RateLimit: %d, RateRemaining: %d, RateReset: %d.",
+		result.StatusCode, result.RateLimit(), result.RateRemaining(), result.RateReset())
+	if result.IsSuccess() {
+		data := result.Data
+		t.Logf("Success! Total: %d, Page: %d, PageSize: %d!", data.Page, data.PageSize, data.Total)
+		for i, d := range data.Detail {
+			t.Logf(">>> %02d、Name: %s, Description: %s, PushCount: %d, CreateTime: %s, LastUsedTime: %s, SendSource: %d",
+				i+1, d.Name, d.Description, d.PushCount, d.CreateTime, d.LastUsedTime, d.SendSource)
+		}
+	} else {
+		t.Errorf("Failed! Error: %s", result.CodeError)
+	}
+}
+
 // 注意：通过 Push API v3 同样可以调用以下接口：
 // UploadFileForAlias、UploadFileForRegistrationID、GetFiles、GetFile、DeleteFile 等接口的使用示例请查看 examples/jpush/filev3_test.go；
 // AddImageByUrl、UpdateImageByUrl、AddImageByFile、UpdateImageByFile 等接口的使用示例请查看 examples/jpush/imagev3_test.go；
