@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.2](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.2) - 2025-04-17
+
+### 新特性
+
+- 新增 “推送计划管理” API 的支持。
+
+---
+
 ## [v0.4.1](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.1) - 2025-04-02
 
 ### 新特性
