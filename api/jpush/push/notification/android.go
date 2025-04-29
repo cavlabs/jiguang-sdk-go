@@ -187,15 +187,18 @@ type Android struct {
 	Sound string `json:"sound,omitempty"`
 	// 【可选】定时展示开始时间。
 	//  - 此属性不填写，SDK 默认立即展示；此属性填写，则以填写时间点为准才开始展示；
-	//  - JPush Android SDK v3.5.0 版本开始支持。
+	//  - JPush Android SDK v3.5.0 版本开始支持；
+	//  - 目前适配的通道有：极光、OPPO、vivo、魅族。
 	ShowBeginTime *jiguang.LocalDateTime `json:"show_begin_time,omitempty"`
 	// 【可选】定时展示结束时间。
 	//  - 此属性不填写，SDK 会一直展示；此属性填写，则以填写时间点为准，到达时间点后取消展示；
-	//  - JPush Android SDK v3.5.0 版本开始支持。
+	//  - JPush Android SDK v3.5.0 版本开始支持；
+	//  - 目前适配的通道有：极光、OPPO、vivo、魅族。
 	ShowEndTime *jiguang.LocalDateTime `json:"show_end_time,omitempty"`
 	// 【可选】APP 在前台，通知是否展示。
 	//  - 值为 "1" 时，APP 在前台会弹出/展示通知栏消息；
-	//  - 值为 "0" 时，APP 在前台不会弹出/展示通知栏消息。
-	// 注：默认情况下 APP 在前台会弹出/展示通知栏消息，JPush Android SDK v3.5.8 版本开始支持。
+	//  - 值为 "0" 时，APP 在前台不会弹出/展示通知栏消息；
+	//  - 默认情况下 APP 在前台会弹出/展示通知栏消息，JPush Android SDK v3.5.8 版本开始支持；
+	//  - 目前适配的通道有：极光、华为、小米、vivo。
 	DisplayForeground string `json:"display_foreground,omitempty"`
 }

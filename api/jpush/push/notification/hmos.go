@@ -86,4 +86,9 @@ type HMOS struct {
 	//  - 对应华为 extraData 字段，当 PushType = hmos.PushTypeExtension 或 PushType = hmos.PushTypeAlert 时生效，此时是必填的，
 	//  PushType = hmos.PushTypeAlert 时忽略此字段。
 	ExtraData string `json:"extra_data,omitempty"`
+	// 【可选】APP 在前台，通知是否展示。
+	//  - 值为 "1" 时，APP 在前台会弹出/展示通知栏消息；
+	//  - 值为 "0" 时，APP 在前台不会弹出/展示通知栏消息；
+	//  - 默认情况下 APP 在前台会弹出/展示通知栏消息。
+	DisplayForeground string `json:"display_foreground,omitempty"`
 }
