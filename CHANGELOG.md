@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.4.3](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.3) - 2025-05-09
+
+### 新特性
+
+- “HMOS 通道通知” 增加 “前台展示控制” 字段；
+- “批量推送参数” 增加可选的 “自定义消息转厂商通知内容” 字段。
+
+### 优化
+- 添加重试机制（示例），更新 HTTP 客户端配置。
+
+---
+
 ## [v0.4.2](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.2) - 2025-04-17
 
 ### 新特性

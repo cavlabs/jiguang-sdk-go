@@ -19,4 +19,4 @@
 package sdk
 
 // 当前极光 SDK 的版本号。
-const Version = "v0.4.2"
+const Version = "v0.4.3"
