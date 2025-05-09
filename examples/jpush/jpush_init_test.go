@@ -21,6 +21,7 @@ package jpush
 import (
 	"os"
 	"testing"
+	"time"
 
 	"github.com/calvinit/jiguang-sdk-go/api"
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/admin"
@@ -33,6 +34,7 @@ import (
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/report"
 	"github.com/calvinit/jiguang-sdk-go/api/jpush/schedule"
 	"github.com/calvinit/jiguang-sdk-go/examples/adapter"
+	"github.com/hashicorp/go-retryablehttp"
 )
 
 var (
@@ -63,6 +65,18 @@ func TestMain(m *testing.M) {
 	// logger := adapter.NewZapLogger("[JPush]")
 	logger := adapter.NewZeroLogger("[JPush] ")
 
+	retryClient := retryablehttp.NewClient()
+	retryClient.RetryMax = 2
+	retryClient.Logger = nil
+	retryClient.HTTPClient.Timeout = 30 * time.Second
+	/*retryClient.HTTPClient.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true, // 忽略 SSL 证书验证
+		},
+		ForceAttemptHTTP2: true,
+	}*/
+	client := retryClient.StandardClient() // *http.Client
+
 	// ###################### ↓↓↓ 此为演示数据，请替换成真实数据 ↓↓↓ ######################
 
 	// devKey := os.Getenv("JPUSH_DEV_KEY")
@@ -84,7 +98,7 @@ func TestMain(m *testing.M) {
 
 	// 应用管理 - Admin API v1
 	adminAPIv1, _ = admin.NewAPIv1Builder().
-		// SetClient(client).                     // 【可选】配置，如果不配置，则使用默认的 api.DefaultClient。
+		SetClient(client).                     // 【可选】配置，如果不配置，则使用默认的 api.DefaultClient。
 		SetDevKey(devKey).                     // 【必填】配置。
 		SetDevSecret(devSecret).               // 【必填】配置。
 		SetLogger(logger).                     // 【可选】配置，如果不配置，则使用默认的 api.DefaultJPushLogger。
@@ -93,7 +107,7 @@ func TestMain(m *testing.M) {
 
 	// 设备/标签/别名 - Device API v3
 	deviceAPIv3, _ = device.NewAPIv3Builder().
-		// SetClient(client).
+		SetClient(client).
 		SetAppKey(appKey).             // 【必填】配置。
 		SetMasterSecret(masterSecret). // 【必填】配置。
 		SetLogger(logger).
@@ -102,7 +116,7 @@ func TestMain(m *testing.M) {
 
 	// 推送 - Push API v3
 	pushAPIv3, _ = push.NewAPIv3Builder().
-		// SetClient(client).
+		SetClient(client).
 		SetAppKey(appKey).             // 【必填】配置。
 		SetMasterSecret(masterSecret). // 【必填】配置。
 		SetLogger(logger).
@@ -111,7 +125,7 @@ func TestMain(m *testing.M) {
 
 	// 分组推送 - Group Push API v3
 	gpushAPIv3, _ = gpush.NewAPIv3Builder().
-		// SetClient(client).
+		SetClient(client).
 		SetGroupKey(groupKey).                   // 【必填】配置。
 		SetGroupMasterSecret(groupMasterSecret). // 【必填】配置。
 		SetDevKey(devKey).                       // 【可选】配置，但当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devKey`。
@@ -122,7 +136,7 @@ func TestMain(m *testing.M) {
 
 	// 定时任务 - Schedule API v3
 	scheduleAPIv3, _ = schedule.NewAPIv3Builder().
-		// SetClient(client).
+		SetClient(client).
 		SetAppKey(appKey).             // 【必填】配置。
 		SetMasterSecret(masterSecret). // 【必填】配置。
 		SetLogger(logger).
@@ -131,7 +145,7 @@ func TestMain(m *testing.M) {
 
 	// 文件管理 - File API v3
 	fileAPIv3, _ = file.NewAPIv3Builder().
-		// SetClient(client).
+		SetClient(client).
 		SetAuthKey(appKey).          // 【必填】配置，可使用 `appKey` 或者 `devKey`。
 		SetAuthSecret(masterSecret). // 【必填】配置，可使用 `masterSecret` 或者 `devSecret`。
 		SetLogger(logger).
@@ -140,7 +154,7 @@ func TestMain(m *testing.M) {
 
 	// 图片管理 - Image API v3
 	imageAPIv3, _ = image.NewAPIv3Builder().
-		// SetClient(client).
+		SetClient(client).
 		SetAppKey(appKey).             // 【必填】配置。
 		SetMasterSecret(masterSecret). // 【必填】配置。
 		SetLogger(logger).
@@ -149,7 +163,7 @@ func TestMain(m *testing.M) {
 
 	// 推送统计 - Report API v3
 	reportAPIv3, _ = report.NewAPIv3Builder().
-		// SetClient(client).
+		SetClient(client).
 		SetAppKey(appKey).             // 【必填】配置。
 		SetMasterSecret(masterSecret). // 【必填】配置。
 		SetLogger(logger).
@@ -158,7 +172,7 @@ func TestMain(m *testing.M) {
 
 	// 分组推送统计 - Group Report API v3
 	greportAPIv3, _ = greport.NewAPIv3Builder().
-		// SetClient(client).
+		SetClient(client).
 		SetGroupKey(groupKey).                   // 【必填】配置。
 		SetGroupMasterSecret(groupMasterSecret). // 【必填】配置。
 		SetLogger(logger).
