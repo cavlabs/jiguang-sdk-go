@@ -110,6 +110,10 @@ type BatchPushParam struct {
 	//
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#message%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF。
 	CustomMessage *message.Custom `json:"message,omitempty"`
+	// 【可选】自定义消息转厂商通知内容。与 CustomMessage 一起使用。
+	//  - 详见 [docs.jiguang.cn] 文档说明。
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
+	ThirdNotification *notification.Third `json:"notification_3rd,omitempty"`
 	// 【可选】短信渠道补充送达内容，详见 [docs.jiguang.cn] 文档说明。
 	//
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#sms_message%EF%BC%9A%E7%9F%AD%E4%BF%A1。
