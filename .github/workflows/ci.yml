@@ -37,7 +37,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: ./go.mod
-          cache: true
+          cache: false
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v8
@@ -75,7 +75,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
-          cache: true
+          cache: false
 
       - name: Modify go.mod for compatibility test
         run: |
