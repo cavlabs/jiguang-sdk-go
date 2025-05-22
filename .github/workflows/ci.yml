@@ -1,4 +1,4 @@
-name: Lint and Test
+name: CI (Lint and Test)
 on:
   push:
     branches:
@@ -20,7 +20,7 @@ on:
       - 'scripts/**'
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.go-version || 'lint' }}
+  group: ${{ github.workflow }}-${{ github.job }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
