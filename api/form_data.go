@@ -93,7 +93,7 @@ func (ff FormFile) process(fv *FileValidator, writer *multipart.Writer) error {
 		if err != nil {
 			return err
 		}
-		defer f.Close()
+		defer func() { _ = f.Close() }()
 		fileReader = f
 		if fileName == "" {
 			fileName = filepath.Base(file)

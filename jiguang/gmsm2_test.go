@@ -45,7 +45,7 @@ func sprintB64PubKey(pubKey *sm2.PublicKey) string {
 
 	// (0, 0) is the point at infinity by convention. It's ok to operate on it,
 	// although IsOnCurve is documented to return false for it. See Issue 37294.
-	if !(x.Sign() == 0 && y.Sign() == 0) && !curve.IsOnCurve(x, y) {
+	if (x.Sign() != 0 || y.Sign() != 0) && !curve.IsOnCurve(x, y) {
 		panic("gmsm2: attempted operation on invalid point")
 	}
 
@@ -63,8 +63,8 @@ func sprintB64PubKey(pubKey *sm2.PublicKey) string {
 // 将 SM2 私钥打印为可复现格式
 func sprintPrivKey(privKey *sm2.PrivateKey) string {
 	dHex := hex.EncodeToString(privKey.D.Bytes())
-	xHex := hex.EncodeToString(privKey.PublicKey.X.Bytes())
-	yHex := hex.EncodeToString(privKey.PublicKey.Y.Bytes())
+	xHex := hex.EncodeToString(privKey.X.Bytes())
+	yHex := hex.EncodeToString(privKey.Y.Bytes())
 
 	return fmt.Sprintf("私钥 (D): %s\n公钥 (X, Y):\nX: %s\nY: %s\n", dHex, xHex, yHex)
 }

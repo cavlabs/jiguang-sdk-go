@@ -44,8 +44,8 @@ func (u *apiv1) BroadcastSend(ctx context.Context, param *BroadcastSendParam) (*
 		return nil, errors.New("`param` cannot be nil")
 	}
 
-	if len(param.Message.DingtalkCC) > 0 {
-		for i, dingtalkCC := range param.Message.DingtalkCC {
+	if len(param.DingtalkCC) > 0 {
+		for i, dingtalkCC := range param.DingtalkCC {
 			dingtalkCCMsg := dingtalkCC.Msg
 			if dingtalkCCMsg == nil {
 				return nil, fmt.Errorf("msg_dingtalk_cc.[%d].msg cannot be nil", i)
@@ -56,8 +56,8 @@ func (u *apiv1) BroadcastSend(ctx context.Context, param *BroadcastSendParam) (*
 		}
 	}
 
-	if len(param.Message.Wechatwk) > 0 {
-		for _, wechatwk := range param.Message.Wechatwk {
+	if len(param.Wechatwk) > 0 {
+		for _, wechatwk := range param.Wechatwk {
 			if err := wechatwk.Validate(); err != nil {
 				return nil, err
 			}

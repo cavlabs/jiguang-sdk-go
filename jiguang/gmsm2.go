@@ -107,9 +107,9 @@ func desm2PrivKey(b64PrivKey string) (*sm2.PrivateKey, error) {
 	// 使用 sm2p256v1 曲线
 	curve := sm2.P256Sm2()
 	privKey := new(sm2.PrivateKey)
-	privKey.D = new(big.Int).SetBytes(privKeyBytes)                               // 将字节数组转换为大整数
-	privKey.PublicKey.Curve = curve                                               // 设置公钥曲线
-	privKey.PublicKey.X, privKey.PublicKey.Y = curve.ScalarBaseMult(privKeyBytes) // 计算公钥坐标
+	privKey.D = new(big.Int).SetBytes(privKeyBytes)           // 将字节数组转换为大整数
+	privKey.Curve = curve                                     // 设置公钥曲线
+	privKey.X, privKey.Y = curve.ScalarBaseMult(privKeyBytes) // 计算公钥坐标
 
 	return privKey, nil
 }

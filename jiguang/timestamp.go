@@ -45,7 +45,7 @@ func (t *Timestamp) UnmarshalJSON(data []byte) (err error) {
 	ts, err := strconv.ParseInt(v, 10, 64)
 	if err == nil {
 		*t = Timestamp{time.Unix(ts, 0)}
-		if t.Time.Year() > 3000 { // 处理时间戳为毫秒的情况
+		if t.Year() > 3000 { // 处理时间戳为毫秒的情况
 			*t = Timestamp{time.Unix(0, ts*1e6)}
 		}
 	} else {
@@ -68,7 +68,7 @@ func (t Timestamp) MarshalJSON() ([]byte, error) {
 	if t.IsZero() {
 		return []byte("null"), nil
 	}
-	return json.Marshal(t.Time.Unix())
+	return json.Marshal(t.Unix())
 }
 
 func (t *Timestamp) GetTime() *time.Time {
@@ -87,9 +87,9 @@ func (t Timestamp) Equal(u Timestamp) bool {
 }
 
 func (t Timestamp) Format() string {
-	return strconv.FormatInt(t.Time.Unix(), 10)
+	return strconv.FormatInt(t.Unix(), 10)
 }
 
 func (t Timestamp) String() string {
-	return strconv.FormatInt(t.Time.Unix(), 10)
+	return strconv.FormatInt(t.Unix(), 10)
 }
