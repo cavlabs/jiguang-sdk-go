@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.4](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.4) - 2025-05-22
+
+### 新特性
+
+- 【JPush】“自定义消息转厂商通知” 支持 v2 版本。
+
+---
+
 ## [v0.4.3](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.3) - 2025-05-09
 
 ### 新特性

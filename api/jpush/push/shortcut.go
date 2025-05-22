@@ -84,7 +84,7 @@ type (
 	HmosNotification = notification.HMOS
 	// # 快应用平台上的通知
 	QuickAppNotification = notification.QuickApp
-	// # 自定义消息转厂商通知内容
+	// # 自定义消息转厂商通知内容（v1 版本）
 	//
 	// Push API 发起自定义消息类型的推送请求时，针对 Android 设备，如果 APP 长连接不在线，则消息没法及时的下发，针对这种情况，极光推出了 “自定义消息转厂商通知” 的功能。
 	//
@@ -93,8 +93,23 @@ type (
 	//
 	// 详见 [docs.jiguang.cn] 文档说明。
 	//
-	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5。
+	// Deprecated: 已过时，推荐使用 ThirdNotificationV2。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
 	ThirdNotification = notification.Third
+	// # 自定义消息转厂商通知内容（v2 版本）
+	//
+	// Push API 发起自定义消息类型的推送请求时，针对 Android 设备，如果 APP 长连接不在线，则消息没法及时的下发，针对这种情况，极光推出了 “自定义消息转厂商通知” 的功能。
+	//
+	// 也就是说，针对用户一些重要的自定义消息，可以申请开通极光 VIP 厂商通道功能，开通后，通过 APP 长连接不在线时没法及时下发的消息，可以通过厂商通道下发以厂商通知形式展示，及时提醒到用户。
+	// 极光内部会有去重处理，您不用担心消息重复下发问题。
+	//
+	// Android、IOS、HMOS 三者必须有其一，可以三者并存！
+	//
+	// 详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
+	ThirdNotificationV2 = notification.ThirdV2
 	// # 指定通知点击跳转页面
 	NotificationIntent = notification.Intent
 

@@ -71,9 +71,12 @@ type Param struct {
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#inapp_message%EF%BC%9A%E5%BA%94%E7%94%A8%E5%86%85%E5%A2%9E%E5%BC%BA%E6%8F%90%E9%86%92
 	InApp *message.InApp `json:"inapp_message,omitempty"`
 	// 【可选】自定义消息转厂商通知内容。与 CustomMessage 一起使用。
-	//  - 详见 [docs.jiguang.cn] 文档说明。
+	//  - v1 版本选 *push.ThirdNotification，v2 版本选 *push.ThirdNotificationV2；
+	//  - 推荐使用 v2 版本，此时 Options 的 Notification3rdVer 字段必须指定为 v2；
+	// 详见 [docs.jiguang.cn] 文档说明。
+	//
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
-	ThirdNotification *notification.Third `json:"notification_3rd,omitempty"`
+	ThirdNotification interface{} `json:"notification_3rd,omitempty"`
 	// 【可选】短信渠道补充送达内容。
 	//  - 详见 [docs.jiguang.cn] 文档说明。
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#sms_message%EF%BC%9A%E7%9F%AD%E4%BF%A1
