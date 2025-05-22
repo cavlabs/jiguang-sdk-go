@@ -1,0 +1,113 @@
+name: Lint and Test
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.go'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/**'
+      - 'scripts/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/*.go'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/**'
+      - 'scripts/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.go-version || 'lint' }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ./go.mod
+          cache: true
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.1
+
+      - name: Check tidy state
+        run: |
+          go mod tidy
+          diff_files="go.mod"
+          [ -f go.sum ] && diff_files="$diff_files go.sum"
+          
+          if ! git diff --exit-code $diff_files > /dev/null; then
+            echo "❌ ERROR: go.mod or go.sum is not tidy. Please run 'go mod tidy' and commit the changes!"
+            git --no-pager diff $diff_files
+            exit 1
+          else
+            echo "✅ go.mod and go.sum are tidy."
+          fi
+
+  test:
+    name: Test (Go ${{ matrix.go-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        # See issue #507 of [actions/setup-go] for the reason why we are wrapping the version in single quotation marks.
+        go-version: [ '1.16', '1.17', '1.18', '1.19', '1.20', '1.21', '1.22', '1.23', '1.24' ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache: true
+
+      - name: Modify go.mod for compatibility test
+        run: |
+          cp go.mod go.mod.bak
+          go mod edit -go=${{ matrix.go-version }}
+
+      - name: Build for compatibility
+        run: go build -v ./...
+
+      - name: Execute pre-test scripts (if any)
+        run: |
+          echo "Looking for pre-test scripts in 'scripts'..."
+          for script in ./scripts/pre-test_*; do
+            [ -e "$script" ] || continue
+            echo "Running $script"
+            chmod +x "$script"
+            ./$script
+          done
+
+      - name: Run tests (for compatibility mainly)
+        run: go test -v ./...
+
+      - name: Execute post-test scripts (if any)
+        run: |
+          echo "Looking for post-test scripts in 'scripts'..."
+          for script in ./scripts/post-test_*; do
+            [ -e "$script" ] || continue
+            echo "Running $script"
+            chmod +x "$script"
+            ./$script
+          done
+
+      - name: Restore go.mod after compatibility test
+        if: always()
+        run: mv go.mod.bak go.mod
