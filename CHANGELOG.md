@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.6](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.6) - 2025-05-22
+
+### 优化
+
+- 优化项目 GitHub 工作流，支持按标签自动化版本发布。
+
+---
+
 ## [v0.4.5](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.5) - 2025-05-22
 
 ### 优化
@@ -7,7 +15,6 @@
 - 添加 golangci-lint 配置，优化代码静态检查和错误处理。
 
 ---
-
 
 ## [v0.4.4](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.4) - 2025-05-22
 
@@ -25,6 +32,7 @@
 - “批量推送参数” 增加可选的 “自定义消息转厂商通知内容” 字段。
 
 ### 优化
+
 - 添加重试机制（示例），更新 HTTP 客户端配置。
 
 ---
