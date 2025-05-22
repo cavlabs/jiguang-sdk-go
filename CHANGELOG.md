@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.4.5](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.5) - 2025-05-22
+
+### 优化
+
+- 添加 golangci-lint 配置，优化代码静态检查和错误处理。
+
+---
+
+
 ## [v0.4.4](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.4) - 2025-05-22
 
 ### 新特性
