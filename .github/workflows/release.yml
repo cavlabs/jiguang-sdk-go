@@ -1,0 +1,83 @@
+name: Release
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v1.2.3)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Determine release tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+            echo "ℹ️ Triggered manually, using provided tag: $TAG."
+          else
+            TAG="${GITHUB_REF#refs/tags/}"
+            echo "ℹ️ Triggered by tag push, using inferred tag: $TAG."
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Verify tag exists in Git
+        run: |
+          TAG=${{ steps.tag.outputs.tag }}
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "✅ Tag '$TAG' exists."
+          else
+            echo "❌ ERROR: Tag '$TAG' does not exist in this repository!"
+            exit 1
+          fi
+
+      - name: Check if release already exists
+        id: check_release
+        run: |
+          TAG=${{ steps.tag.outputs.tag }}
+          echo "Checking if release for $TAG exists..."
+
+          RELEASE_URL="https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG"
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "$RELEASE_URL")
+
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "✅ Release already exists for tag $TAG, skipping!"
+            echo "release_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "🔄 No existing release for tag $TAG, continuing..."
+            echo "release_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract CHANGELOG for tag
+        id: changelog
+        if: steps.check_release.outputs.release_exists == 'false'
+        run: |
+          chmod +x ./scripts/release-extract_changelog.sh
+          changelog=$(./scripts/release-extract_changelog.sh ${{ steps.tag.outputs.tag }} ${{ github.repository }})
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$changelog" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        if: steps.check_release.outputs.release_exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
+          body: ${{ steps.changelog.outputs.notes }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
