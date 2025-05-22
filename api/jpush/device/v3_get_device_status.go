@@ -108,7 +108,7 @@ func (rs *DeviceStatusGetResult) UnmarshalJSON(data []byte) error {
 		rs.Result = make(map[string]DeviceStatusResult)
 		for k, v := range aux {
 			// not null
-			if !(len(v) == 4 && v[0] == 'n' && v[1] == 'u' && v[2] == 'l' && v[3] == 'l') {
+			if len(v) != 4 || v[0] != 'n' || v[1] != 'u' || v[2] != 'l' || v[3] != 'l' {
 				var result DeviceStatusResult
 				if err := json.Unmarshal(v, &result); err != nil {
 					return err

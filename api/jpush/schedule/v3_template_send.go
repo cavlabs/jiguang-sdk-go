@@ -207,7 +207,7 @@ func (rs *TemplatePushDetail) UnmarshalJSON(data []byte) error {
 
 	if v, ok := aux["schedule_id"]; ok {
 		// not null
-		if !(len(v) == 4 && v[0] == 'n' && v[1] == 'u' && v[2] == 'l' && v[3] == 'l') {
+		if len(v) != 4 || v[0] != 'n' || v[1] != 'u' || v[2] != 'l' || v[3] != 'l' {
 			// 去掉字符串头尾的 `"`
 			rs.ScheduleID = strings.Trim(string(v), `"`)
 		}
@@ -215,7 +215,7 @@ func (rs *TemplatePushDetail) UnmarshalJSON(data []byte) error {
 
 	if v, ok := aux["trace_id"]; ok {
 		// not null
-		if !(len(v) == 4 && v[0] == 'n' && v[1] == 'u' && v[2] == 'l' && v[3] == 'l') {
+		if len(v) != 4 || v[0] != 'n' || v[1] != 'u' || v[2] != 'l' || v[3] != 'l' {
 			// 去掉字符串头尾的 `"`
 			rs.TraceID = strings.Trim(string(v), `"`)
 		}

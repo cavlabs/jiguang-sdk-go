@@ -78,7 +78,7 @@ func (h defaultHandler) Callback(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "failed to read request body", http.StatusBadRequest)
 			return
 		}
-		defer r.Body.Close()
+		defer func() { _ = r.Body.Close() }()
 
 		list := DataList{RawJSON: string(body)}
 		if err = json.Unmarshal(body, &list.Items); err != nil {
