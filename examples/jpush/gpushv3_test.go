@@ -133,8 +133,8 @@ func TestGroupPushAPIv3_Send(t *testing.T) {
 	liveActivityIos.DismissalDate = 1168364460
 	param.LiveActivity = &push.LiveActivityMessage{IOS: liveActivityIos}
 
-	// 自定义消息转厂商通知内容
-	notification3rd := &push.ThirdNotification{}
+	// 自定义消息转厂商通知内容（v1 版本）
+	/*notification3rd := &push.ThirdNotification{} // Deprecated: 已过时，推荐使用 ThirdNotificationV2
 	notification3rd.Content = "Hi, JPush!"
 	notification3rd.Title = "msg"
 	notification3rd.ChannelID = "channel001"
@@ -144,7 +144,14 @@ func TestGroupPushAPIv3_Send(t *testing.T) {
 	notification3rd.BadgeSetNum = jiguang.Int(1)
 	notification3rd.BadgeClass = "com.test.badge.MainActivity"
 	notification3rd.Sound = "sound"
-	notification3rd.Extras = map[string]interface{}{"news_id": 134, "my_key": "a value"}
+	notification3rd.Extras = map[string]interface{}{"news_id": 134, "my_key": "a value"}*/
+
+	// 自定义消息转厂商通知内容（v2 版本）
+	notification3rd := &push.ThirdNotificationV2{} // 推荐使用 v2 版本
+	notification3rd.Android = android              // customize yourself, here only for example
+	notification3rd.IOS = ios                      // customize yourself, here only for example
+	notification3rd.HMOS = hmos                    // customize yourself, here only for example
+
 	param.ThirdNotification = notification3rd
 
 	// 短信
@@ -167,6 +174,7 @@ func TestGroupPushAPIv3_Send(t *testing.T) {
 	}
 	options.ThirdPartyChannel = &push.ThirdPartyChannel{Huawei: huaweiChannelOptions}
 	// options.PortalExtra = &push.PortalExtraOptions{Task: "group-task001"}
+	options.Notification3rdVer = "v2" // v1 版本填 "v1"，v2 版本填 "v2"
 	param.Options = options
 
 	// 回调

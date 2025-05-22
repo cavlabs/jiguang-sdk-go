@@ -124,6 +124,14 @@ type Options struct {
 	Geofence map[string]interface{} `json:"geofence,omitempty"`
 	// 【可选】极光 WebPortal 的附加属性。
 	PortalExtra *PortalExtraOptions `json:"portal_extra,omitempty"`
+	// 【可选】自定义消息转厂商通知功能版本。
+	//  - 可选值：v1、v2，为空则默认使用 v1 版本，如果使用 v2 版本则必须指定此字段值；
+	//  - 推荐使用 v2 版本，支持 Android、iOS、HarmonyOS 三个平台；
+	//  - v1 版本仅支持 Android 平台，且后续将不再拓展支持新功能字段，仅维持现状。
+	// 详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
+	Notification3rdVer string `json:"notification_3rd_ver,omitempty"`
 }
 
 // # 推送请求下发通道
