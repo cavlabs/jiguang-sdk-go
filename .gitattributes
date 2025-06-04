@@ -1,0 +1,4 @@
+.githooks/** linguist-vendored
+examples/** linguist-vendored
+scripts/** linguist-vendored
+third_party/** linguist-vendored
