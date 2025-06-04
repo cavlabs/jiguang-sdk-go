@@ -84,7 +84,7 @@ type Options struct {
 	TargetEvent []string `json:"target_event,omitempty"`
 	// 【可选】测试消息标识。
 	//  - 指定鸿蒙平台通知和自定义消息推送配置，优先级大于 HMOS 通知体内的 TestMessage 字段（同样适配鸿蒙自定义消息，如果推送鸿蒙自定义消息，请传递此字段）；
-	//  - 请注意区别于 TestMode 功能字段，TestMessage 仅用于适配厂商的测试消息功能，并非表示处于测试模式下推送。
+	//  - 请注意区别于 TestModel 功能字段，TestMessage 仅用于适配厂商的测试消息功能，并非表示处于测试模式下推送。
 	TestMessage *bool `json:"test_message,omitempty"`
 	// 【可选】华为回执 ID。
 	//  - 指定鸿蒙平台通知和自定义消息推送配置，优先级大于 HMOS 通知体内的 ReceiptID 字段。
@@ -114,10 +114,10 @@ type Options struct {
 	//  - false：正式模式推送消息（默认值），true：测试模式推送消息；
 	//  - 测试模式推送消息仅推送给到测试设备；
 	//  - 功能逻辑可参考文档 [测试模式]；
-	//  - 请注意区分区别 TestMessage 字段：TestMessage 仅用于适配厂商的测试消息功能，并非表示处于测试模式下推送；TestMode 则表示请求在极光平台下发消息时就已经控制，消息是否仅下发给到测试设备；
+	//  - 请注意区分区别 TestMessage 字段：TestMessage 仅用于适配厂商的测试消息功能，并非表示处于测试模式下推送；TestModel 则表示请求在极光平台下发消息时就已经控制，消息是否仅下发给到测试设备；
 	//  - 此功能为增值付费服务，需要额外申请权限。
 	// [测试模式]: https://docs.jiguang.cn/jpush/console/push_manage/testmode
-	TestMode *bool `json:"test_mode,omitempty"`
+	TestModel *bool `json:"test_model,omitempty"`
 	// 【可选】是否设置个性化文案。
 	AlternateSet *bool `json:"alternate_set,omitempty"`
 	// 【可选】地理围栏配置参数。

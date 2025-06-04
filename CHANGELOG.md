@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.7](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.7) - 2025-06-04
+
+### 修复
+
+- 根据文档修复测试模式选项参数的 json 引用字段名。
+
+---
+
 ## [v0.4.6](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.6) - 2025-05-22
 
 ### 优化

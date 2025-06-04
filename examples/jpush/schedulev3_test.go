@@ -120,7 +120,7 @@ func TestScheduleAPIv3_ScheduleTemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是广播标题", "content": "这是广播内容"},
 			Audience: push.BroadcastAuds, // 广播推送，all
-			Options:  &push.Options{TestMode: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: jiguang.Bool(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}
@@ -141,13 +141,13 @@ func TestScheduleAPIv3_ScheduleTemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是推送给第⼀个regid的标题", "content": "这是第⼀个regid的内容"},
 			Audience: &push.Audience{RegistrationIDs: []string{"13065ffa4ee8411496f"}},
-			Options:  &push.Options{TestMode: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: jiguang.Bool(true)},
 			TraceID:  "98ode06fh-8dgg",
 		},
 		{
 			Keys:     map[string]string{"title": "这是推送给第二个regid的标题", "content": "这是第二个regid的内容"},
 			Audience: &push.Audience{RegistrationIDs: []string{"8914afdsa31"}},
-			Options:  &push.Options{TestMode: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: jiguang.Bool(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}
@@ -168,13 +168,13 @@ func TestScheduleAPIv3_ScheduleTemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是推送给第⼀个alias的标题", "content": "这是第⼀个alias的内容"},
 			Audience: &push.Audience{Aliases: []string{"4312kjkla31"}},
-			Options:  &push.Options{TestMode: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: jiguang.Bool(true)},
 			TraceID:  "98ode06fh-8dgg",
 		},
 		{
 			Keys:     map[string]string{"title": "这是推送给第二个alias的标题", "content": "这是第二个alias的内容"},
 			Audience: &push.Audience{Aliases: []string{"8914sa31"}},
-			Options:  &push.Options{TestMode: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: jiguang.Bool(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}
@@ -195,7 +195,7 @@ func TestScheduleAPIv3_ScheduleTemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是推送给第1个tag的标题", "content": "这是第1个tag的内容"},
 			Audience: &push.Audience{Tags: []string{"tag1"}},
-			Options:  &push.Options{TestMode: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: jiguang.Bool(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}
@@ -216,7 +216,7 @@ func TestScheduleAPIv3_ScheduleTemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是推送给第1个segment的标题", "content": "这是第1个segment的内容"},
 			Audience: &push.Audience{Segments: []string{"segmentid001"}},
-			Options:  &push.Options{TestMode: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: jiguang.Bool(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}
