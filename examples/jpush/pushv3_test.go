@@ -236,7 +236,7 @@ func TestPushAPIv3_SendByFile(t *testing.T) {
 
 	param := &push.SendParam{
 		Platform:      platform.All,
-		Audience:      &push.FileAudience{FileID: fileID},
+		Audience:      &push.Audience{File: &push.FileAudience{FileID: fileID}},
 		Notification:  &push.Notification{Alert: "Hello, JPush!"},
 		CustomMessage: &push.CustomMessage{Content: "Hello, JPush!"},
 		Options:       &push.Options{TimeToLive: jiguang.Int64(600), ApnsProduction: jiguang.Bool(false)},
