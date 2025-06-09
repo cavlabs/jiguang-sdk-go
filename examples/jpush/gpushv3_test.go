@@ -212,7 +212,7 @@ func TestGroupPushAPIv3_SendByFile(t *testing.T) {
 	// 注意：调用文件上传接口获取 fileID 时，需要使用 devKey 和 devSecret 进行验证，详情参考【文件上传接口】：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_file#%E8%B0%83%E7%94%A8%E9%AA%8C%E8%AF%81-1。
 	param := &gpush.SendParam{
 		Platform:      platform.All,
-		Audience:      &push.FileAudience{FileID: "004f2b2c3d8fc649fa60ad2c-15563487-577d-4bb0-806b-56f1a19e06c1"},
+		Audience:      &push.Audience{File: &push.FileAudience{FileID: "004f2b2c3d8fc649fa60ad2c-15563487-577d-4bb0-806b-56f1a19e06c1"}},
 		Notification:  &push.Notification{Alert: "Hello, JPush!"},
 		CustomMessage: &push.CustomMessage{Content: "Hello, JPush!"},
 		Options:       &push.Options{TimeToLive: jiguang.Int64(600), ApnsProduction: jiguang.Bool(false)},
