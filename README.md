@@ -1,11 +1,12 @@
 # jiguang-sdk-go
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/calvinit/jiguang-sdk-go.svg)](https://pkg.go.dev/github.com/calvinit/jiguang-sdk-go)
-[![GitHub release](https://img.shields.io/github/v/release/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/releases)
+[![Supported Go Versions](https://img.shields.io/badge/Go-≥&nbsp;1.16-blue)](https://go.dev/doc/devel/release)
+[![GitHub Release](https://img.shields.io/github/v/release/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/releases)
 ![CI Status](https://img.shields.io/github/actions/workflow/status/calvinit/jiguang-sdk-go/ci.yml?label=CI&logo=github)
 [![Go Report Card](https://goreportcard.com/badge/github.com/calvinit/jiguang-sdk-go)](https://goreportcard.com/report/github.com/calvinit/jiguang-sdk-go)
-[![GitHub issues](https://img.shields.io/github/issues/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/pulls)
+[![GitHub Issues](https://img.shields.io/github/issues/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/pulls)
 [![GitHub License](https://img.shields.io/github/license/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme)
 
 ## 简介
