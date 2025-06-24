@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.0.0](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.0) - 2025-06-24
+
+### 迁移
+
+- 模块迁移至 [`cavlabs`](https://github.com/cavlabs) 组织，以方便更好维护和管理。
+
+### 修复
+
+- Closes #1: 更正 “文件推送” API 的推送目标的请求参数示例代码。
+
+---
+
 ## [v0.4.7](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.7) - 2025-06-04
 
 ### 修复
