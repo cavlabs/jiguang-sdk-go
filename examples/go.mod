@@ -1,11 +1,11 @@
-module github.com/calvinit/jiguang-sdk-go/examples
+module github.com/cavlabs/jiguang-sdk-go/examples
 
 go 1.24
 
 retract [v0.0.0-0, v0.0.0-99991231235959-zzzzzzzzzzzz] // Wiping out this module including all pseudo-versions.
 
 require (
-	github.com/calvinit/jiguang-sdk-go v0.4.7
+	github.com/cavlabs/jiguang-sdk-go v0.4.7
 	github.com/go-resty/resty/v2 v2.16.5
 	github.com/hashicorp/go-retryablehttp v0.7.7
 	github.com/rs/zerolog v1.34.0
@@ -22,4 +22,4 @@ require (
 	golang.org/x/sys v0.33.0 // indirect
 )
 
-replace github.com/calvinit/jiguang-sdk-go => ../
+replace github.com/cavlabs/jiguang-sdk-go => ../

@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,15 @@
 package push
 
 import (
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/audience"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/callback"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/cid"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/liveactivity"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/message"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/notification"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/notification/hmos"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/options"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/send"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/audience"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/callback"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/cid"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/liveactivity"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/message"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/hmos"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/options"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/send"
 )
 
 // ↓↓↓ 这是为了方便 SDK 的使用者，提供了一些共享模型的别名定义。↓↓↓

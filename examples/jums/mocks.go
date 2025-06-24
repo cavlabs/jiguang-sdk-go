@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2025 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@
 package jums
 
 import (
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/device/platform"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/notification"
-	"github.com/calvinit/jiguang-sdk-go/api/jums/audience"
-	"github.com/calvinit/jiguang-sdk-go/api/jums/message"
-	"github.com/calvinit/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification"
+	"github.com/cavlabs/jiguang-sdk-go/api/jums/audience"
+	"github.com/cavlabs/jiguang-sdk-go/api/jums/message"
+	"github.com/cavlabs/jiguang-sdk-go/jiguang"
 )
 
 func mockAudience() *audience.Audience {

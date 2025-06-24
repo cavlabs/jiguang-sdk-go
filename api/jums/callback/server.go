@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2025 calvinit/jiguang-srv-go authors.
+ * Copyright 2025 cavlabs/jiguang-srv-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/calvinit/jiguang-sdk-go/api"
-	"github.com/calvinit/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/jiguang"
 )
 
 // 回调接口服务核心结构。

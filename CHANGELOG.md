@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.4.7](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.7) - 2025-06-04
+## [v0.4.7](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.7) - 2025-06-04
 
 ### 修复
 
@@ -8,7 +8,7 @@
 
 ---
 
-## [v0.4.6](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.6) - 2025-05-22
+## [v0.4.6](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.6) - 2025-05-22
 
 ### 优化
 
@@ -16,7 +16,7 @@
 
 ---
 
-## [v0.4.5](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.5) - 2025-05-22
+## [v0.4.5](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.5) - 2025-05-22
 
 ### 优化
 
@@ -24,7 +24,7 @@
 
 ---
 
-## [v0.4.4](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.4) - 2025-05-22
+## [v0.4.4](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.4) - 2025-05-22
 
 ### 新特性
 
@@ -32,7 +32,7 @@
 
 ---
 
-## [v0.4.3](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.3) - 2025-05-09
+## [v0.4.3](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.3) - 2025-05-09
 
 ### 新特性
 
@@ -45,7 +45,7 @@
 
 ---
 
-## [v0.4.2](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.2) - 2025-04-17
+## [v0.4.2](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.2) - 2025-04-17
 
 ### 新特性
 
@@ -53,7 +53,7 @@
 
 ---
 
-## [v0.4.1](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.1) - 2025-04-02
+## [v0.4.1](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.1) - 2025-04-02
 
 ### 新特性
 
@@ -63,7 +63,7 @@
 
 ---
 
-## [v0.4.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.4.0) - 2025-03-24
+## [v0.4.0](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.4.0) - 2025-03-24
 
 ### 重构
 
@@ -73,7 +73,7 @@
 
 ---
 
-## [v0.3.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.3.0) - 2025-03-17
+## [v0.3.0](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.3.0) - 2025-03-17
 
 ### 新特性
 
@@ -81,7 +81,7 @@
 
 ---
 
-## [v0.2.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.2.0) - 2025-02-10
+## [v0.2.0](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.2.0) - 2025-02-10
 
 ### 新特性
 
@@ -94,7 +94,7 @@
 
 ---
 
-## [v0.1.3](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.3) - 2025-02-07
+## [v0.1.3](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.1.3) - 2025-02-07
 
 ### 修复
 
@@ -106,7 +106,7 @@
 
 ---
 
-## [v0.1.2](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.2) - 2025-01-15
+## [v0.1.2](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.1.2) - 2025-01-15
 
 ### 新特性
 
@@ -114,7 +114,7 @@
 
 ---
 
-## [v0.1.1](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.1) - 2024-12-31
+## [v0.1.1](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.1.1) - 2024-12-31
 
 ### 修复
 
@@ -124,7 +124,7 @@
 
 ---
 
-## [v0.1.0](https://github.com/calvinit/jiguang-sdk-go/releases/tag/v0.1.0) - 2024-12-31
+## [v0.1.0](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v0.1.0) - 2024-12-31
 
 🎉🎉🎉 **历经长时间细心打磨，首个正式版本终于发布啦！** 🎉🎉🎉
 

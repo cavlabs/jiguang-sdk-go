@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 
 package notification
 
-import "github.com/calvinit/jiguang-sdk-go/api/jpush/push/notification/alert"
+import "github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/alert"
 
 // # iOS 平台上的 APNs 通知
 //   - 详见 [developer.apple.com] 文档说明。

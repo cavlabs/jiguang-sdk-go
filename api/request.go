@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import (
 	"mime/multipart"
 	"net/http"
 
-	sdk "github.com/calvinit/jiguang-sdk-go"
+	sdk "github.com/cavlabs/jiguang-sdk-go"
 )
 
 // 极光 REST API 的 HTTP 请求原始请求封装。
@@ -39,7 +39,7 @@ type Request struct {
 }
 
 // defaultUserAgent 是默认的用户代理字符串，用于携带的请求头 `User-Agent` 标识。
-const defaultUserAgent = "calvinit/jiguang-sdk-go@" + sdk.Version
+const defaultUserAgent = "cavlabs/jiguang-sdk-go@" + sdk.Version
 
 // newApplicationJSONRequest 创建一个带有 JSON 正文负载的 HTTP 请求。
 func newApplicationJSONRequest(ctx context.Context, req *Request) (*http.Request, error) {

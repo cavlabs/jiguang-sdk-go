@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2025 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/calvinit/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/api"
 )
 
 type sendResult struct {
