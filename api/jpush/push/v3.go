@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package push
 import (
 	"context"
 
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/file"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/image"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/schedule"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/file"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/image"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/schedule"
 )
 
 type (

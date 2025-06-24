@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/calvinit/jiguang-sdk-go/api"
-	"github.com/calvinit/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/jiguang"
 )
 
 // # 获取某个定时任务的所有消息 ID

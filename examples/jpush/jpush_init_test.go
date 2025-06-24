@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/calvinit/jiguang-sdk-go/api"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/admin"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/device"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/file"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/gpush"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/greport"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/image"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/report"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/schedule"
-	"github.com/calvinit/jiguang-sdk-go/examples/adapter"
+	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/admin"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/file"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/gpush"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/greport"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/image"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/report"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/schedule"
+	"github.com/cavlabs/jiguang-sdk-go/examples/adapter"
 	"github.com/hashicorp/go-retryablehttp"
 )
 

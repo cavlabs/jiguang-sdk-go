@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@
 package notification
 
 import (
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/notification/alert"
-	"github.com/calvinit/jiguang-sdk-go/api/jpush/push/notification/style"
-	"github.com/calvinit/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/alert"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/style"
+	"github.com/cavlabs/jiguang-sdk-go/jiguang"
 )
 
 // # Android 平台上的通知

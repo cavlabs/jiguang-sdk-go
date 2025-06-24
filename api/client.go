@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2024 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/calvinit/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/jiguang"
 )
 
 // Client 定义了一个用于发送 HTTP 请求的客户端接口。它被设计为与标准库的 http.Client 相兼容。

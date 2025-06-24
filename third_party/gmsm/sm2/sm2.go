@@ -31,7 +31,7 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/calvinit/jiguang-sdk-go/third_party/gmsm/sm3" // Modified: Changed import path from "github.com/tjfoc/gmsm/sm3" to "github.com/calvinit/jiguang-sdk-go/third_party/gmsm/sm3"
+	"github.com/cavlabs/jiguang-sdk-go/third_party/gmsm/sm3" // Modified: Changed import path from "github.com/tjfoc/gmsm/sm3" to "github.com/cavlabs/jiguang-sdk-go/third_party/gmsm/sm3"
 )
 
 var (

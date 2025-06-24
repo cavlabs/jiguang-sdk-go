@@ -1,13 +1,13 @@
 # jiguang-sdk-go
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/calvinit/jiguang-sdk-go.svg)](https://pkg.go.dev/github.com/calvinit/jiguang-sdk-go)
+[![Go Reference](https://pkg.go.dev/badge/github.com/cavlabs/jiguang-sdk-go.svg)](https://pkg.go.dev/github.com/cavlabs/jiguang-sdk-go)
 [![Supported Go Versions](https://img.shields.io/badge/Go-≥&nbsp;1.16-blue)](https://go.dev/doc/devel/release)
-[![GitHub Release](https://img.shields.io/github/v/release/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/releases)
-![CI Status](https://img.shields.io/github/actions/workflow/status/calvinit/jiguang-sdk-go/ci.yml?label=CI&logo=github)
-[![Go Report Card](https://goreportcard.com/badge/github.com/calvinit/jiguang-sdk-go)](https://goreportcard.com/report/github.com/calvinit/jiguang-sdk-go)
-[![GitHub Issues](https://img.shields.io/github/issues/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go/pulls)
-[![GitHub License](https://img.shields.io/github/license/calvinit/jiguang-sdk-go)](https://github.com/calvinit/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme)
+[![GitHub Release](https://img.shields.io/github/v/release/cavlabs/jiguang-sdk-go)](https://github.com/cavlabs/jiguang-sdk-go/releases)
+![CI Status](https://img.shields.io/github/actions/workflow/status/cavlabs/jiguang-sdk-go/ci.yml?label=CI&logo=github)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cavlabs/jiguang-sdk-go)](https://goreportcard.com/report/github.com/cavlabs/jiguang-sdk-go)
+[![GitHub Issues](https://img.shields.io/github/issues/cavlabs/jiguang-sdk-go)](https://github.com/cavlabs/jiguang-sdk-go/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/cavlabs/jiguang-sdk-go)](https://github.com/cavlabs/jiguang-sdk-go/pulls)
+[![GitHub License](https://img.shields.io/github/license/cavlabs/jiguang-sdk-go)](https://github.com/cavlabs/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme)
 
 ## 简介
 
@@ -65,7 +65,7 @@
 
 1. 使用以下命令安装 SDK：
     ```bash
-    go get github.com/calvinit/jiguang-sdk-go@latest
+    go get github.com/cavlabs/jiguang-sdk-go@latest
     ```
 
 ---
@@ -74,7 +74,7 @@
 
 1. 在项目中引入 SDK：
     ```go
-    import sdk "github.com/calvinit/jiguang-sdk-go"
+    import sdk "github.com/cavlabs/jiguang-sdk-go"
     ```
 
 2. 示例代码（假设用于极光应用的「普通推送」）：
@@ -86,8 +86,8 @@
         "fmt"
         "os"
     
-        "github.com/calvinit/jiguang-sdk-go/api/jpush/device/platform"
-        "github.com/calvinit/jiguang-sdk-go/api/jpush/push"
+        "github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
+        "github.com/cavlabs/jiguang-sdk-go/api/jpush/push"
     )
     
     func main() {
@@ -117,20 +117,20 @@
     }
     ```
 
-3. 查看完整示例代码：https://github.com/calvinit/jiguang-sdk-go/tree/main/examples
+3. 查看完整示例代码：https://github.com/cavlabs/jiguang-sdk-go/tree/main/examples
 
 ---
 
 ## 四、支持与贡献
 
-- 如果遇到问题，请在 [Issues 页面](https://github.com/calvinit/jiguang-sdk-go/issues/new) 提交。
+- 如果遇到问题，请在 [Issues 页面](https://github.com/cavlabs/jiguang-sdk-go/issues/new) 提交。
 - 欢迎提交 Pull Request，为项目贡献代码。
 
 ---
 
 ## 五、许可证
 
-本项目采用 [Apache 2.0](https://github.com/calvinit/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme) 许可证。
+本项目采用 [Apache 2.0](https://github.com/cavlabs/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme) 许可证。
 
 ---
 

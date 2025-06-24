@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2025 calvinit/jiguang-sdk-go authors.
+ * Copyright 2025 cavlabs/jiguang-sdk-go authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ package callback
 import (
 	"context"
 
-	"github.com/calvinit/jiguang-sdk-go/api/jsms/inquire"
-	"github.com/calvinit/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/api/jsms/inquire"
+	"github.com/cavlabs/jiguang-sdk-go/jiguang"
 )
 
 // ↓↓↓ 这是为了方便 SDK 的使用者，提供了一些共享模型的别名定义。↓↓↓
