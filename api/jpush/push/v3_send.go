@@ -22,6 +22,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/send"
 	"net/http"
 
 	"github.com/cavlabs/jiguang-sdk-go/api"
@@ -35,6 +36,11 @@ import (
 //
 // [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push
 func (p *apiv3) Send(ctx context.Context, param *SendParam) (*SendResult, error) {
+	// 设置默认值
+	send.ApplyDefaults(param,
+		send.WithDefaultApnsProduction(false),
+		send.WithDefaultIOSBadge("+1"),
+	)
 	return p.CustomSend(ctx, param)
 }
 
