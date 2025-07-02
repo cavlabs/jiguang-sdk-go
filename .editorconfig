@@ -1,3 +1,4 @@
+# Top-most EditorConfig file.
 root = true
 
 [*]
@@ -5,16 +6,18 @@ charset = utf-8
 end_of_line = lf
 indent_size = 4
 indent_style = space
-insert_final_newline = false
+insert_final_newline = true
+trim_trailing_whitespace = true
 max_line_length = 120
 tab_width = 4
 
-[{*.bash,*.sh,*.zsh,*.proto,*.pb,*.textproto}]
-indent_size = 2
-tab_width = 2
-
-[{*.go,*.go2}]
+[{*.go,*.go2,Makefile}]
 indent_style = tab
 
-[{*.yaml,*.yml,*.har,*.jsb2,*.jsb3,*.json,.babelrc,.eslintrc,.stylelintrc,bowerrc,jest.config}]
+[*.md]
+# Double whitespace at end of line denotes a line break in Markdown.
+trim_trailing_whitespace = false
+
+[{*.yaml,*.yml,*.toml,*.bash,*.sh,*.zsh,*.proto,*.pb,*.textproto,*.har,*.jsb2,*.jsb3,*.json,.babelrc,.eslintrc,.stylelintrc,bowerrc,jest.config}]
 indent_size = 2
+tab_width = 2
