@@ -1,13 +1,13 @@
 # jiguang-sdk-go
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/cavlabs/jiguang-sdk-go.svg)](https://pkg.go.dev/github.com/cavlabs/jiguang-sdk-go)
-[![Supported Go Versions](https://img.shields.io/badge/Go-≥&nbsp;1.16-blue)](https://go.dev/doc/devel/release)
-[![GitHub Release](https://img.shields.io/github/v/release/cavlabs/jiguang-sdk-go)](https://github.com/cavlabs/jiguang-sdk-go/releases)
+[![Support Go 1.16+](https://img.shields.io/badge/Go-1.16+-blue.svg?style=flat-square)](https://go.dev/doc/devel/release)
+[![Release](https://img.shields.io/github/v/release/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go/releases)
 ![CI Status](https://img.shields.io/github/actions/workflow/status/cavlabs/jiguang-sdk-go/ci.yml?label=CI&logo=github)
-[![Go Report Card](https://goreportcard.com/badge/github.com/cavlabs/jiguang-sdk-go)](https://goreportcard.com/report/github.com/cavlabs/jiguang-sdk-go)
-[![GitHub Issues](https://img.shields.io/github/issues/cavlabs/jiguang-sdk-go)](https://github.com/cavlabs/jiguang-sdk-go/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/cavlabs/jiguang-sdk-go)](https://github.com/cavlabs/jiguang-sdk-go/pulls)
-[![GitHub License](https://img.shields.io/github/license/cavlabs/jiguang-sdk-go)](https://github.com/cavlabs/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://goreportcard.com/report/github.com/cavlabs/jiguang-sdk-go)
+[![Issues](https://img.shields.io/github/issues/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go/issues)
+[![PRs](https://img.shields.io/github/issues-pr/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go/pulls)
+[![License: Apache-2.0](https://img.shields.io/github/license/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme)
 
 ## 简介
 
