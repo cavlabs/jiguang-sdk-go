@@ -4,7 +4,7 @@
 [![Support Go 1.16+](https://img.shields.io/badge/Go-1.16+-blue.svg?style=flat-square)](https://go.dev/doc/devel/release)
 [![Release](https://img.shields.io/github/v/release/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go/releases)
 ![CI Status](https://img.shields.io/github/actions/workflow/status/cavlabs/jiguang-sdk-go/ci.yml?label=CI&logo=github)
-[![Go Report Card](https://goreportcard.com/badge/github.com/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://goreportcard.com/report/github.com/cavlabs/jiguang-sdk-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cavlabs/jiguang-sdk-go?style=flat-square)](https://goreportcard.com/report/github.com/cavlabs/jiguang-sdk-go)
 [![Issues](https://img.shields.io/github/issues/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go/issues)
 [![PRs](https://img.shields.io/github/issues-pr/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go/pulls)
 [![License: Apache-2.0](https://img.shields.io/github/license/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme)
