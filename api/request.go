@@ -35,7 +35,7 @@ type Request struct {
 }
 
 // defaultUserAgent 是默认的用户代理字符串，用于携带的请求头 `User-Agent` 标识。
-const defaultUserAgent = "cavlabs/jiguang-sdk-go@" + sdk.Version
+const defaultUserAgent = "cavlabs/jiguang-sdk-go/" + sdk.Version
 
 // newApplicationJSONRequest 创建一个带有 JSON 正文负载的 HTTP 请求。
 func newApplicationJSONRequest(ctx context.Context, req *Request) (*http.Request, error) {
