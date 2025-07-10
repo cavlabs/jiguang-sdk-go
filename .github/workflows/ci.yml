@@ -1,4 +1,4 @@
-name: CI (Lint and Test)
+name: CI
 on:
   push:
     branches:
@@ -42,14 +42,14 @@ jobs:
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v8
         with:
-          version: v2.1
+          version: latest
 
       - name: Check tidy state
         run: |
           go mod tidy
           diff_files="go.mod"
           [ -f go.sum ] && diff_files="$diff_files go.sum"
-          
+
           if ! git diff --exit-code $diff_files > /dev/null; then
             echo "❌ ERROR: go.mod or go.sum is not tidy. Please run 'go mod tidy' and commit the changes!"
             git --no-pager diff $diff_files
