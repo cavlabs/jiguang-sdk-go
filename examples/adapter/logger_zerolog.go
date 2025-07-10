@@ -40,6 +40,8 @@ func NewZeroLogger(logPrefix string) *ZeroLogger {
 			if ll, ok := i.(string); ok {
 				level := strings.ToUpper(ll)
 				switch ll {
+				case zerolog.LevelTraceValue:
+					l = colorize(level, 35) // magenta
 				case zerolog.LevelDebugValue:
 					l = colorize(level, 33) // yellow
 				case zerolog.LevelInfoValue:
@@ -54,8 +56,6 @@ func NewZeroLogger(logPrefix string) *ZeroLogger {
 					l = colorize(colorize(level, 31), 1) // red, bold
 				default:
 					l = colorize(level, 1) // bold
-				case zerolog.LevelTraceValue:
-					l = colorize(level, 35) // magenta
 				}
 			} else {
 				if i == nil {
@@ -68,13 +68,11 @@ func NewZeroLogger(logPrefix string) *ZeroLogger {
 		},
 		// TimeFormat: "2006/01/02 15:04:05",
 		FormatTimestamp: func(i interface{}) string {
-			t, tt := "<nil>", i.(string)
-			if ts, err := time.ParseInLocation(zerolog.TimeFieldFormat, tt, time.Local); err != nil {
-				t = tt
-			} else {
-				t = ts.Local().Format("2006/01/02 15:04:05")
+			timestamp := i.(string)
+			if ts, err := time.ParseInLocation(zerolog.TimeFieldFormat, timestamp, time.Local); err == nil {
+				timestamp = ts.Local().Format("2006/01/02 15:04:05")
 			}
-			return logPrefix + t
+			return logPrefix + timestamp
 		},
 	}
 
