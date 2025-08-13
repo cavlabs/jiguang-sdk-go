@@ -1,6 +1,6 @@
 module github.com/cavlabs/jiguang-sdk-go/examples
 
-go 1.24
+go 1.25
 
 retract [v0.0.0-0, v0.0.0-99991231235959-zzzzzzzzzzzz] // Wiping out this module including all pseudo-versions.
 
@@ -18,8 +18,8 @@ require (
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/net v0.41.0 // indirect
-	golang.org/x/sys v0.34.0 // indirect
+	golang.org/x/net v0.43.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
 )
 
 replace github.com/cavlabs/jiguang-sdk-go => ../
