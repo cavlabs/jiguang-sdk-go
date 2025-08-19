@@ -348,4 +348,34 @@ type ThirdPartyChannelOptions struct {
 	// [vivo]: https://dev.vivo.com.cn/documentCenter/doc/585
 	// [tuibian.mobileservice.cn]: https://tuibian.mobileservice.cn/
 	AuditResponse map[string]interface{} `json:"auditResponse,omitempty"`
+	// 【可选】私信模板 ID。2025.07.14 新增。
+	//
+	// 目前仅支持 OPPO 厂商。
+	//
+	// 下发对应私信模板时必须携带，不支持自拟。
+	//
+	// 详见：[OPUSH 私信模版校验能力接入说明]
+	//
+	// [OPUSH 私信模版校验能力接入说明]: https://open.oppomobile.com/documentation/page/info?id=12391
+	PrivateMsgTemplateID string `json:"private_msg_template_id,omitempty"`
+	// 【可选】标题模板填充参数。2025.07.14 新增。
+	//
+	// 目前仅支持 OPPO 厂商。
+	//
+	// 例：私信模板 ID 标题模板为：`欢迎来到 ${city}$，${city}$ 欢迎您`，此参数内容为：`{"city": "北京"}`。
+	//
+	// 详见：[OPUSH 私信模版校验能力接入说明]
+	//
+	// [OPUSH 私信模版校验能力接入说明]: https://open.oppomobile.com/documentation/page/info?id=12391
+	PrivateTitleParameters map[string]interface{} `json:"private_title_parameters,omitempty"`
+	// 【可选】内容模板填充参数。2025.07.14 新增。
+	//
+	// 目前仅支持 OPPO 厂商。
+	//
+	// 例：私信模板 ID 对应的内容模板为：`欢迎 ${userName}$ 来到 ${city}$`，此参数内容为：`{"userName": "汤姆", "city": "深圳市"}`。
+	//
+	// 详见：[OPUSH 私信模版校验能力接入说明]
+	//
+	// [OPUSH 私信模版校验能力接入说明]: https://open.oppomobile.com/documentation/page/info?id=12391
+	PrivateContentParameters map[string]interface{} `json:"private_content_parameters,omitempty"`
 }
