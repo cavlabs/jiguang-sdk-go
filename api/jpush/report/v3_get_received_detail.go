@@ -85,6 +85,7 @@ type ReceivedDetail struct {
 	QuickAppJPushReceived *uint64 `json:"quickapp_jpush_received"` // 快应用推送走极光通道送达设备成功的用户数量。
 	HmosHmpnsSent         *uint64 `json:"hmos_hmpns_sent"`         // 鸿蒙通知推送到厂商服务器成功数。2024.08.13 新增指标。
 	HmosHmpnsReceived     *uint64 `json:"hmos_hmpns_received"`     // 鸿蒙通知送达到设备数，计算方式以厂商回调数据为准。2024.08.13 新增指标。
+	HmosMsgSent           *uint64 `json:"hmos_msg_sent"`           // 鸿蒙自定义消息推送到厂商服务器成功数。2024.08.13 新增指标。
 	HmosMsgReceived       *uint64 `json:"hmos_msg_received"`       // 鸿蒙自定义消息送达到设备数，计算方式以厂商回调数据为准。2024.08.13 新增指标。
 }
 
