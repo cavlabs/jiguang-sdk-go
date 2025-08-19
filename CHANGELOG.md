@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.0.1](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.1) - 2025-08-19
+
+### 新特性
+
+- 添加鸿蒙平台的极光通道统计指标和鸿蒙自定义消息推送到厂商服务器成功数；
+- 添加 OPPO 厂商支持的私信模板 ID 和填充参数选项。
+
+### 优化
+
+- 一些代码风格优化和文档样式调整，详见代码提交的变更细节。
+
+---
+
 ## [v1.0.0](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.0) - 2025-06-24
 
 ### 迁移
