@@ -157,7 +157,8 @@ type QuickAppStats struct {
 
 // # 鸿蒙平台的数据汇总统计
 type HmosStats struct {
-	Hmpns *ChannelStats `json:"hmpns,omitempty"` // HMPNs 发送通道统计指标
+	Hmpns   *ChannelStats `json:"hmpns,omitempty"`   // HMPNs 发送通道统计指标
+	Jiguang *ChannelStats `json:"jg_hmos,omitempty"` // 极光通道统计指标，2025.08.04 新增
 }
 
 // # 不同平台发送通道的数据汇总统计
