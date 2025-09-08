@@ -215,7 +215,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 		t.Logf(">>> MsgID: %s", result.MsgID)
 		t.Logf(">>> SendNo: %s", result.SendNo)
 	} else {
-		t.Errorf("Failed! Error: %s", result.Error)
+		t.Errorf("Failed! MsgID: %s, Error: %s", result.MsgID, result.Error)
 	}
 }
 
@@ -251,7 +251,7 @@ func TestPushAPIv3_SendByFile(t *testing.T) {
 		t.Logf(">>> MsgID: %s", result.MsgID)
 		t.Logf(">>> SendNo: %s", result.SendNo)
 	} else {
-		t.Errorf("Failed! Error: %s", result.Error)
+		t.Errorf("Failed! MsgID: %s, Error: %s", result.MsgID, result.Error)
 	}
 }
 
@@ -287,7 +287,7 @@ func TestPushAPIv3_ValidateSend(t *testing.T) {
 		t.Logf(">>> MsgID: %s", result.MsgID)
 		t.Logf(">>> SendNo: %s", result.SendNo)
 	} else {
-		t.Errorf("Failed! Error: %s", result.Error)
+		t.Errorf("Failed! MsgID: %s, Error: %s", result.MsgID, result.Error)
 	}
 }
 
