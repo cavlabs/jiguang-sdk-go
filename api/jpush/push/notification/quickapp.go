@@ -15,6 +15,8 @@
 package notification
 
 // # 快应用平台上的通知
+//
+// 自 2025.10.30 开始，此功能升级为 VIP 用户功能。
 type QuickApp struct {
 	// 【必填】通知内容。
 	//  - 这里指定了，则会覆盖上级统一指定的 Alert 信息。
