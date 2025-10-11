@@ -75,6 +75,8 @@ type Options struct {
 	//  - 极光预置事件：极光推送 SDK 默认支持，无需开发者创建，也无需集成极光分析 SDK，系统已预置；目标支持的预置事件有 2 个：jg_app_show（应用切换到前台）、jg_app_hide（应用切换到后台）。
 	// 代码示例：`{"options": {"target_event": ["jg_app_show"]}}`。
 	//
+	// 自 2025.10.30 开始，此功能升级为 VIP 用户功能。
+	//
 	// [如何创建自定义事件]: https://docs.jiguang.cn/public_service/dataCenter/metadata/metaEvent
 	// [SDK 如何上报自定义事件]: https://docs.jiguang.cn/public_service/client/Android/sdk_api#%E4%B8%8A%E6%8A%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6
 	TargetEvent []string `json:"target_event,omitempty"`
