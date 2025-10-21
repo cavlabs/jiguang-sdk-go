@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.0.2](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.2) - 2025-10-21
+
+### 新特性
+
+- Android 平台上的通知增加可选的【远程自定义通知按钮】；
+- 鸿蒙（HarmonyOS）平台上的通知增加可选的【自定义通知铃声】、【自定义通知铃声时长】以及【鸿蒙卡片刷新消息、实况窗消息内容体】。
+
+### 优化
+
+- 改进 pushv3 推送测试中的错误记录日志，引入失败时的 MsgID；
+- InApp 和 QuickApp 以及目标转化事件功能自 2025.10.30 开始升级为 VIP 用户功能。
+
+---
+
 ## [v1.0.1](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.1) - 2025-08-19
 
 ### 新特性
