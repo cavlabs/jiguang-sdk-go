@@ -197,4 +197,27 @@ type Android struct {
 	//  - 默认情况下 APP 在前台会弹出/展示通知栏消息，JPush Android SDK v3.5.8 版本开始支持；
 	//  - 目前适配的通道有：极光、华为、小米、vivo。
 	DisplayForeground string `json:"display_foreground,omitempty"`
+	// 【可选】远程自定义通知按钮。
+	//
+	// 适配极光通道与华为厂商通道。
+	//
+	// 注意：此功能从 JPush Android SDK v5.9.0 版本开始支持。
+	CustomButtons []struct {
+		// 【必填】按钮名称。
+		//  - 非空字符串，长度不大于 20 字符。
+		Name string `json:"name"`
+		// 【必填】按钮动作类型。
+		//  - 1：intent 跳转；
+		//  - 2：deeplink 跳转；
+		//  - 3：进入应用首页；
+		//  - 4：清除通知。
+		ActionType int `json:"action_type"`
+		// 【可选】自定义动作。
+		//  - 当 ActionType 为 1 或 2 时必填，且需要是对应跳转格式；
+		//  - 长度不大于 300 字符。
+		Action string `json:"action"`
+		// 【可选】用于在点击按钮后给应用的透传字段。
+		//  - 长度不大于 100 字符。
+		Data string `json:"data"`
+	} `json:"custom_buttons,omitempty"`
 }

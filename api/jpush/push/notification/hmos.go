@@ -74,12 +74,21 @@ type HMOS struct {
 	//
 	// 对应华为 push-type 字段，默认值 0 (hmos.PushTypeAlert)，目前仅支持：
 	//  - 0: 通知消息 (hmos.PushTypeAlert)
+	//  - 1: 卡片刷新消息 (hmos.PushTypeFormUpdate)
 	//  - 2: 通知拓展消息 (hmos.PushTypeExtension)
+	//  - 7: 实况窗消息 (hmos.PushTypeLiveView)
 	//  - 10: VoIP 呼叫消息 (hmos.PushTypeVoIPCall)
 	// 其它值报错，VoIP 消息与通知消息互斥，不可同时下发。
+	//
+	// 详细取值说明可参考官方 [场景消息介绍]。
+	//
+	// 补充说明：官方 PushType = hmos.PushTypeBackground 的后台消息，对应 [极光自定义消息]，不属于通知消息范畴，所以此处传值有限制不支持 hmos.PushTypeBackground。
+	//
+	// [场景消息介绍]: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/push-scenariozed-api-intro
+	// [极光自定义消息]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#message%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF
 	PushType hmos.PushType `json:"push_type"`
 	// 【可选】附加数据。
-	//  - 对应华为 extraData 字段，当 PushType = hmos.PushTypeExtension 或 PushType = hmos.PushTypeAlert 时生效，此时是必填的，
+	//  - 对应华为 extraData 字段，当 PushType = hmos.PushTypeExtension 或 PushType = hmos.PushTypeVoIPCall 时生效，此时是必填的，
 	//  PushType = hmos.PushTypeAlert 时忽略此字段。
 	ExtraData string `json:"extra_data,omitempty"`
 	// 【可选】APP 在前台，通知是否展示。
@@ -87,4 +96,24 @@ type HMOS struct {
 	//  - 值为 "0" 时，APP 在前台不会弹出/展示通知栏消息；
 	//  - 默认情况下 APP 在前台会弹出/展示通知栏消息。
 	DisplayForeground string `json:"display_foreground,omitempty"`
+	// 【可选】自定义通知铃声。
+	//  - 该字段对推送走极光通道 (JPush HarmonyOS SDK ≥ v1.3.0 版本) 和鸿蒙厂商通道通知均生效；
+	//  - 此处设置的铃声文件必须放在应用的 /resources/rawfile 路径下，详见官方 [Sound 字段说明]；
+	//  - 涉及到开发者需要向鸿蒙官方 [申请自定义铃声权益]。
+	// [Sound 字段说明]: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/push-scenariozed-api-request-param#section17371529101117
+	// [申请自定义铃声权益]: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/push-apply-right#section623416398277
+	Sound string `json:"sound,omitempty"`
+	// 【可选】自定义通知铃声时长，需要配合 Sound 字段使用。
+	//  - 该字段只对推送走鸿蒙厂商通道生效；
+	//  - 只有当请求同时携带 Sound 字段，SoundDuration 字段才会生效。仅支持数字，单位为秒，取值范围 [1, 60]，详见官方 [SoundDuration 字段说明]；
+	//  - 涉及到开发者需要向鸿蒙官方 [申请自定义铃声权益]。
+	// [SoundDuration 字段说明]: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/push-scenariozed-api-request-param#section17371529101117
+	// [申请自定义铃声权益]: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/push-apply-right#section623416398277
+	SoundDuration int `json:"sound_duration,omitempty"`
+	// 【可选】鸿蒙卡片刷新消息、实况窗消息内容体。
+	//  - 仅对 PushType = hmos.PushTypeFormUpdate（卡片刷新消息）、PushType = hmos.PushTypeLiveView（实况窗消息）生效，且 PushType = hmos.PushTypeFormUpdate 或 PushType = hmos.PushTypeLiveView 时要求此字段必填，上述其它必填字段可忽略不填；
+	//  - 极光 HmPayload 字段值会直接透传给鸿蒙 payload 字段，极光不对消息体完整性和正确性进行校验，请开发者对照官方文档说明进行传参，详见：[鸿蒙场景化消息请求示例]；
+	//  - 当您推送 “卡片刷新” 或 “实况窗” 消息时，推送仅支持通过鸿蒙通道下发，推送下发策略仅支持 ospush（下发策略默认值 ospush，如自定义其它下发策略请求报错）。
+	// [鸿蒙场景化消息请求示例]: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/push-scenariozed-api-request-example
+	HmPayload map[string]interface{} `json:"hm_payload,omitempty"`
 }
