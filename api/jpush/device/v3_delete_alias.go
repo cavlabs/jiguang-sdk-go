@@ -39,10 +39,14 @@ func (d *apiv3) DeleteAlias(ctx context.Context, alias string, plats ...platform
 		return nil, errors.New("`alias` cannot be empty")
 	}
 
+	var platformQuery string
+	if len(plats) > 0 {
+		platformQuery="?platform=" + platform.Concat(plats, ",")
+	}
 	req := &api.Request{
 		Method: http.MethodDelete,
 		Proto:  d.proto,
-		URL:    d.host + "/v3/aliases/" + alias + "?platform=" + platform.Concat(plats, ","),
+		URL:    d.host + "/v3/aliases/" + alias + platformQuery,
 		Auth:   d.auth,
 	}
 	resp, err := d.client.Request(ctx, req)
