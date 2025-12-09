@@ -39,10 +39,15 @@ func (d *apiv3) DeleteTag(ctx context.Context, tag string, plats ...platform.Pla
 		return nil, errors.New("`tag` cannot be empty")
 	}
 
+	url := d.host + "/v3/tags/" + tag
+	if len(plats) > 0 {
+		url += "?platform=" + platform.Concat(plats, ",")
+	}
+
 	req := &api.Request{
 		Method: http.MethodDelete,
 		Proto:  d.proto,
-		URL:    d.host + "/v3/tags/" + tag + "?platform=" + platform.Concat(plats, ","),
+		URL:    url,
 		Auth:   d.auth,
 	}
 	resp, err := d.client.Request(ctx, req)

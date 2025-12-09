@@ -40,10 +40,16 @@ func (d *apiv3) GetAlias(ctx context.Context, alias string, plats ...platform.Pl
 		return nil, errors.New("`alias` cannot be empty")
 	}
 
+	url := d.host + "/v3/aliases/" + alias
+	if len(plats) > 0 {
+		url += "?platform=" + platform.Concat(plats, ",")
+	}
+	url += "&new_format=true"
+
 	req := &api.Request{
 		Method: http.MethodGet,
 		Proto:  d.proto,
-		URL:    d.host + "/v3/aliases/" + alias + "?platform=" + platform.Concat(plats, ",") + "&new_format=true",
+		URL:    url,
 		Auth:   d.auth,
 	}
 	resp, err := d.client.Request(ctx, req)
