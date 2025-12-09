@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.3](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.3) - 2025-12-09
+
+### 修复
+
+- 【JPush】可选 “平台” 查询参数不填时，极光服务端校验失败。
+
+---
+
 ## [v1.0.2](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.2) - 2025-10-21
 
 ### 新特性
