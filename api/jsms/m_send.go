@@ -48,16 +48,16 @@ func (rs *sendResult) UnmarshalJSON(data []byte) error {
 			rs.MsgID = strMsgID
 		}
 		return nil
-	} else {
-		var intMsgID int64 // 兼容数字类型的 `msg_id`
-		if err = json.Unmarshal(aux.MsgID, &intMsgID); err == nil {
-			if intMsgID != 0 { // omitempty
-				rs.MsgID = strconv.FormatInt(intMsgID, 10)
-			}
-		} else {
-			// return err
-			rs.MsgID = string(aux.MsgID)
+	}
+
+	var intMsgID int64 // 兼容数字类型的 `msg_id`
+	if err := json.Unmarshal(aux.MsgID, &intMsgID); err == nil {
+		if intMsgID != 0 { // omitempty
+			rs.MsgID = strconv.FormatInt(intMsgID, 10)
 		}
+	} else {
+		// return err
+		rs.MsgID = string(aux.MsgID)
 	}
 
 	return nil

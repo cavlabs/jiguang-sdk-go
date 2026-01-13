@@ -92,14 +92,14 @@ func (rs *ChannelTokenGetResult) UnmarshalJSON(data []byte) error {
 			rs.ExpiresIn, _ = strconv.ParseInt(strExpiresIn, 10, 64)
 		}
 		return nil
-	} else {
-		var intExpiresIn int64
-		if err = json.Unmarshal(aux.ExpiresIn, &intExpiresIn); err == nil {
-			rs.ExpiresIn = intExpiresIn
-		} /* else {
-			return err
-		}*/
 	}
+
+	var intExpiresIn int64
+	if err := json.Unmarshal(aux.ExpiresIn, &intExpiresIn); err == nil {
+		rs.ExpiresIn = intExpiresIn
+	} /* else {
+		return err
+	}*/
 
 	return nil
 }

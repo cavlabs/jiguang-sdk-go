@@ -68,12 +68,13 @@ func newApplicationJSONRequest(ctx context.Context, req *Request) (*http.Request
 func newMultipartFormDataRequest(ctx context.Context, req *Request) (*http.Request, error) {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
+	defer func() {
+		_ = writer.Close()
+	}()
 
 	if err := req.Body.(MultipartFormDataBody).Prepare(writer); err != nil {
 		return nil, err
 	}
-
-	_ = writer.Close()
 
 	httpReq, err := http.NewRequestWithContext(ctx, req.Method, req.URL, body)
 	if err != nil {

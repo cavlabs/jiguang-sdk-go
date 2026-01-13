@@ -113,9 +113,8 @@ func (rs ReceivedDetailGetResult) MarshalJSON() ([]byte, error) {
 		data := make(map[string]*api.CodeError, 1)
 		data["error"] = rs.Error
 		return json.Marshal(data)
-	} else {
-		return json.Marshal(rs.ReceivedDetails)
 	}
+	return json.Marshal(rs.ReceivedDetails)
 }
 
 func (rs *ReceivedDetailGetResult) IsSuccess() bool {
