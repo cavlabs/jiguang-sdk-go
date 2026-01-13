@@ -156,7 +156,7 @@ func validateSignParam(p *SignCreateParam) error {
 		return ErrIDCardImageRequired
 	}
 
-	if len(p.Remark) > 100 {
+	if utf8.RuneCountInString(p.Remark) > 100 {
 		return ErrRemarkTooLong
 	}
 
