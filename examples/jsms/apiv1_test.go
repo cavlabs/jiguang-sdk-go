@@ -25,14 +25,14 @@ import (
 
 func TestAPIv1_CreateSign(t *testing.T) {
 	param := &jsms.SignCreateParam{
-		Sign: "SDK6",
-		Type: 1,
-		Images: []string{
-			"~/Downloads/1.jpg",
-			"~/Downloads/2.jpeg",
-			"~/Downloads/3.jpeg",
-		},
-		Remark: "SDK测试",
+		Sign:                 "极光推送",
+		Type:                 1,
+		LegalPersonName:      "张三",
+		LegalPersonIDNumber:  "123456789012345678",
+		IDCardImage:          "~/Downloads/idcard.jpg",
+		SocialCreditCode:     "098765432109876543",
+		BusinessLicenseImage: "~/Downloads/business_license.png",
+		Remark:               "SDK测试",
 	}
 	result, err := smsAPIv1.CreateSign(context.Background(), param)
 	if err != nil {
@@ -55,11 +55,15 @@ func TestAPIv1_UpdateSign(t *testing.T) {
 	}
 	defer image.Close()*/
 
-	param := &jsms.SignCreateParam{
-		Sign:   "SDK6",
-		Type:   1,
-		Images: "~/Downloads/3.jpeg",
-		Remark: "SDK测试-修改",
+	param := &jsms.SignUpdateParam{
+		Sign:                 "极光推送",
+		Type:                 1,
+		LegalPersonName:      "张三",
+		LegalPersonIDNumber:  "123456789012345678",
+		IDCardImage:          "~/Downloads/idcard.jpg",
+		SocialCreditCode:     "098765432109876543",
+		BusinessLicenseImage: "~/Downloads/business_license.png",
+		Remark:               "SDK测试-修改",
 	}
 	result, err := smsAPIv1.UpdateSign(context.Background(), 37582, param)
 	if err != nil {

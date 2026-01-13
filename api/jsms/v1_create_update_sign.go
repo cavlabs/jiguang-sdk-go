@@ -19,8 +19,8 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-	"reflect"
 	"strconv"
+	"unicode/utf8"
 
 	"github.com/cavlabs/jiguang-sdk-go/api"
 )
@@ -51,48 +51,13 @@ func (s *apiv1) sign(ctx context.Context, signID int, param *SignCreateParam, cr
 		return nil, api.ErrNilJSmsAPIv1
 	}
 
-	if param == nil {
-		return nil, errors.New("`param` cannot be nil")
+	if err := validateSignParam(param); err != nil {
+		return nil, err
 	}
 
-	var fields []api.FormField
-
-	l := len(param.Sign)
-	if l < 2 || l > 8 {
-		return nil, errors.New("`sign` must be 2-8 characters")
-	}
-	fields = append(fields, api.FormField{Name: "sign", Value: param.Sign})
-
-	t := param.Type
-	if t < 1 || t > 6 {
-		return nil, errors.New("invalid `type`, must be 1-6")
-	}
-	fields = append(fields, api.FormField{Name: "type", Value: strconv.Itoa(t)})
-
-	l = len(param.Remark)
-	if l > 100 {
-		return nil, errors.New("`remark` too long, must be ≤100 characters")
-	} else if l > 0 {
-		fields = append(fields, api.FormField{Name: "remark", Value: param.Remark})
-	}
-
-	body := api.MultipartFormDataBody{Fields: fields}
-
-	images := reflect.ValueOf(param.Images)
-	if images.Kind() != reflect.Invalid {
-		body.FileValidator = &api.FileValidator{
-			MaxSize:      2 * 1024 * 1024, // 2MB
-			AllowedMimes: []string{"image/jpeg", "image/png"},
-			AllowedExts:  []string{".jpg", ".jpeg", ".png"},
-		}
-		if images.Kind() == reflect.Slice || images.Kind() == reflect.Array {
-			for i := 0; i < images.Len(); i++ {
-				image := images.Index(i).Interface()
-				body.Files = append(body.Files, api.FormFile{FieldName: "images", FileData: image})
-			}
-		} else {
-			body.Files = []api.FormFile{{FieldName: "images", FileData: images.Interface()}}
-		}
+	body, err := buildSignMultipartBody(param)
+	if err != nil {
+		return nil, err
 	}
 
 	url := s.host + "/v1/sign"
@@ -126,22 +91,173 @@ type SignCreateParam struct {
 	//  - 无须添加【】、[]、（）等符号；
 	//  - 范例：极光推送
 	Sign string `json:"sign"`
-	// 【可选】签名类型，填写数字代号即可。
-	//  - 1、公司名称全称或简称：需提供签名所属主体的营业执照复印件图片及对应法人代表的身份证正反面复印件图片，均需加盖公章；
-	//  - 2、工信部备案的网站全称或简称：需提供签名所属的已备案的 ICP 备案截图复印件图片、主办单位的营业执照复印件图片及对应法人代表的身份证正反面复印件图片，均需加盖公章；
-	//  - 3、APP 应用名称或简称：需提供签名所属的任意应用商店的下载链接、APP 软著证明复印件图片及开发者的营业执照复印件图片、对应法人代表的身份证正反面复印件图片，均需加盖公章；
-	//  - 4、公众号小程序全称或简称：需提供签名所属的公众号小程序含主体的页面截图、开发者主体营业执照复印件图片、对应法人代表的身份证正反面复印件图片，均需加盖公章；
-	//  - 5、商标名称全称或简称：需提供签名所属商标注册证书复印件图片及商标主体营业执照复印件图片、对应法人代表身份证正反面复印件图片，均需加盖公章；
-	//  - 6、其他：申请的签名与所属主体不一致或涉及第三方权益时，需提供第三方授权委托书、第三方签名相关资质（详见类型 1-5），[授权委托书格式参考文档]。
-	// 注意：
-	//  - 如果用户 A 创建自用签名，签名归属主体属于 A，则不涉及第三方权益；
-	//  - 如果用户 A 替公司 B 创建签名，签名归属主体属于公司 B，则涉及第三方权益，需要公司 B 给予 A 授权委托书。公司 B 为授权方，A 为被授权方，并需要加盖公司 B 的公章。
-	// [授权委托书格式参考文档]: https://shimo.im/docs/vqqd6wgwhXCtHjC3
-	Type int `json:"type,omitempty"`
-	// 【可选】上传签名相关的资质证件图片（文件支持 PNG、JPG、JPEG 格式，且每个大小不超过 2M）。
-	Images interface{} `json:"images,omitempty"`
-	// 【可选】简略描述您的业务使用场景，不超过 100 个字。
+	// 【必填】签名类型，填写数字代号即可。
+	//
+	// 支持的类型值：
+	//  - 1：公司名称全称或简称（需要营业执照图片）；
+	//  - 3：APP 应用全称或简称（需要 ICP 备案 APP 截图）；
+	//  - 6：品牌名称全称或简称（需要商标注册证图片）；
+	//  - 7：其他类型（需要第三方授权委托书图片）。
+	Type int `json:"type"`
+	// 【必填】法人姓名，会进行验证。
+	LegalPersonName string `json:"legalPersonName"`
+	// 【必填】法人身份证号码，必须为有效的 18 位身份证号码。
+	LegalPersonIDNumber string `json:"legalPersonIdNumber"`
+	// 【必填】法人身份证图片，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
+	IDCardImage interface{} `json:"idCardImage"`
+	// 【必填】统一社会信用代码，必须为有效的 18 位统一社会信用代码。
+	SocialCreditCode string `json:"socialCreditCode"`
+	// 【可选】第三方公司名称。
+	ThirdPartyCompanyName string `json:"thirdPartyCompanyName,omitempty"`
+	// 【条件必填】营业执照图片，Type 为 1 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
+	BusinessLicenseImage interface{} `json:"businessLicenseImage,omitempty"`
+	// 【条件必填】ICP 备案 APP 截图，Type 为 3 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
+	ICPAppScreenshot interface{} `json:"icpAppScreenshot,omitempty"`
+	// 【条件必填】商标注册证图片，Type 为 6 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
+	TrademarkImage interface{} `json:"trademarkImage,omitempty"`
+	// 【条件必填】第三方授权委托书图片，Type 为 7 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
+	ThirdPartyAuthImage interface{} `json:"thirdPartyAuthImage,omitempty"`
+	// 【可选】其他相关图片，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
+	OtherImage interface{} `json:"otherImage,omitempty"`
+	// 【可选】申请说明，请简略描述您的业务使用场景，不超过 100 个字。
 	Remark string `json:"remark,omitempty"`
+}
+
+var (
+	ErrNilParam            = errors.New("`param` cannot be nil")
+	ErrInvalidSignLength   = errors.New("`sign` must be 2–8 characters")
+	ErrInvalidSignType     = errors.New("invalid sign `type`, must be 1, 3, 6, or 7")
+	ErrMissingLegalInfo    = errors.New("legal person info incomplete")
+	ErrIDCardImageRequired = errors.New("`idCardImage` is required")
+	ErrRemarkTooLong       = errors.New("`remark` too long, must be ≤100 characters")
+	ErrMissingTypeFile     = errors.New("required image missing for sign `type`")
+)
+
+func validateSignParam(p *SignCreateParam) error {
+	if p == nil {
+		return ErrNilParam
+	}
+
+	if l := utf8.RuneCountInString(p.Sign); l < 2 || l > 8 {
+		return ErrInvalidSignLength
+	}
+
+	if !isValidSignType(p.Type) {
+		return ErrInvalidSignType
+	}
+
+	if p.LegalPersonName == "" ||
+		p.LegalPersonIDNumber == "" ||
+		p.SocialCreditCode == "" {
+		return ErrMissingLegalInfo
+	}
+
+	if p.IDCardImage == nil {
+		return ErrIDCardImageRequired
+	}
+
+	if len(p.Remark) > 100 {
+		return ErrRemarkTooLong
+	}
+
+	if requiresExtraFile(p.Type) && getExtraFile(p) == nil {
+		return ErrMissingTypeFile
+	}
+
+	return nil
+}
+
+func isValidSignType(t int) bool {
+	switch t {
+	case 1, 3, 6, 7:
+		return true
+	default:
+		return false
+	}
+}
+
+func requiresExtraFile(t int) bool {
+	switch t {
+	case 1, 3, 6, 7:
+		return true
+	default:
+		return false
+	}
+}
+
+func getExtraFile(p *SignCreateParam) interface{} {
+	switch p.Type {
+	case 1:
+		return p.BusinessLicenseImage
+	case 3:
+		return p.ICPAppScreenshot
+	case 6:
+		return p.TrademarkImage
+	case 7:
+		return p.ThirdPartyAuthImage
+	default:
+		return nil
+	}
+}
+
+func getExtraFileFieldName(t int) string {
+	switch t {
+	case 1:
+		return "businessLicenseImage"
+	case 3:
+		return "icpAppScreenshot"
+	case 6:
+		return "trademarkImage"
+	case 7:
+		return "thirdPartyAuthImage"
+	default:
+		return ""
+	}
+}
+
+func buildSignMultipartBody(p *SignCreateParam) (api.MultipartFormDataBody, error) {
+	fields := make([]api.FormField, 0, 8)
+
+	appendField := func(name, val string) {
+		if val != "" {
+			fields = append(fields, api.FormField{
+				Name:  name,
+				Value: val,
+			})
+		}
+	}
+
+	appendField("sign", p.Sign)
+	appendField("type", strconv.Itoa(p.Type))
+	appendField("legalPersonName", p.LegalPersonName)
+	appendField("legalPersonIdNumber", p.LegalPersonIDNumber)
+	appendField("socialCreditCode", p.SocialCreditCode)
+	appendField("thirdPartyCompanyName", p.ThirdPartyCompanyName)
+	appendField("remark", p.Remark)
+
+	body := api.MultipartFormDataBody{
+		Fields: fields,
+		Files: []api.FormFile{
+			{
+				FieldName: "idCardImage",
+				FileData:  p.IDCardImage,
+			},
+		},
+		FileValidator: &api.FileValidator{
+			MaxSize:      2 * 1024 * 1024, // 2MB
+			AllowedMimes: []string{"image/jpeg", "image/png"},
+			AllowedExts:  []string{".jpg", ".jpeg", ".png"},
+		},
+	}
+
+	if extraFile := getExtraFile(p); extraFile != nil {
+		body.Files = append(body.Files, api.FormFile{
+			FieldName: getExtraFileFieldName(p.Type),
+			FileData:  extraFile,
+		})
+	}
+
+	return body, nil
 }
 
 type SignCreateResult struct {

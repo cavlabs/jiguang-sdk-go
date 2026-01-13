@@ -63,7 +63,7 @@ type SignGetResult struct {
 	Error         *api.CodeError `json:"error,omitempty"`
 	SignID        int            `json:"sign_id,omitempty"`    // 签名 ID
 	Sign          string         `json:"sign,omitempty"`       // 签名内容
-	Status        int            `json:"status,omitempty"`     // 签名审核状态：1 - 审核通过；2 - 审核不通过
+	Status        int            `json:"status,omitempty"`     // 签名审核状态：1 为通过；2 为未通过
 	IsDefault     bool           `json:"is_default,omitempty"` // 签名使用状态：是否使用默认签名
 	UseStatus     bool           `json:"use_status,omitempty"` // 签名使用状态：使用中/未使用
 }
