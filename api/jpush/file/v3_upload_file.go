@@ -20,7 +20,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"reflect"
 	"strconv"
 
 	"github.com/cavlabs/jiguang-sdk-go/api"
@@ -55,14 +54,12 @@ func (f *apiv3) uploadFile(ctx context.Context, forType string, param *FileUploa
 		return nil, errors.New("`param` cannot be nil")
 	}
 
-	uploadFile := param.File
-	hasUploadFile := uploadFile != nil && reflect.ValueOf(uploadFile).Kind() != reflect.Invalid && !reflect.ValueOf(uploadFile).IsZero()
-	if !hasUploadFile {
+	if param.File == nil {
 		return nil, fmt.Errorf("empty %q file", forType)
 	}
 
 	body := api.MultipartFormDataBody{
-		Files: []api.FormFile{{FieldName: "filename", FileData: uploadFile}},
+		Files: []api.FormFile{{FieldName: "filename", FileData: param.File}},
 		FileValidator: &api.FileValidator{
 			MaxSize:      10 * 1024 * 1024, // 10MB
 			AllowedMimes: []string{"text/plain", "application/octet-stream"},
