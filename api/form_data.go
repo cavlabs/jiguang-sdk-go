@@ -79,11 +79,11 @@ func (ff FormFile) process(fv *FileValidator, writer *multipart.Writer) error {
 		}
 		// 处理文件路径，支持 "~" 表示用户目录
 		if strings.HasPrefix(file, "~") {
-			if homeDir, err := os.UserHomeDir(); err != nil {
+			homeDir, err := os.UserHomeDir()
+			if err != nil {
 				return err
-			} else {
-				file = strings.Replace(file, "~", homeDir, 1)
 			}
+			file = strings.Replace(file, "~", homeDir, 1)
 		}
 		f, err := os.Open(file)
 		if err != nil {
