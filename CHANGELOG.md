@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.4](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.4) - 2026-01-13
+
+### API 变更
+
+- 【JSMS】适配【极光短信】短信签名 - 新建/修改签名 API 变更。
+
+---
+
 ## [v1.0.3](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.3) - 2025-12-09
 
 ### 修复
