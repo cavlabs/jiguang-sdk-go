@@ -15,8 +15,11 @@
 package jsms
 
 import (
+	"crypto/tls"
+	"net/http"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/cavlabs/jiguang-sdk-go/api"
 	"github.com/cavlabs/jiguang-sdk-go/api/jsms"
@@ -25,7 +28,7 @@ import (
 var smsAPIv1 jsms.APIv1 // 极光短信 - JSMS API v1
 
 func TestMain(m *testing.M) {
-	/*client := &http.Client{
+	client := &http.Client{
 		Timeout: 30 * time.Second,
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
@@ -33,7 +36,7 @@ func TestMain(m *testing.M) {
 			},
 			ForceAttemptHTTP2: true,
 		},
-	}*/
+	}
 
 	// logger := adapter.NewLogrusLogger("[JSMS] ")
 	// logger := adapter.NewZapLogger("[JSMS]")
@@ -73,13 +76,13 @@ func TestMain(m *testing.M) {
 	// 极光短信 - JSMS API v1
 	// `EnableCallback` 配置方法的参数是可选的，可以传入一些自定义的配置选项参数，当然也可以不传入任何参数。
 	smsAPIv1, _ = jsms.NewAPIv1Builder().
-		// SetClient(client).                        // 【可选】配置，如果不配置，则使用 api.DefaultClient。
-		SetAppKey(appKey).                        // 【必填】配置。
-		SetMasterSecret(masterSecret).            // 【必填】配置。
-		SetDevKey(devKey).                        // 【可选】配置，但当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devKey`。
-		SetDevSecret(devSecret).                  // 【可选】配置，但当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devSecret`。
+		SetClient(client).             // 【可选】配置，如果不配置，则使用 api.DefaultClient。
+		SetAppKey(appKey).             // 【必填】配置。
+		SetMasterSecret(masterSecret). // 【必填】配置。
+		SetDevKey(devKey).             // 【可选】配置，但当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devKey`。
+		SetDevSecret(devSecret).       // 【可选】配置，但当需要同时使用 “账号余量查询” API 接口时，请务必同时设置 `devSecret`。
 		// SetLogger(logger).                        // 【可选】配置，如果不配置，则使用默认的 api.DefaultJSmsLogger。
-		SetHttpLogLevel(api.HttpLogLevelFull).    // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
+		SetHttpLogLevel(api.HttpLogLevelFull). // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
 		// EnableCallback(callbackConfigOptions...). // 【可选】启用回调接口服务（默认不启用），并且自定义服务的一些配置选项。
 		Build()
 
