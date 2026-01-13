@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-	"reflect"
 	"strconv"
 
 	"github.com/cavlabs/jiguang-sdk-go/api"
@@ -48,15 +47,13 @@ func (u *apiv1) UploadMaterial(ctx context.Context, param *MaterialUploadParam) 
 		param.TimeToLive = 0 // default 24 hours
 	}
 
-	uploadFile := param.File
-	hasUploadFile := uploadFile != nil && reflect.ValueOf(uploadFile).Kind() != reflect.Invalid && !reflect.ValueOf(uploadFile).IsZero()
-	if !hasUploadFile {
+	if param.File == nil {
 		return nil, errors.New("empty attachment file")
 	}
 
 	body := api.MultipartFormDataBody{
 		Fields: []api.FormField{{Name: "type", Value: param.Type}},
-		Files:  []api.FormFile{{FieldName: "file", FileData: uploadFile}},
+		Files:  []api.FormFile{{FieldName: "file", FileData: param.File}},
 	}
 	if param.TimeToLive != 0 {
 		body.Fields = append(body.Fields, api.FormField{Name: "time_to_live", Value: strconv.Itoa(param.TimeToLive)})

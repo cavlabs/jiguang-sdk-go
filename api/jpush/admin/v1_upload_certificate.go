@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-	"reflect"
 
 	"github.com/cavlabs/jiguang-sdk-go/api"
 )
@@ -45,16 +44,13 @@ func (a *apiv1) UploadCertificate(ctx context.Context, appKey string, param *Cer
 	devCertPwd, devCertFile := param.DevCertificatePassword, param.DevCertificateFile
 	proCertPwd, proCertFile := param.ProCertificatePassword, param.ProCertificateFile
 
-	hasDevCertFile := devCertFile != nil && reflect.ValueOf(devCertFile).Kind() != reflect.Invalid && !reflect.ValueOf(devCertFile).IsZero()
-	hasProCertFile := proCertFile != nil && reflect.ValueOf(proCertFile).Kind() != reflect.Invalid && !reflect.ValueOf(proCertFile).IsZero()
-
-	if !hasDevCertFile && !hasProCertFile {
+	if devCertFile == nil && proCertFile == nil {
 		return nil, errors.New("either `devCertificateFile` or `proCertificateFile` must be set")
 	}
 
 	var body api.MultipartFormDataBody
 
-	if hasDevCertFile {
+	if devCertFile != nil {
 		if devCertPwd == "" {
 			return nil, errors.New("`devCertificatePassword` is required when `devCertificateFile` is set")
 		}
@@ -68,7 +64,7 @@ func (a *apiv1) UploadCertificate(ctx context.Context, appKey string, param *Cer
 		})
 	}
 
-	if hasProCertFile {
+	if proCertFile != nil {
 		if proCertPwd == "" {
 			return nil, errors.New("`proCertificatePassword` is required when `proCertificateFile` is set")
 		}

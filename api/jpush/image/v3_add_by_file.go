@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-	"reflect"
 	"strconv"
 
 	"github.com/cavlabs/jiguang-sdk-go/api"
@@ -45,10 +44,7 @@ func (i *apiv3) AddImageByFile(ctx context.Context, param *AddByFileParam) (*Add
 
 	xiaomiImageFile, oppoImageFile := param.XiaomiImageFile, param.OppoImageFile
 
-	hasXiaomiImageFile := xiaomiImageFile != nil && reflect.ValueOf(xiaomiImageFile).Kind() != reflect.Invalid && !reflect.ValueOf(xiaomiImageFile).IsZero()
-	hasOppoImageFile := oppoImageFile != nil && reflect.ValueOf(oppoImageFile).Kind() != reflect.Invalid && !reflect.ValueOf(oppoImageFile).IsZero()
-
-	if !hasXiaomiImageFile && !hasOppoImageFile {
+	if xiaomiImageFile == nil && oppoImageFile == nil {
 		return nil, errors.New("at least one of `xiaomi_file` and `oppo_file` must be set")
 	}
 
@@ -61,14 +57,14 @@ func (i *apiv3) AddImageByFile(ctx context.Context, param *AddByFileParam) (*Add
 		},
 	}
 
-	if hasXiaomiImageFile {
+	if xiaomiImageFile != nil {
 		body.Files = append(body.Files, api.FormFile{
 			FieldName: "xiaomi_file",
 			FileData:  xiaomiImageFile,
 		})
 	}
 
-	if hasOppoImageFile {
+	if oppoImageFile != nil {
 		body.Files = append(body.Files, api.FormFile{
 			FieldName: "oppo_file",
 			FileData:  oppoImageFile,
