@@ -142,16 +142,16 @@ func (rs *UsersBatchAddOrUpdateResult) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(aux.Data, &strData); err == nil {
 		rs.Data = strData
 		return nil
-	} else {
-		objData := &UsersBatchAddOrUpdateData{}
-		if err = json.Unmarshal(aux.Data, &objData); err == nil {
-			if objData != nil { // omitempty
-				rs.Data = objData
-			}
-		} else {
-			// return err
-			rs.Data = string(aux.Data)
+	}
+
+	objData := &UsersBatchAddOrUpdateData{}
+	if err := json.Unmarshal(aux.Data, &objData); err == nil {
+		if objData != nil { // omitempty
+			rs.Data = objData
 		}
+	} else {
+		// return err
+		rs.Data = string(aux.Data)
 	}
 
 	return nil

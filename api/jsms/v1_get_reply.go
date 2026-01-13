@@ -85,9 +85,8 @@ func (rs ReplyGetResult) MarshalJSON() ([]byte, error) {
 		data := make(map[string]*api.CodeError, 1)
 		data["error"] = rs.Error
 		return json.Marshal(data)
-	} else {
-		return json.Marshal(rs.Data)
 	}
+	return json.Marshal(rs.Data)
 }
 
 func (rs *ReplyGetResult) IsSuccess() bool {
