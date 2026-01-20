@@ -1,3 +1,3 @@
 module github.com/cavlabs/jiguang-sdk-go
 
-go 1.25
+go 1.16
