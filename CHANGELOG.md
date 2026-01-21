@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.5](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.5) - 2026-01-21
+
+### 优化
+
+- 明确最低 Go 版本支持为 1.16。
+
+---
+
 ## [v1.0.4](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.4) - 2026-01-13
 
 ### API 变更
