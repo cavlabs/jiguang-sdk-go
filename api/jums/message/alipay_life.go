@@ -38,7 +38,7 @@ type AlipayLifeContext struct {
 	// 【可选】模板中占位符的值及文字颜色。
 	//  - 将根据顺序组装成以 keyword1, keyword2, keyword3, ... 等为 key 的 JSON 格式传送；
 	//  - 示例："keyword1":{"color":"#85be53","value":"HU7142"},"keyword2":{"color":"#85be53","value":"HU7142"},"keyword3":{"color":"#85be53","value":"HU7142"}。
-	Keywords []AlipayLifeContextKeyword `json:"-,omitempty"`
+	Keywords []AlipayLifeContextKeyword `json:"-"`
 	// 【可选】模板中占位符的值及文字颜色，First 一般为开头语的占位符。
 	First *AlipayLifeContextKeyword `json:"first,omitempty"`
 	// 【可选】模板中占位符的值及文字颜色，Remark 一般为结束语的占位符。
