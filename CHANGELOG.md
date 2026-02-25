@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.6](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.6) - 2026-02-25
+
+### 优化
+
+- 添加许可证头配置和 CI 检查工作流步骤，移除 LICENSE 文件中多余的部分；
+- CI 工作流新增对 Go 1.26 版本的测试支持。
+
+---
+
 ## [v1.0.5](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.5) - 2026-01-21
 
 ### 优化
