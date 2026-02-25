@@ -18,7 +18,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/admin"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/admin"
 )
 
 func TestAdminAPIv1_CreateApp(t *testing.T) {

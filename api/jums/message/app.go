@@ -14,7 +14,7 @@
 
 package message
 
-import "github.com/cavlabs/jiguang-sdk-go/api/jpush/push"
+import "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push"
 
 // # 【APP】消息
 type App = push.SendParam
@@ -26,7 +26,7 @@ type AppParams struct {
 	// 【必填】APP 推送平台设置，支持 2 种类型值：
 	//  - platform.All：推送到所有平台；
 	//  - platform.Android、platform.IOS、platform.QuickApp、platform.Web 的组合列表：指定特定推送平台。
-	Platform interface{} `json:"platform"`
+	Platform any `json:"platform"`
 	// 【可选】离线消息保留时长（单位：秒）。
 	//  - 默认 86400（1 天），最长 10 天。
 	TimeToLive *int64 `json:"time_to_live,omitempty"`

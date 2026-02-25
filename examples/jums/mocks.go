@@ -15,12 +15,12 @@
 package jums
 
 import (
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums/audience"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums/message"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/audience"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/message"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func mockAudience() *audience.Audience {
@@ -100,14 +100,14 @@ func mockMessage() *message.Message {
 						Intent: &notification.Intent{
 							URL: "intent:#Intent;component=com.jiguang.push/com.example.jpushdemo.SettingActivity;end",
 						},
-						Extras: map[string]interface{}{"newsid": 321},
+						Extras: map[string]any{"newsid": 321},
 					},
 					IOS: &notification.IOS{
 						Alert:    "Hi, JPush from JUMS!",
 						Sound:    "default",
 						Badge:    jiguang.String("+1"),
 						ThreadID: "default",
-						Extras:   map[string]interface{}{"newsid": 321},
+						Extras:   map[string]any{"newsid": 321},
 					},
 					QuickApp: &notification.QuickApp{
 						Alert: "Hi, JPush from JUMS!",
@@ -119,7 +119,7 @@ func mockMessage() *message.Message {
 					Content:     "Hi, JPush from JUMS!",
 					ContentType: "text",
 					Title:       "msg",
-					Extras:      map[string]interface{}{"key": "value"},
+					Extras:      map[string]any{"key": "value"},
 				},
 				Options: &push.Options{
 					TimeToLive:     jiguang.Int64(60),
@@ -133,28 +133,28 @@ func mockMessage() *message.Message {
 				Type:       0,
 				TemplateID: "ngqIpbwh8bUfcSsECmogfXcV14J0tQlEpBO27izEYtY",
 				URL:        "http://weixin.qq.com/download",
-				MiniProgram: map[string]interface{}{
+				MiniProgram: map[string]any{
 					"appid":    "xiaochengxuappid12345",
 					"pagepath": "index?foo=bar",
 				},
-				Data: map[string]interface{}{
-					"first": map[string]interface{}{
+				Data: map[string]any{
+					"first": map[string]any{
 						"value": "恭喜你购买成功！",
 						"color": "#173177",
 					},
-					"keyword1": map[string]interface{}{
+					"keyword1": map[string]any{
 						"value": "巧克力",
 						"color": "#173177",
 					},
-					"keyword2": map[string]interface{}{
+					"keyword2": map[string]any{
 						"value": "39.8元",
 						"color": "#173177",
 					},
-					"keyword3": map[string]interface{}{
+					"keyword3": map[string]any{
 						"value": "2014年9月22日",
 						"color": "#173177",
 					},
-					"remark": map[string]interface{}{
+					"remark": map[string]any{
 						"value": "欢迎再次购买！",
 						"color": "#173177",
 					},
@@ -164,18 +164,18 @@ func mockMessage() *message.Message {
 				Type:       1,
 				TemplateID: "ngqIpbwh8bUfcSsECmogfXcV14J0tQlEpBO27izEYtY",
 				Page:       "http://weixin.qq.com/download",
-				MiniProgram: map[string]interface{}{
+				MiniProgram: map[string]any{
 					"appid":    "xiaochengxuappid12345",
 					"pagepath": "index?foo=bar",
 				},
-				Data: map[string]interface{}{
-					"name1": map[string]interface{}{
+				Data: map[string]any{
+					"name1": map[string]any{
 						"value": "广州腾讯科技有限公司",
 					},
-					"thing8": map[string]interface{}{
+					"thing8": map[string]any{
 						"value": "广州腾讯科技有限公司",
 					},
-					"time7": map[string]interface{}{
+					"time7": map[string]any{
 						"value": "2019年8月8日",
 					},
 				},
@@ -187,17 +187,17 @@ func mockMessage() *message.Message {
 				Page:             "index",
 				MiniProgramState: "developer",
 				Lang:             "zh_CN",
-				Data: map[string]interface{}{
-					"number01": map[string]interface{}{
+				Data: map[string]any{
+					"number01": map[string]any{
 						"value": "339208499",
 					},
-					"date01": map[string]interface{}{
+					"date01": map[string]any{
 						"value": "2015年01月05日",
 					},
-					"site01": map[string]interface{}{
+					"site01": map[string]any{
 						"value": "TIT创意园",
 					},
-					"site02": map[string]interface{}{
+					"site02": map[string]any{
 						"value": "广州市新港中路397号",
 					},
 				},
@@ -207,7 +207,7 @@ func mockMessage() *message.Message {
 			&message.JSMS{
 				SignID: 1,
 				TempID: 1,
-				TempParams: map[string]interface{}{
+				TempParams: map[string]any{
 					"code": "1234",
 				},
 			},

@@ -17,7 +17,7 @@ package report
 import (
 	"context"
 
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # Report API v3

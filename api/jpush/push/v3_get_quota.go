@@ -21,7 +21,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 厂商配额查询
@@ -127,7 +127,7 @@ func (rs *QuotaGetResult) UnmarshalJSON(data []byte) error {
 }
 
 func (rs QuotaGetResult) MarshalJSON() ([]byte, error) {
-	rsmap := make(map[string]interface{}, 3)
+	rsmap := make(map[string]any, 3)
 	rsmap["code"] = rs.Error.Code
 	rsmap["message"] = rs.Error.Message
 	if rs.Data != nil {

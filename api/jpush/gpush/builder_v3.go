@@ -18,9 +18,9 @@ import (
 	"encoding/base64"
 	"errors"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/file"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/file"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // 用于构建和配置 Group Push API v3 访问客户端的构建器。

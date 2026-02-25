@@ -20,8 +20,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 定时短信查询
@@ -69,9 +69,9 @@ type ScheduleGetResult struct {
 
 // 定时短信查询接收者结果
 type ScheduleRecipientResult struct {
-	MsgID      string                 `json:"msg_id,omitempty"`    // 消息 ID
-	Mobile     string                 `json:"mobile"`              // 手机号码
-	TempParams map[string]interface{} `json:"temp_para,omitempty"` // 模板参数，需要替换的参数名和参数值的键值对
+	MsgID      string         `json:"msg_id,omitempty"`    // 消息 ID
+	Mobile     string         `json:"mobile"`              // 手机号码
+	TempParams map[string]any `json:"temp_para,omitempty"` // 模板参数，需要替换的参数名和参数值的键值对
 }
 
 func (rs *ScheduleGetResult) IsSuccess() bool {

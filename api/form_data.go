@@ -59,9 +59,9 @@ type FormField struct {
 
 // # 文件表单字段
 type FormFile struct {
-	FieldName string      // 字段名称
-	FileName  string      // 文件名（如果 FileData 能获取到，该字段可选）
-	FileData  interface{} // 文件路径或文件数据流（如果是文件数据流，请在上传完毕后自行关闭）
+	FieldName string // 字段名称
+	FileName  string // 文件名（如果 FileData 能获取到，该字段可选）
+	FileData  any    // 文件路径或文件数据流（如果是文件数据流，请在上传完毕后自行关闭）
 }
 
 // 处理文件表单字段，将其内容写入 writer。

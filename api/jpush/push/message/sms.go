@@ -36,5 +36,5 @@ type SMS struct {
 	// 【可选】是否对补发短信的用户进行活跃过滤。
 	ActiveFilter *bool `json:"active_filter,omitempty"`
 	// 【可选】短信模板中的参数。
-	TempParams map[string]interface{} `json:"temp_para,omitempty"`
+	TempParams map[string]any `json:"temp_para,omitempty"`
 }

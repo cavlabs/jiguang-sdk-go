@@ -22,8 +22,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 获取某个定时任务的所有消息 ID

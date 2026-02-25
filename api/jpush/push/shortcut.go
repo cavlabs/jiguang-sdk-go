@@ -15,15 +15,15 @@
 package push
 
 import (
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/audience"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/callback"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/cid"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/liveactivity"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/message"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/hmos"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/options"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/send"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/audience"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/callback"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/cid"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/liveactivity"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/message"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification/hmos"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/options"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/send"
 )
 
 // ↓↓↓ 这是为了方便 SDK 的使用者，提供了一些共享模型的别名定义。↓↓↓

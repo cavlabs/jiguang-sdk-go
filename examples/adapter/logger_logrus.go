@@ -21,7 +21,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 	"github.com/sirupsen/logrus"
 )
 
@@ -80,19 +80,19 @@ func (l *LogrusLogger) Error(_ context.Context, msg string) {
 	l.logger.Error(msg)
 }
 
-func (l *LogrusLogger) Debugf(_ context.Context, format string, args ...interface{}) {
+func (l *LogrusLogger) Debugf(_ context.Context, format string, args ...any) {
 	l.logger.Debugf(format, args...)
 }
 
-func (l *LogrusLogger) Infof(_ context.Context, format string, args ...interface{}) {
+func (l *LogrusLogger) Infof(_ context.Context, format string, args ...any) {
 	l.logger.Infof(format, args...)
 }
 
-func (l *LogrusLogger) Warnf(_ context.Context, format string, args ...interface{}) {
+func (l *LogrusLogger) Warnf(_ context.Context, format string, args ...any) {
 	l.logger.Warnf(format, args...)
 }
 
-func (l *LogrusLogger) Errorf(_ context.Context, format string, args ...interface{}) {
+func (l *LogrusLogger) Errorf(_ context.Context, format string, args ...any) {
 	l.logger.Errorf(format, args...)
 }
 

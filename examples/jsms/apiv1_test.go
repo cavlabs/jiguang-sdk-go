@@ -19,8 +19,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jsms"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jsms"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func TestAPIv1_CreateSign(t *testing.T) {
@@ -244,7 +244,7 @@ func TestAPIv1_SendMessage(t *testing.T) {
 	param := &jsms.MessageSendParam{
 		Mobile:     "13800138000",
 		TempID:     1,
-		TempParams: map[string]interface{}{"test": "jpush"},
+		TempParams: map[string]any{"test": "jpush"},
 	}
 	result, err := smsAPIv1.SendMessage(context.Background(), param)
 	if err != nil {
@@ -267,11 +267,11 @@ func TestAPIv1_SendBatchMessage(t *testing.T) {
 		Recipients: []jsms.BatchSendRecipientParam{
 			{
 				Mobile:     "13812345678",
-				TempParams: map[string]interface{}{"code": "638938"},
+				TempParams: map[string]any{"code": "638938"},
 			},
 			{
 				Mobile:     "18603050709",
-				TempParams: map[string]interface{}{"code": "147721"},
+				TempParams: map[string]any{"code": "147721"},
 			},
 		},
 	}
@@ -300,7 +300,7 @@ func TestAPIv1_SendSchedule(t *testing.T) {
 		Mobile:     "13812345678",
 		SignID:     37582,
 		TempID:     1250,
-		TempParams: map[string]interface{}{"number": "741627"},
+		TempParams: map[string]any{"number": "741627"},
 	}
 	result, err := smsAPIv1.SendSchedule(context.Background(), param)
 	if err != nil {
@@ -324,7 +324,7 @@ func TestAPIv1_UpdateSchedule(t *testing.T) {
 		Mobile:     "13812345678",
 		SignID:     37582,
 		TempID:     1250,
-		TempParams: map[string]interface{}{"number": "741627"},
+		TempParams: map[string]any{"number": "741627"},
 	}
 	result, err := smsAPIv1.UpdateSchedule(context.Background(), scheduleID, param)
 	if err != nil {
@@ -383,11 +383,11 @@ func TestAPIv1_SendBatchSchedule(t *testing.T) {
 		Recipients: []jsms.BatchScheduleRecipientParam{
 			{
 				Mobile:     "13812345678",
-				TempParams: map[string]interface{}{"number": "741627"},
+				TempParams: map[string]any{"number": "741627"},
 			},
 			{
 				Mobile:     "18603050709",
-				TempParams: map[string]interface{}{"number": "147721"},
+				TempParams: map[string]any{"number": "147721"},
 			},
 		},
 	}
@@ -417,11 +417,11 @@ func TestAPIv1_UpdateBatchSchedule(t *testing.T) {
 		Recipients: []jsms.BatchScheduleRecipientParam{
 			{
 				Mobile:     "13812345678",
-				TempParams: map[string]interface{}{"number": "741627"},
+				TempParams: map[string]any{"number": "741627"},
 			},
 			{
 				Mobile:     "18603050709",
-				TempParams: map[string]interface{}{"number": "147721"},
+				TempParams: map[string]any{"number": "147721"},
 			},
 		},
 	}

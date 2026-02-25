@@ -15,8 +15,8 @@
 package notification
 
 import (
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/hmos"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/style"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification/hmos"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification/style"
 )
 
 // # 鸿蒙（HarmonyOS）平台上的通知
@@ -63,13 +63,13 @@ type HMOS struct {
 	ReceiptID string `json:"receipt_id,omitempty"`
 	// 【可选】扩展字段。
 	//  - 这里自定义 JSON 格式的 key/value 信息，以供业务使用。
-	Extras map[string]interface{} `json:"extras,omitempty"`
+	Extras map[string]any `json:"extras,omitempty"`
 	// 【可选】通知栏样式类型。
 	//  - 默认为 0：0-普通样式，2-多行文本样式 (style.Inbox)。
 	Style style.Style `json:"style,omitempty"`
 	// 【可选】多行文本样式。
 	//  - 对应 Style 的取值类型 style.Inbox。
-	Inbox map[string]interface{} `json:"inbox,omitempty"`
+	Inbox map[string]any `json:"inbox,omitempty"`
 	// 【可选】推送类型。
 	//
 	// 对应华为 push-type 字段，默认值 0 (hmos.PushTypeAlert)，目前仅支持：
@@ -115,5 +115,5 @@ type HMOS struct {
 	//  - 极光 HmPayload 字段值会直接透传给鸿蒙 payload 字段，极光不对消息体完整性和正确性进行校验，请开发者对照官方文档说明进行传参，详见：[鸿蒙场景化消息请求示例]；
 	//  - 当您推送 “卡片刷新” 或 “实况窗” 消息时，推送仅支持通过鸿蒙通道下发，推送下发策略仅支持 ospush（下发策略默认值 ospush，如自定义其它下发策略请求报错）。
 	// [鸿蒙场景化消息请求示例]: https://developer.huawei.com/consumer/cn/doc/harmonyos-references/push-scenariozed-api-request-example
-	HmPayload map[string]interface{} `json:"hm_payload,omitempty"`
+	HmPayload map[string]any `json:"hm_payload,omitempty"`
 }

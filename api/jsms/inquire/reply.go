@@ -34,7 +34,7 @@ func (r *ReplyData) UnmarshalJSON(data []byte) error {
 	// 参见：https://choly.ca/post/go-json-marshalling/
 	type Alias ReplyData
 	aux := &struct {
-		ReplyTime interface{} `json:"replyTime"` // 兼容时间戳和时间字符串类型的 `replyTime`
+		ReplyTime any `json:"replyTime"` // 兼容时间戳和时间字符串类型的 `replyTime`
 		*Alias
 	}{
 		Alias: (*Alias)(r),

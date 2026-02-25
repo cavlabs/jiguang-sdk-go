@@ -19,8 +19,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jsms/inquire"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jsms/inquire"
 )
 
 // # 获取短信发送状态

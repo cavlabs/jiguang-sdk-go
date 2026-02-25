@@ -19,9 +19,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func TestDeviceAPIv3_GetDevice(t *testing.T) {

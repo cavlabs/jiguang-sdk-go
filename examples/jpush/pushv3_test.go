@@ -20,11 +20,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/alert"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/style"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification/alert"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification/style"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func TestPushAPIv3_Send(t *testing.T) {
@@ -63,7 +63,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	android.AlertType = alert.DefaultSound | alert.DefaultLights // 提示音 (1) + 指示灯 (4) = 5
 	android.LargeIcon = "https://www.jiguang.cn/largeIcon.jpg"
 	android.Intent = &push.NotificationIntent{URL: "intent:#Intent;component=com.jiguang.push/com.example.jpushdemo.SettingActivity;end"}
-	android.Extras = map[string]interface{}{"newsid": 321}
+	android.Extras = map[string]any{"newsid": 321}
 	android.BadgeAddNum = jiguang.Int(1)
 	showBeginTime, _ := jiguang.ParseLocalDateTime("2024-12-25 00:00:00")
 	android.ShowBeginTime = &showBeginTime
@@ -87,7 +87,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	}
 	ios.Badge = jiguang.String("+1")
 	ios.ThreadID = "default"
-	ios.Extras = map[string]interface{}{"newsid": 321}
+	ios.Extras = map[string]any{"newsid": 321}
 	ios.InterruptionLevel = alert.IosInterruptionLevelActive // active
 
 	// HMOS 通知内容
@@ -96,13 +96,13 @@ func TestPushAPIv3_Send(t *testing.T) {
 	hmos.Title = "推送个性化显示"
 	hmos.Intent = &push.NotificationIntent{URL: "scheme://test?key1=val1&key2=val2"}
 	hmos.BadgeAddNum = jiguang.Int(1)
-	hmos.Extras = map[string]interface{}{"skuId": 12345, "useCoupon": true}
+	hmos.Extras = map[string]any{"skuId": 12345, "useCoupon": true}
 	hmos.Category = "MARKETING"
 	hmos.TestMessage = jiguang.Bool(true)
 	hmos.ReceiptID = "abc1212"
 	hmos.LargeIcon = "https://www.jiguang.cn/largeIcon.jpg"
 	hmos.Style = style.Inbox // 多行文本样式 (2)
-	hmos.Inbox = map[string]interface{}{"inboxContent": []string{"1. 通知栏消息样式", "2. 通知栏消息提醒方式和展示方式", "3. 通知栏消息语言本地化"}}
+	hmos.Inbox = map[string]any{"inboxContent": []string{"1. 通知栏消息样式", "2. 通知栏消息提醒方式和展示方式", "3. 通知栏消息语言本地化"}}
 	hmos.PushType = push.HmosPushTypeExtension // 通知扩展消息 (2)
 
 	// QuickApp 通知内容
@@ -112,7 +112,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	quickApp.Page = "/page1"
 
 	// VoIP: 此功能需要 JPush iOS SDK v3.3.2 及以上版本支持
-	voip := map[string]interface{}{"key": "value"} // 任意自定义 key/value 对，API 透传下去
+	voip := map[string]any{"key": "value"} // 任意自定义 key/value 对，API 透传下去
 
 	// 推送通知内容
 	param.Notification = &push.Notification{
@@ -129,7 +129,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	message.Content = "Hi, JPush!"
 	message.ContentType = "text"
 	message.Title = "msg"
-	message.Extras = map[string]interface{}{"key": "value"}
+	message.Extras = map[string]any{"key": "value"}
 	param.CustomMessage = message
 
 	// 应用内增强提醒
@@ -138,9 +138,9 @@ func TestPushAPIv3_Send(t *testing.T) {
 	// 实时活动内容
 	liveActivityIos := &push.LiveActivityIosMessage{}
 	liveActivityIos.Event = push.LiveActivityEventStart // start 创建
-	liveActivityIos.ContentState = map[string]interface{}{"progress": 0.1, "currentPositionInQueue": 8}
+	liveActivityIos.ContentState = map[string]any{"progress": 0.1, "currentPositionInQueue": 8}
 	liveActivityIos.AttributesType = "WaitTimeDemoAttributes"
-	liveActivityIos.Attributes = map[string]interface{}{"waitlistName": "For Testing", "waitlistId": "", "bookingId": ""}
+	liveActivityIos.Attributes = map[string]any{"waitlistName": "For Testing", "waitlistId": "", "bookingId": ""}
 	liveActivityIos.Alert = &push.LiveActivityIosAlertMessage{
 		Title: "Send to {{nickname}}",
 		Body:  "Hi, {{nickname}}!",
@@ -160,7 +160,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	notification3rd.BadgeSetNum = jiguang.Int(1)
 	notification3rd.BadgeClass = "com.test.badge.MainActivity"
 	notification3rd.Sound = "sound"
-	notification3rd.Extras = map[string]interface{}{"news_id": 134, "my_key": "a value"}*/
+	notification3rd.Extras = map[string]any{"news_id": 134, "my_key": "a value"}*/
 
 	// 自定义消息转厂商通知内容（v2 版本）
 	notification3rd := &push.ThirdNotificationV2{} // 推荐使用 v2 版本
@@ -173,7 +173,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	// 短信
 	sms := &push.SmsMessage{}
 	sms.TempID = 1250
-	sms.TempParams = map[string]interface{}{"code": "123456"}
+	sms.TempParams = map[string]any{"code": "123456"}
 	sms.DelayTime = 3600
 	sms.ActiveFilter = jiguang.Bool(false)
 	param.SmsMessage = sms
@@ -196,7 +196,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	// 回调
 	callback := &push.Callback{
 		URL:    "https://www.bilibili.com",
-		Params: map[string]interface{}{"name": "joe", "age": 26},
+		Params: map[string]any{"name": "joe", "age": 26},
 		Type:   push.CallbackTypeReceived | push.CallbackTypeClicked, // 送达和点击回执 (1 + 2 = 3)
 	}
 	param.Callback = callback
@@ -261,11 +261,11 @@ func TestPushAPIv3_ValidateSend(t *testing.T) {
 		Platform: platform.All,       // 发送所有平台
 	}
 	// Android 通知内容
-	android := &push.AndroidNotification{Extras: map[string]interface{}{"android-key1": "android-value1"}}
+	android := &push.AndroidNotification{Extras: map[string]any{"android-key1": "android-value1"}}
 	ios := &push.IosNotification{
 		Sound:  jiguang.String("sound.caf"),
 		Badge:  jiguang.String("+1"),
-		Extras: map[string]interface{}{"ios-key1": "ios-value1"},
+		Extras: map[string]any{"ios-key1": "ios-value1"},
 	}
 	// 推送通知内容
 	param.Notification = &push.Notification{
@@ -298,7 +298,7 @@ func TestPushAPIv3_BatchSend(t *testing.T) {
 			Target:        "1104a89793af2cfc030",
 			Notification:  &push.Notification{Alert: "Hello, JPush!"},
 			CustomMessage: &push.CustomMessage{Content: "Hello, JPush!"},
-			SmsMessage:    &push.SmsMessage{TempID: 1250, TempParams: map[string]interface{}{"code": "123456"}},
+			SmsMessage:    &push.SmsMessage{TempID: 1250, TempParams: map[string]any{"code": "123456"}},
 			Options:       &push.Options{TimeToLive: jiguang.Int64(600), ApnsProduction: jiguang.Bool(false)},
 		},
 		"7103a4c428a0b98974ec1849-711161d4-5f17-4d2f-b855-5e5a8909b26e": {
@@ -306,7 +306,7 @@ func TestPushAPIv3_BatchSend(t *testing.T) {
 			Target:        "1104a89793af2cfc031",
 			Notification:  &push.Notification{Alert: "Hi, JPush!"},
 			CustomMessage: &push.CustomMessage{Content: "Hi, JPush!"},
-			SmsMessage:    &push.SmsMessage{TempID: 1250, TempParams: map[string]interface{}{"code": "123456"}},
+			SmsMessage:    &push.SmsMessage{TempID: 1250, TempParams: map[string]any{"code": "123456"}},
 			Options:       &push.Options{TimeToLive: jiguang.Int64(600), ApnsProduction: jiguang.Bool(false)},
 		},
 	}

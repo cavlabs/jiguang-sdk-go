@@ -110,5 +110,5 @@ type APIv3 interface {
 	// # 自定义定时推送
 	//
 	// 如果遇到 ScheduleSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-	CustomScheduleSend(ctx context.Context, param interface{}) (*SendResult, error)
+	CustomScheduleSend(ctx context.Context, param any) (*SendResult, error)
 }

@@ -22,9 +22,9 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/report"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/report"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 用户统计（VIP）

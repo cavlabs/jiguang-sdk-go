@@ -22,8 +22,8 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 用户统计（VIP）
@@ -160,7 +160,7 @@ func (rs UserDetailGetResult) MarshalJSON() ([]byte, error) {
 		data["error"] = rs.Error
 		return json.Marshal(data)
 	}
-	data := make(map[string]interface{}, 4)
+	data := make(map[string]any, 4)
 	data["time_unit"] = rs.Start.TimeUnit // 请求时的时间单位
 	data["start"] = rs.Start.Format()     // 请求时的起始时间
 	data["duration"] = rs.Duration        // 请求时的持续时长

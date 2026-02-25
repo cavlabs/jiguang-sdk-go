@@ -20,8 +20,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 普通推送
@@ -37,7 +37,7 @@ func (p *apiv3) Send(ctx context.Context, param *SendParam) (*SendResult, error)
 // # 自定义推送
 //
 // 如果遇到 Send 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-func (p *apiv3) CustomSend(ctx context.Context, param interface{}) (*SendResult, error) {
+func (p *apiv3) CustomSend(ctx context.Context, param any) (*SendResult, error) {
 	if p == nil {
 		return nil, api.ErrNilJPushPushAPIv3
 	}
@@ -114,8 +114,8 @@ func (p *apiv3) SendWithSM2(ctx context.Context, param *SendParam) (*SendResult,
 
 // SM2 加密推送参数
 type sm2Push struct {
-	Audience interface{} `json:"audience"` // 推送目标，同 SendParam.Audience
-	Payload  string      `json:"payload"`  // 推送内容，SendParam 的 JSON 字符串使用 SM2 公钥加密后的密文（Base64 编码）
+	Audience any    `json:"audience"` // 推送目标，同 SendParam.Audience
+	Payload  string `json:"payload"`  // 推送内容，SendParam 的 JSON 字符串使用 SM2 公钥加密后的密文（Base64 编码）
 }
 
 type SendResult struct {

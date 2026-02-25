@@ -17,7 +17,7 @@ package gpush
 import (
 	"context"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/file"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/file"
 )
 
 type fileAPIv3 = file.APIv3
@@ -58,10 +58,10 @@ type APIv3 interface {
 	// # 自定义分组推送
 	//
 	// 如果遇到 Send 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-	CustomSend(ctx context.Context, param interface{}) (*SendResult, error)
+	CustomSend(ctx context.Context, param any) (*SendResult, error)
 
 	// # 自定义分组文件推送
 	//
 	// 如果遇到 SendByFile 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-	CustomSendByFile(ctx context.Context, param interface{}) (*SendResult, error)
+	CustomSendByFile(ctx context.Context, param any) (*SendResult, error)
 }

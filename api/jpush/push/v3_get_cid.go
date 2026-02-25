@@ -20,7 +20,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 获取推送唯一标识 (CID)

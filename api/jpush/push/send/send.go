@@ -15,11 +15,11 @@
 package send
 
 import (
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/callback"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/liveactivity"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/message"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/options"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/callback"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/liveactivity"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/message"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/options"
 )
 
 // # 推送参数
@@ -37,7 +37,7 @@ type Param struct {
 	// 详见 [docs.jiguang.cn] 文档说明。
 	//
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#platform%EF%BC%9A%E6%8E%A8%E9%80%81%E5%B9%B3%E5%8F%B0。
-	Platform interface{} `json:"platform"`
+	Platform any `json:"platform"`
 	// 【必填】推送目标，支持 2 种类型值：
 	//  - push.BroadcastAuds：发广播，给全部设备进行推送；
 	//  - 推送设备对象 push.Audience，详见 [docs.jiguang.cn] 文档说明。
@@ -45,7 +45,7 @@ type Param struct {
 	//  - 基于业务优化的需求，极光于 2020 年 3 月 10 日对「广播推送」的频率进行限制，调整为 10 次每天，超过调用限制时将返回报错码 2008，官网控制台将与 Push API 同步调整。
 	//  - 本次调整仅限制广播，对广播外的推送不影响。
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#audience%EF%BC%9A%E6%8E%A8%E9%80%81%E7%9B%AE%E6%A0%87
-	Audience interface{} `json:"audience,omitempty"`
+	Audience any `json:"audience,omitempty"`
 	// 【可选】推送可选项。
 	//  - 详见 [docs.jiguang.cn] 文档说明。
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#options%EF%BC%9A%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0
@@ -72,7 +72,7 @@ type Param struct {
 	// 详见 [docs.jiguang.cn] 文档说明。
 	//
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
-	ThirdNotification interface{} `json:"notification_3rd,omitempty"`
+	ThirdNotification any `json:"notification_3rd,omitempty"`
 	// 【可选】短信渠道补充送达内容。
 	//  - 详见 [docs.jiguang.cn] 文档说明。
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#sms_message%EF%BC%9A%E7%9F%AD%E4%BF%A1

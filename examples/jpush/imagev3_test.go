@@ -18,7 +18,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/image"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/image"
 )
 
 func TestImageAPIv3_AddImageByUrl(t *testing.T) {

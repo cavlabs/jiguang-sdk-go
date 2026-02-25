@@ -20,9 +20,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/send"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/send"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 定时推送（创建定时任务）
@@ -42,7 +42,7 @@ func (s *apiv3) ScheduleSend(ctx context.Context, param *SendParam) (*SendResult
 // # 自定义定时推送
 //
 // 如果遇到 ScheduleSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-func (s *apiv3) CustomScheduleSend(ctx context.Context, param interface{}) (*SendResult, error) {
+func (s *apiv3) CustomScheduleSend(ctx context.Context, param any) (*SendResult, error) {
 	if s == nil {
 		return nil, api.ErrNilJPushScheduleAPIv3
 	}

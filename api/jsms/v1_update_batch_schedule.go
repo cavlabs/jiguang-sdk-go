@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 批量定时短信修改

@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 更新图片（文件方式）
@@ -95,11 +95,11 @@ type UpdateByFileParam struct {
 	//  - 本接口将会对该图片文件大小进行校验，若不适配小米对该图片的要求，则返回错误，小米对该图片对要求参考 [小米-图片上传]；
 	//  - 小米从 2023.08 开始不再支持推送时动态设置小图标、右侧图标、大图片功能，开发者可不再设置此字段值。
 	// [小米-图片上传]: https://dev.mi.com/console/doc/detail?pId=1278#4_4_2
-	XiaomiImageFile interface{} `json:"xiaomi_file,omitempty"`
+	XiaomiImageFile any `json:"xiaomi_file,omitempty"`
 	// 【可选】上传配置 OPPO 通道的图片文件；
 	//  - 本接口将会对该图片文件大小进行校验，若不适配 OPPO 对该图片的要求，则返回错误，OPPO 对该图片对要求参考 [OPPO-图片上传]。
 	// [OPPO-图片上传]: https://open.oppomobile.com/new/developmentDoc/info?id=11241
-	OppoImageFile interface{} `json:"oppo_file,omitempty"`
+	OppoImageFile any `json:"oppo_file,omitempty"`
 }
 
 // 更新图片（文件方式）响应结果正文。

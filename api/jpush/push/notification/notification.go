@@ -47,5 +47,5 @@ type Notification struct {
 	// 【可选】iOS VoIP 功能。该类型推送支持和 iOS 的 Notification 通知并存，详见 [voip] 文档说明
 	//  - 任意自定义 key/value 对，会透传给 APP。
 	// [voip]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#voip
-	VoIP map[string]interface{} `json:"voip,omitempty"`
+	VoIP map[string]any `json:"voip,omitempty"`
 }

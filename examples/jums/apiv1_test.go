@@ -19,11 +19,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums/audience"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums/message"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/audience"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/message"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func TestAPIv1_BroadcastSend(t *testing.T) {
@@ -38,7 +38,7 @@ func TestAPIv1_BroadcastSend(t *testing.T) {
 		},
 		Callback: &message.Callback{
 			URL: "https://www.jiguang.cn/ums-portal",
-			Params: map[string]interface{}{
+			Params: map[string]any{
 				"name": "joe",
 				"age":  26,
 			},
@@ -71,7 +71,7 @@ func TestAPIv1_Send(t *testing.T) {
 		},
 		Callback: &message.Callback{
 			URL: "https://www.jiguang.cn/ums-portal",
-			Params: map[string]interface{}{
+			Params: map[string]any{
 				"name": "joe",
 				"age":  26,
 			},
@@ -94,7 +94,7 @@ func TestAPIv1_Send(t *testing.T) {
 func TestAPIv1_TemplateBroadcastSend(t *testing.T) {
 	param := &jums.TemplateBroadcastSendParam{
 		TemplateID: 10001,
-		TemplateParams: map[string]interface{}{
+		TemplateParams: map[string]any{
 			"user": "xxx",
 			"url":  "xxx",
 		},
@@ -112,7 +112,7 @@ func TestAPIv1_TemplateBroadcastSend(t *testing.T) {
 		},
 		Callback: &message.Callback{
 			URL: "https://www.jiguang.cn/ums-portal",
-			Params: map[string]interface{}{
+			Params: map[string]any{
 				"name": "joe",
 				"age":  26,
 			},
@@ -140,7 +140,7 @@ func TestAPIv1_TemplateSend(t *testing.T) {
 			Segments: []string{"1000"},
 		},
 		TemplateID: 10001,
-		TemplateParams: map[string]interface{}{
+		TemplateParams: map[string]any{
 			"user": "xxx",
 			"url":  "xxx",
 		},

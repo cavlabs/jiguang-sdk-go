@@ -21,8 +21,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/report"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/report"
 )
 
 // # 消息统计详情（VIP）

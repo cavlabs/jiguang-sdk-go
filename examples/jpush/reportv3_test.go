@@ -20,7 +20,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func TestReportAPIv3_GetReceivedDetail(t *testing.T) {

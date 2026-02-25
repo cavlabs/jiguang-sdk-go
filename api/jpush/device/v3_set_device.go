@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 设置设备的标签、别名与手机号码
@@ -69,7 +69,7 @@ type DeviceSetParam struct {
 	//  - 支持 add, remove 或者 空字符串 - 当设置为 空字符串 的时候，表示清空所有的 tags；add/remove 下是增加或删除指定的 tag；
 	//  - 一次 add/remove tag 的上限均为 100 个，且总长度均不能超过 1000 字节；
 	//  - 可以多次调用 API 设置，一个设备（Registration ID）能设置的 tag 上限为 1000 个，应用 tag 总数没有限制。
-	Tags interface{} `json:"tags,omitempty"`
+	Tags any `json:"tags,omitempty"`
 	// 更新设备的别名属性；当别名为 空字符串 时，删除指定设备的别名；
 	//  - 注意：极光于 2020/03/10 对「别名设置」的上限进行限制，最多允许绑定 10 个设备，超过将报错 7015。
 	Alias *string `json:"alias,omitempty"`

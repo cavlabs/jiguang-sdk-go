@@ -14,7 +14,7 @@
 
 package options
 
-import "github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/style"
+import "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification/style"
 
 // # 推送可选项
 //
@@ -119,7 +119,7 @@ type Options struct {
 	// 【可选】是否设置个性化文案。
 	AlternateSet *bool `json:"alternate_set,omitempty"`
 	// 【可选】地理围栏配置参数。
-	Geofence map[string]interface{} `json:"geofence,omitempty"`
+	Geofence map[string]any `json:"geofence,omitempty"`
 	// 【可选】极光 WebPortal 的附加属性。
 	PortalExtra *PortalExtraOptions `json:"portal_extra,omitempty"`
 	// 【可选】自定义消息转厂商通知功能版本。
@@ -327,7 +327,7 @@ type ThirdPartyChannelOptions struct {
 	//  - 为了适配厂商的消息 Inbox 样式, 目前支持华为厂商；
 	//  - 优先使用厂商字段，如果厂商字段没有填充，则使用 Android 里面定义 Inbox 字段，配合华为 Style 使用；
 	//  - JPush Android SDK v3.9.0 版本以上才支持该字段。
-	Inbox map[string]interface{} `json:"inbox,omitempty"`
+	Inbox map[string]any `json:"inbox,omitempty"`
 	// 【可选】厂商消息大图片样式。
 	//  - 为了适配厂商的消息大图片样式，目前支持 OPPO 厂商:
 	//  - 优先使用厂商字段，如果厂商字段没有填充，则使用 Android 里面定义 BigPicture 字段，配合各自厂商的 Style 使用；
@@ -349,7 +349,7 @@ type ThirdPartyChannelOptions struct {
 	// [OPPO]: https://open.oppomobile.com/new/developmentDoc/info?id=11344
 	// [vivo]: https://dev.vivo.com.cn/documentCenter/doc/585
 	// [tuibian.mobileservice.cn]: https://tuibian.mobileservice.cn/
-	AuditResponse map[string]interface{} `json:"auditResponse,omitempty"`
+	AuditResponse map[string]any `json:"auditResponse,omitempty"`
 	// 【可选】私信模板 ID。2025.07.14 新增。
 	//
 	// 目前仅支持 OPPO 厂商。
@@ -369,7 +369,7 @@ type ThirdPartyChannelOptions struct {
 	// 详见：[OPUSH 私信模版校验能力接入说明]
 	//
 	// [OPUSH 私信模版校验能力接入说明]: https://open.oppomobile.com/documentation/page/info?id=12391
-	PrivateTitleParameters map[string]interface{} `json:"private_title_parameters,omitempty"`
+	PrivateTitleParameters map[string]any `json:"private_title_parameters,omitempty"`
 	// 【可选】内容模板填充参数。2025.07.14 新增。
 	//
 	// 目前仅支持 OPPO 厂商。
@@ -379,5 +379,5 @@ type ThirdPartyChannelOptions struct {
 	// 详见：[OPUSH 私信模版校验能力接入说明]
 	//
 	// [OPUSH 私信模版校验能力接入说明]: https://open.oppomobile.com/documentation/page/info?id=12391
-	PrivateContentParameters map[string]interface{} `json:"private_content_parameters,omitempty"`
+	PrivateContentParameters map[string]any `json:"private_content_parameters,omitempty"`
 }

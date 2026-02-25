@@ -21,7 +21,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 送达统计详情

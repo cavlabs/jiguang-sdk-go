@@ -31,13 +31,13 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/cavlabs/jiguang-sdk-go/third_party/gmsm/sm3" // Modified: Changed import path from "github.com/tjfoc/gmsm/sm3" to "github.com/cavlabs/jiguang-sdk-go/third_party/gmsm/sm3"
+	"github.com/cavlabs/jiguang-sdk-go/v2/third_party/gmsm/sm3" // Modified: Changed import path from "github.com/tjfoc/gmsm/sm3" to "github.com/cavlabs/jiguang-sdk-go/v2/third_party/gmsm/sm3"
 )
 
 var (
 	default_uid = []byte{0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38}
-	C1C3C2=0
-	C1C2C3=1
+	C1C3C2      = 0
+	C1C2C3      = 1
 )
 
 type PublicKey struct {
@@ -105,7 +105,7 @@ func (pub *PublicKey) Sm3Digest(msg, uid []byte) ([]byte, error) {
 	return e.Bytes(), nil
 }
 
-//****************************Encryption algorithm****************************//
+// ****************************Encryption algorithm****************************//
 func (pub *PublicKey) EncryptAsn1(data []byte, random io.Reader) ([]byte, error) {
 	return EncryptAsn1(pub, data, random)
 }
@@ -114,7 +114,7 @@ func (priv *PrivateKey) DecryptAsn1(data []byte) ([]byte, error) {
 	return DecryptAsn1(priv, data)
 }
 
-//**************************Key agreement algorithm**************************//
+// **************************Key agreement algorithm**************************//
 // KeyExchangeB 协商第二部，用户B调用， 返回共享密钥k
 func KeyExchangeB(klen int, ida, idb []byte, priB *PrivateKey, pubA *PublicKey, rpri *PrivateKey, rpubA *PublicKey) (k, s1, s2 []byte, err error) {
 	return keyExchange(klen, ida, idb, priB, pubA, rpri, rpubA, false)
@@ -205,12 +205,12 @@ func Sm2Verify(pub *PublicKey, msg, uid []byte, r, s *big.Int) bool {
 }
 
 /*
-    za, err := ZA(pub, uid)
-	if err != nil {
-		return
-	}
-	e, err := msgHash(za, msg)
-	hash=e.getBytes()
+	    za, err := ZA(pub, uid)
+		if err != nil {
+			return
+		}
+		e, err := msgHash(za, msg)
+		hash=e.getBytes()
 */
 func Verify(pub *PublicKey, hash []byte, r, s *big.Int) bool {
 	c := pub.Curve
@@ -248,7 +248,7 @@ func Verify(pub *PublicKey, hash []byte, r, s *big.Int) bool {
  *  hash
  *  CipherText
  */
-func Encrypt(pub *PublicKey, data []byte, random io.Reader,mode int) ([]byte, error) {
+func Encrypt(pub *PublicKey, data []byte, random io.Reader, mode int) ([]byte, error) {
 	length := len(data)
 	for {
 		c := []byte{}
@@ -291,42 +291,40 @@ func Encrypt(pub *PublicKey, data []byte, random io.Reader,mode int) ([]byte, er
 		for i := 0; i < length; i++ {
 			c[96+i] ^= data[i]
 		}
-		switch mode{
-	
+		switch mode {
+
 		case C1C3C2:
 			return append([]byte{0x04}, c...), nil
 		case C1C2C3:
 			c1 := make([]byte, 64)
-			c2 := make([]byte, len(c) - 96)
+			c2 := make([]byte, len(c)-96)
 			c3 := make([]byte, 32)
-			copy(c1, c[:64])//x1,y1
-			copy(c3, c[64:96])//hash
-			copy(c2, c[96:])//密文
+			copy(c1, c[:64])   //x1,y1
+			copy(c3, c[64:96]) //hash
+			copy(c2, c[96:])   //密文
 			ciphertext := []byte{}
 			ciphertext = append(ciphertext, c1...)
 			ciphertext = append(ciphertext, c2...)
 			ciphertext = append(ciphertext, c3...)
 			return append([]byte{0x04}, ciphertext...), nil
-    	default:
+		default:
 			return append([]byte{0x04}, c...), nil
+		}
 	}
 }
-}
 
-
-
-func Decrypt(priv *PrivateKey, data []byte,mode int) ([]byte, error) {
+func Decrypt(priv *PrivateKey, data []byte, mode int) ([]byte, error) {
 	switch mode {
 	case C1C3C2:
 		data = data[1:]
 	case C1C2C3:
 		data = data[1:]
 		c1 := make([]byte, 64)
-		c2 := make([]byte, len(data) - 96)
+		c2 := make([]byte, len(data)-96)
 		c3 := make([]byte, 32)
-		copy(c1, data[:64])//x1,y1
-		copy(c2, data[64:len(data) - 32])//密文
-		copy(c3, data[len(data) - 32:])//hash
+		copy(c1, data[:64])             //x1,y1
+		copy(c2, data[64:len(data)-32]) //密文
+		copy(c3, data[len(data)-32:])   //hash
 		c := []byte{}
 		c = append(c, c1...)
 		c = append(c, c3...)
@@ -365,8 +363,6 @@ func Decrypt(priv *PrivateKey, data []byte,mode int) ([]byte, error) {
 	}
 	return c, nil
 }
-
-
 
 // keyExchange 为SM2密钥交换算法的第二部和第三步复用部分，协商的双方均调用此函数计算共同的字节串
 // klen: 密钥长度

@@ -37,7 +37,7 @@ type WechatoaTemplate struct {
 	// 【可选】跳转小程序所需数据，不需跳转小程序可不用传该数据。
 	//  - URL 和 MiniProgram 同时不填，无跳转；
 	//  - URL 和 MiniProgram 同时填写，优先跳转小程序。
-	MiniProgram map[string]interface{} `json:"miniprogram,omitempty"`
+	MiniProgram map[string]any `json:"miniprogram,omitempty"`
 	// 【可选】所需跳转到的小程序 AppID。
 	//  - 该小程序 AppID 必须与发模板消息的公众号是绑定关联关系，暂不支持小游戏。
 	AppID string `json:"appid,omitempty"`
@@ -47,7 +47,7 @@ type WechatoaTemplate struct {
 	PagePath string `json:"pagepath,omitempty"`
 	// 【必填】模板内容。
 	//  - 格式形如：{"key1":{"value": any,"color":"#173177"},"key2":{"value":any}}
-	Data map[string]interface{} `json:"data"`
+	Data map[string]any `json:"data"`
 	// 【可选】模板内容字体颜色。
 	//  - 不填默认为黑色。
 	Color string `json:"color,omitempty"`
@@ -71,7 +71,7 @@ type WechatoaSubscription struct {
 	// 【可选】跳转小程序所需数据，不需跳转小程序可不用传该数据。
 	//  - Page 和 MiniProgram 同时不填，无跳转；
 	//  - Page 和 MiniProgram 同时填写，优先跳转小程序。
-	MiniProgram map[string]interface{} `json:"miniprogram,omitempty"`
+	MiniProgram map[string]any `json:"miniprogram,omitempty"`
 	// 【可选】所需跳转到的小程序 AppID。
 	//  - 该小程序 AppID 必须与发订阅通知的公众号是绑定关联关系，暂不支持小游戏。
 	AppID string `json:"appid,omitempty"`
@@ -81,7 +81,7 @@ type WechatoaSubscription struct {
 	PagePath string `json:"pagepath,omitempty"`
 	// 【必填】模板内容。
 	//  - 格式形如：{"key1":{"value": any,"color":"#173177"},"key2":{"value":any}}
-	Data map[string]interface{} `json:"data"`
+	Data map[string]any `json:"data"`
 }
 
 var _ Wechatoa = &WechatoaSubscription{Type: 1}

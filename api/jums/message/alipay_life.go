@@ -116,7 +116,7 @@ func (rs *AlipayLifeContext) UnmarshalJSON(data []byte) error {
 }
 
 func (rs AlipayLifeContext) MarshalJSON() ([]byte, error) {
-	data := make(map[string]interface{})
+	data := make(map[string]any)
 	data["head_color"] = rs.HeadColor
 	data["url"] = rs.URL
 	data["action_name"] = rs.ActionName

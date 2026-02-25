@@ -15,9 +15,9 @@
 package notification
 
 import (
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/alert"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/notification/style"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification/alert"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification/style"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # Android 平台上的通知
@@ -89,7 +89,7 @@ type Android struct {
 	//  - 若没有填充 [厂商 Inbox]，则默认使用该 Inbox 字段展示；
 	//  - 支持 API 16 以上的 ROM。
 	// [厂商 Inbox]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E
-	Inbox map[string]interface{} `json:"inbox,omitempty"`
+	Inbox map[string]any `json:"inbox,omitempty"`
 	// 【可选】大图片通知栏样式。
 	//  - 当 Style = style.BigPicture 时可用，目前支持 .jpg 和 .png 格式的图片，使用详情参见 [设置大图片文档]；
 	//  - 支持网络图片 URL、本地图片的 Path、[极光 MediaID]，如果是 http/https 的 URL，会自动下载；如果要指定开发者准备的本地图片就填 SD 卡的相对路径；
@@ -113,7 +113,7 @@ type Android struct {
 	//  - mzpns_content_forshort：【可选】魅族通知内容。由于魅族官方的通知内容长度限制为 100 个字符以内（中英文都算一个），当通知内容（极光的 Alert 字段的值）长度超过 100 时，魅族通道会推送失败。
 	//  此时调用极光 API 推送通知时，可使用此字段传入不超过 100 字符的通知内容作为魅族通道通知内容。
 	// [厂商通道无法跳转问题分析]: https://docs.jiguang.cn/jpush/faq/tech_faq#%E5%8E%82%E5%95%86%E9%80%9A%E9%81%93%E6%97%A0%E6%B3%95%E8%B7%B3%E8%BD%AC%EF%BC%9F
-	Extras map[string]interface{} `json:"extras,omitempty"`
+	Extras map[string]any `json:"extras,omitempty"`
 	// 【可选】通知栏大图标。
 	//  - 图标大小不超过 30k（注：从 JPush Android SDK v4.0.0 版本开始，图片大小限制提升至 300k），使用详情参见 [设置图标文档]；
 	//  - 支持网络图片 URL、本地图片的 Path、[极光 MediaID]，

@@ -1,7 +1,7 @@
 # jiguang-sdk-go
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/cavlabs/jiguang-sdk-go.svg)](https://pkg.go.dev/github.com/cavlabs/jiguang-sdk-go)
-[![Support Go 1.16+](https://img.shields.io/badge/Go-1.16+-blue.svg?style=flat-square)](https://go.dev/doc/devel/release)
+[![Support Go 1.18+](https://img.shields.io/badge/Go-1.18+-blue.svg?style=flat-square)](https://go.dev/doc/devel/release)
 [![Release](https://img.shields.io/github/v/release/cavlabs/jiguang-sdk-go.svg?style=flat-square)](https://github.com/cavlabs/jiguang-sdk-go/releases)
 ![CI Status](https://img.shields.io/github/actions/workflow/status/cavlabs/jiguang-sdk-go/ci.yml?style=flat-square&label=CI&logo=github)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cavlabs/jiguang-sdk-go?style=flat-square)](https://goreportcard.com/report/github.com/cavlabs/jiguang-sdk-go)
@@ -19,7 +19,7 @@
 
 - 全面支持 “极光推送（JPush）”、“极光短信（JSMS v1）” 和 “极光统一消息（JUMS v1）” 相关功能模块；
 - 简单易用的 Go 接口；
-- 支持 Go 1.16 及其以上版本。
+- 支持 Go 1.18 及其以上版本。
 
 ---
 
@@ -86,8 +86,8 @@
         "fmt"
         "os"
     
-        "github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
-        "github.com/cavlabs/jiguang-sdk-go/api/jpush/push"
+        "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
+        "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push"
     )
     
     func main() {
@@ -117,7 +117,7 @@
     }
     ```
 
-3. 查看完整示例代码：https://github.com/cavlabs/jiguang-sdk-go/tree/main/examples
+3. 查看完整示例代码：https://github.com/cavlabs/jiguang-sdk-go/tree/v2/examples
 
 ---
 

@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 发送单条模板短信
@@ -60,10 +60,10 @@ func (s *apiv1) SendMessage(ctx context.Context, param *MessageSendParam) (*Mess
 
 // 单条模板短信发送参数
 type MessageSendParam struct {
-	Mobile     string                 `json:"mobile"`              // 【必填】手机号码
-	SignID     int                    `json:"sign_id,omitempty"`   // 【可选】签名 ID，该字段为空则使用应用默认签名
-	TempID     int64                  `json:"temp_id"`             // 【必填】模板 ID
-	TempParams map[string]interface{} `json:"temp_para,omitempty"` // 【可选】模板参数，需要替换的参数名和参数值的键值对
+	Mobile     string         `json:"mobile"`              // 【必填】手机号码
+	SignID     int            `json:"sign_id,omitempty"`   // 【可选】签名 ID，该字段为空则使用应用默认签名
+	TempID     int64          `json:"temp_id"`             // 【必填】模板 ID
+	TempParams map[string]any `json:"temp_para,omitempty"` // 【可选】模板参数，需要替换的参数名和参数值的键值对
 }
 
 // 单条模板短信发送结果

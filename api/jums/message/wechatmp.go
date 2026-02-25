@@ -24,7 +24,7 @@ type Wechatmp struct {
 	Page string `json:"page,omitempty"`
 	// 【必填】模板内容。
 	//  - 格式形如：{"key1":{"value": any},"key2":{"value":any}}
-	Data map[string]interface{} `json:"data"`
+	Data map[string]any `json:"data"`
 	// 【可选】跳转小程序类型，developer 为开发版、trial 为体验版、formal 为正式版，默认为正式版。
 	MiniProgramState string `json:"miniprogram_state,omitempty"`
 	// 【可选】进入小程序查看的语言类型，支持 zh_CN (简体中文)、en_US (英文)、zh_HK (繁體中文-香港)、zh_TW (正體中文-臺灣)，默认为 zh_CN。

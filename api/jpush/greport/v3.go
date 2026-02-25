@@ -17,7 +17,7 @@ package greport
 import (
 	"context"
 
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # Group Report API v3

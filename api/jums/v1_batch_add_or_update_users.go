@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 批量添加、更新用户信息
@@ -102,7 +102,7 @@ type UsersBatchOpts struct {
 type UsersBatchAddOrUpdateResult struct {
 	*api.Response `json:"-"`
 	*api.CodeError
-	Data interface{} `json:"data,omitempty"` // [string / UsersBatchAddOrUpdateData] 操作成功/失败的详细数据，当请求失败时，数据为空。
+	Data any `json:"data,omitempty"` // [string / UsersBatchAddOrUpdateData] 操作成功/失败的详细数据，当请求失败时，数据为空。
 }
 
 // 当操作成功或部分成功时，将返回成功/失败的详细数据

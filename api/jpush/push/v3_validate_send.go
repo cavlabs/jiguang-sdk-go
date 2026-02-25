@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 推送校验
@@ -36,7 +36,7 @@ func (p *apiv3) ValidateSend(ctx context.Context, param *SendParam) (*SendResult
 // # 自定义推送校验
 //
 // 如果遇到 ValidateSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-func (p *apiv3) ValidateCustomSend(ctx context.Context, param interface{}) (*SendResult, error) {
+func (p *apiv3) ValidateCustomSend(ctx context.Context, param any) (*SendResult, error) {
 	if p == nil {
 		return nil, api.ErrNilJPushPushAPIv3
 	}

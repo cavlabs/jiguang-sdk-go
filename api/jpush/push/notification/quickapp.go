@@ -29,5 +29,5 @@ type QuickApp struct {
 	Page string `json:"page"`
 	// 【可选】附加字段。
 	//  - 这里自定义 key/value 信息，以供业务使用。
-	Extras map[string]interface{} `json:"extras,omitempty"`
+	Extras map[string]any `json:"extras,omitempty"`
 }

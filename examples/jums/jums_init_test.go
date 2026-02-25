@@ -18,8 +18,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums"
 )
 
 var umsAPIv1 jums.APIv1 // 极光统一消息 - JUMS API v1
@@ -93,7 +93,7 @@ func TestMain(m *testing.M) {
 		SetAccessKey(accessKey).                   // 【可选】配置，但当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessKey`。
 		SetAccessMasterSecret(accessMasterSecret). // 【可选】配置，但当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessMasterSecret`。
 		// SetLogger(logger).                         // 【可选】配置，如果不配置，则使用默认的 api.DefaultJUmsLogger。
-		SetHttpLogLevel(api.HttpLogLevelFull).     // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
+		SetHttpLogLevel(api.HttpLogLevelFull). // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
 		// EnableCallback(callbackConfigOptions...).  // 【可选】启用回调接口服务（默认不启用），并且自定义服务的一些配置选项。
 		Build()
 

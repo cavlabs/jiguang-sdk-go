@@ -32,10 +32,10 @@ type Logger interface {
 	Warn(ctx context.Context, msg string)
 	Error(ctx context.Context, msg string)
 
-	Debugf(ctx context.Context, format string, args ...interface{})
-	Infof(ctx context.Context, format string, args ...interface{})
-	Warnf(ctx context.Context, format string, args ...interface{})
-	Errorf(ctx context.Context, format string, args ...interface{})
+	Debugf(ctx context.Context, format string, args ...any)
+	Infof(ctx context.Context, format string, args ...any)
+	Warnf(ctx context.Context, format string, args ...any)
+	Errorf(ctx context.Context, format string, args ...any)
 }
 
 // =====================================================================================================================
@@ -123,18 +123,18 @@ func (s *StdLogger) Error(ctx context.Context, msg string) {
 	s.logMessage(ctx, "ERROR", colorRed, msg)
 }
 
-func (s *StdLogger) Debugf(ctx context.Context, format string, args ...interface{}) {
+func (s *StdLogger) Debugf(ctx context.Context, format string, args ...any) {
 	s.logMessage(ctx, "DEBUG", colorBlue, fmt.Sprintf(format, args...))
 }
 
-func (s *StdLogger) Infof(ctx context.Context, format string, args ...interface{}) {
+func (s *StdLogger) Infof(ctx context.Context, format string, args ...any) {
 	s.logMessage(ctx, "INFO", colorGreen, fmt.Sprintf(format, args...))
 }
 
-func (s *StdLogger) Warnf(ctx context.Context, format string, args ...interface{}) {
+func (s *StdLogger) Warnf(ctx context.Context, format string, args ...any) {
 	s.logMessage(ctx, "WARN", colorYellow, fmt.Sprintf(format, args...))
 }
 
-func (s *StdLogger) Errorf(ctx context.Context, format string, args ...interface{}) {
+func (s *StdLogger) Errorf(ctx context.Context, format string, args ...any) {
 	s.logMessage(ctx, "ERROR", colorRed, fmt.Sprintf(format, args...))
 }

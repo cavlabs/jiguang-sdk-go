@@ -20,9 +20,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 查询别名

@@ -21,7 +21,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 上传素材
@@ -80,9 +80,9 @@ func (u *apiv1) UploadMaterial(ctx context.Context, param *MaterialUploadParam) 
 }
 
 type MaterialUploadParam struct {
-	Type       string      `json:"type"`                   // 【必填】素材类型，当前仅支持 attachment 1 种类型，代表 “附件”。
-	File       interface{} `json:"file"`                   // 【必填】一次仅允许上传 1 个文件。
-	TimeToLive int         `json:"time_to_live,omitempty"` // 【可选】素材有效期，默认值是 24 小时。对于 “附件” 类型，有效期可传的数值范围在 [1, 168] 间，即 1 小时至 168 小时（7 天）。
+	Type       string `json:"type"`                   // 【必填】素材类型，当前仅支持 attachment 1 种类型，代表 “附件”。
+	File       any    `json:"file"`                   // 【必填】一次仅允许上传 1 个文件。
+	TimeToLive int    `json:"time_to_live,omitempty"` // 【可选】素材有效期，默认值是 24 小时。对于 “附件” 类型，有效期可传的数值范围在 [1, 168] 间，即 1 小时至 168 小时（7 天）。
 }
 
 type MaterialUploadResult struct {

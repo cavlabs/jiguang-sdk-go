@@ -36,5 +36,5 @@ type Custom struct {
 	// 【可选】个性化文案 - 备用内容
 	AlternateContent string `json:"alternate_content,omitempty"`
 	// 【可选】可选参数。
-	Extras map[string]interface{} `json:"extras,omitempty"`
+	Extras map[string]any `json:"extras,omitempty"`
 }

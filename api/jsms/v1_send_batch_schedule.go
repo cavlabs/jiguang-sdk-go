@@ -21,8 +21,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 批量定时短信提交
@@ -70,8 +70,8 @@ type BatchScheduleSendParam struct {
 
 // 批量定时短信接收者参数
 type BatchScheduleRecipientParam struct {
-	Mobile     string                 `json:"mobile"`              // 【必填】手机号码。
-	TempParams map[string]interface{} `json:"temp_para,omitempty"` // 【可选】模板参数，需要替换的参数名和参数值的键值对。
+	Mobile     string         `json:"mobile"`              // 【必填】手机号码。
+	TempParams map[string]any `json:"temp_para,omitempty"` // 【可选】模板参数，需要替换的参数名和参数值的键值对。
 }
 
 type BatchScheduleSendResult struct {
@@ -88,10 +88,10 @@ func (rs *BatchScheduleSendResult) IsSuccess() bool {
 
 // 批量定时短信发送失败接收者结果
 type BatchScheduleFailureRecipientResult struct {
-	ErrorCode    string                 `json:"error_code,omitempty"`    // 错误码
-	ErrorMessage string                 `json:"error_message,omitempty"` // 错误信息
-	Mobile       string                 `json:"mobile"`                  // 手机号码
-	TempParams   map[string]interface{} `json:"temp_para,omitempty"`     // 模板参数，需要替换的参数名和参数值的键值对
+	ErrorCode    string         `json:"error_code,omitempty"`    // 错误码
+	ErrorMessage string         `json:"error_message,omitempty"` // 错误信息
+	Mobile       string         `json:"mobile"`                  // 手机号码
+	TempParams   map[string]any `json:"temp_para,omitempty"`     // 模板参数，需要替换的参数名和参数值的键值对
 }
 
 func (rs *BatchScheduleFailureRecipientResult) UnmarshalJSON(data []byte) error {

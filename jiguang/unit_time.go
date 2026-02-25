@@ -31,7 +31,7 @@ type UnitTime struct {
 var unitTimePattern = regexp.MustCompile(`^(\d{4})-(\d{2})(?:-(\d{2})(?: (\w{3}|\d{2}))?)?$`)
 
 // 尝试使用正则表达式匹配输入的日期时间字符串 ts 以识别有效的时间单位。
-//  - 如果匹配成功，则返回对应的时间单位，ok 返回 true；否则 ok 返回 false。
+//   - 如果匹配成功，则返回对应的时间单位，ok 返回 true；否则 ok 返回 false。
 func tryParseTimeUnit(ts string) (tu TimeUnit, ok bool) {
 	matches := unitTimePattern.FindStringSubmatch(ts)
 	if matches == nil {

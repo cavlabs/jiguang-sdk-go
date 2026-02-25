@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 极光 APP 证书上传
@@ -99,10 +99,10 @@ func (a *apiv1) UploadCertificate(ctx context.Context, appKey string, param *Cer
 }
 
 type CertificateUploadParam struct {
-	DevCertificatePassword string      `json:"devCertificatePassword,omitempty"` // 「开发」证书密码
-	DevCertificateFile     interface{} `json:"devCertificateFile,omitempty"`     // 「开发」证书文件
-	ProCertificatePassword string      `json:"proCertificatePassword,omitempty"` // 「生产」证书密码
-	ProCertificateFile     interface{} `json:"proCertificateFile,omitempty"`     // 「生产」证书文件
+	DevCertificatePassword string `json:"devCertificatePassword,omitempty"` // 「开发」证书密码
+	DevCertificateFile     any    `json:"devCertificateFile,omitempty"`     // 「开发」证书文件
+	ProCertificatePassword string `json:"proCertificatePassword,omitempty"` // 「生产」证书密码
+	ProCertificateFile     any    `json:"proCertificateFile,omitempty"`     // 「生产」证书文件
 }
 
 type CertificateUploadResult struct {

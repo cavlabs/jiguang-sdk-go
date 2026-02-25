@@ -97,18 +97,18 @@ func (z *ZapLogger) Error(_ context.Context, msg string) {
 	z.logger.Error(msg)
 }
 
-func (z *ZapLogger) Debugf(_ context.Context, format string, args ...interface{}) {
+func (z *ZapLogger) Debugf(_ context.Context, format string, args ...any) {
 	z.logger.Debugf(format, args...)
 }
 
-func (z *ZapLogger) Infof(_ context.Context, format string, args ...interface{}) {
+func (z *ZapLogger) Infof(_ context.Context, format string, args ...any) {
 	z.logger.Infof(format, args...)
 }
 
-func (z *ZapLogger) Warnf(_ context.Context, format string, args ...interface{}) {
+func (z *ZapLogger) Warnf(_ context.Context, format string, args ...any) {
 	z.logger.Warnf(format, args...)
 }
 
-func (z *ZapLogger) Errorf(_ context.Context, format string, args ...interface{}) {
+func (z *ZapLogger) Errorf(_ context.Context, format string, args ...any) {
 	z.logger.Errorf(format, args...)
 }

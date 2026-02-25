@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 批量删除用户信息
@@ -65,7 +65,7 @@ func (u *apiv1) BatchDeleteUsers(ctx context.Context, userIDs []string) (*UsersB
 type UsersBatchDeleteResult struct {
 	*api.Response `json:"-"`
 	*api.CodeError
-	Data interface{} `json:"data,omitempty"` // [string / UsersBatchDeleteData] 删除成功/失败的详细数据，当请求失败时，数据为空。
+	Data any `json:"data,omitempty"` // [string / UsersBatchDeleteData] 删除成功/失败的详细数据，当请求失败时，数据为空。
 }
 
 // 当删除成功或部分成功时，将返回成功/失败的详细数据

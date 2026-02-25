@@ -79,5 +79,5 @@ type Third struct {
 	ChannelID string `json:"channel_id,omitempty"`
 	// 【可选】扩展字段。
 	//  - 这里自定义 JSON 格式的 key/value 信息，以供业务使用。
-	Extras map[string]interface{} `json:"extras,omitempty"`
+	Extras map[string]any `json:"extras,omitempty"`
 }

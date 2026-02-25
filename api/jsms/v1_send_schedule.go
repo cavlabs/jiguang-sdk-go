@@ -20,8 +20,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 单条定时短信提交
@@ -60,11 +60,11 @@ func (s *apiv1) SendSchedule(ctx context.Context, param *ScheduleSendParam) (*Sc
 }
 
 type ScheduleSendParam struct {
-	SendTime   jiguang.LocalDateTime  `json:"send_time"`           // 【必填】发送时间。
-	Mobile     string                 `json:"mobile"`              // 【必填】手机号码。
-	SignID     int                    `json:"sign_id,omitempty"`   // 【可选】签名 ID，该参数为空则使用应用默认签名；注意：签名审核通过后，可在控制台设为默认签名。
-	TempID     int64                  `json:"temp_id"`             // 【必填】模板 ID。
-	TempParams map[string]interface{} `json:"temp_para,omitempty"` // 【可选】模板参数，需要替换的参数名和参数值的键值对。
+	SendTime   jiguang.LocalDateTime `json:"send_time"`           // 【必填】发送时间。
+	Mobile     string                `json:"mobile"`              // 【必填】手机号码。
+	SignID     int                   `json:"sign_id,omitempty"`   // 【可选】签名 ID，该参数为空则使用应用默认签名；注意：签名审核通过后，可在控制台设为默认签名。
+	TempID     int64                 `json:"temp_id"`             // 【必填】模板 ID。
+	TempParams map[string]any        `json:"temp_para,omitempty"` // 【可选】模板参数，需要替换的参数名和参数值的键值对。
 }
 
 type ScheduleSendResult struct {

@@ -21,8 +21,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jsms"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jsms"
 )
 
 var smsAPIv1 jsms.APIv1 // 极光短信 - JSMS API v1

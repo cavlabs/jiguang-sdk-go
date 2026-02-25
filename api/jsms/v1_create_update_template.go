@@ -21,7 +21,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 创建模板
@@ -72,7 +72,7 @@ func (s *apiv1) template(ctx context.Context, tempID int64, param *TemplateCreat
 		return nil, errors.New("`remark` too long, must be ≤100 characters")
 	}
 
-	var body interface{} = param
+	var body any = param
 
 	method, url := http.MethodPost, s.host+"/v1/templates"
 	if createOrUpdate == "update" {

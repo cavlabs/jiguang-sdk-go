@@ -17,7 +17,7 @@ package jsms
 import (
 	"log"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jsms"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jsms"
 )
 
 type callbackReplyDataProcessor struct{}

@@ -22,8 +22,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push/send"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/send"
 )
 
 // # 定时模板推送（VIP）
@@ -157,7 +157,7 @@ func (rs *TemplateSendResult) UnmarshalJSON(data []byte) error {
 }
 
 func (rs TemplateSendResult) MarshalJSON() ([]byte, error) {
-	rsmap := make(map[string]interface{}, 3)
+	rsmap := make(map[string]any, 3)
 	rsmap["code"] = rs.Error.Code
 	rsmap["message"] = rs.Error.Message
 	if rs.Data != nil {
@@ -221,7 +221,7 @@ func (rs *TemplatePushDetail) UnmarshalJSON(data []byte) error {
 }
 
 func (rs TemplatePushDetail) MarshalJSON() ([]byte, error) {
-	rsmap := make(map[string]interface{}, 3)
+	rsmap := make(map[string]any, 3)
 	rsmap["code"] = rs.Error.Code
 	if rs.Error.Message != "" {
 		rsmap["message"] = rs.Error.Message

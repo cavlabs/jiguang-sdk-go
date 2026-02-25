@@ -22,7 +22,7 @@ import (
 	"strconv"
 	"unicode/utf8"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 创建签名
@@ -104,21 +104,21 @@ type SignCreateParam struct {
 	// 【必填】法人身份证号码，必须为有效的 18 位身份证号码。
 	LegalPersonIDNumber string `json:"legalPersonIdNumber"`
 	// 【必填】法人身份证图片，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	IDCardImage interface{} `json:"idCardImage"`
+	IDCardImage any `json:"idCardImage"`
 	// 【必填】统一社会信用代码，必须为有效的 18 位统一社会信用代码。
 	SocialCreditCode string `json:"socialCreditCode"`
 	// 【可选】第三方公司名称。
 	ThirdPartyCompanyName string `json:"thirdPartyCompanyName,omitempty"`
 	// 【条件必填】营业执照图片，Type 为 1 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	BusinessLicenseImage interface{} `json:"businessLicenseImage,omitempty"`
+	BusinessLicenseImage any `json:"businessLicenseImage,omitempty"`
 	// 【条件必填】ICP 备案 APP 截图，Type 为 3 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	ICPAppScreenshot interface{} `json:"icpAppScreenshot,omitempty"`
+	ICPAppScreenshot any `json:"icpAppScreenshot,omitempty"`
 	// 【条件必填】商标注册证图片，Type 为 6 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	TrademarkImage interface{} `json:"trademarkImage,omitempty"`
+	TrademarkImage any `json:"trademarkImage,omitempty"`
 	// 【条件必填】第三方授权委托书图片，Type 为 7 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	ThirdPartyAuthImage interface{} `json:"thirdPartyAuthImage,omitempty"`
+	ThirdPartyAuthImage any `json:"thirdPartyAuthImage,omitempty"`
 	// 【可选】其他相关图片，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	OtherImage interface{} `json:"otherImage,omitempty"`
+	OtherImage any `json:"otherImage,omitempty"`
 	// 【可选】申请说明，请简略描述您的业务使用场景，不超过 100 个字。
 	Remark string `json:"remark,omitempty"`
 }
@@ -185,7 +185,7 @@ func requiresExtraFile(t int) bool {
 	}
 }
 
-func getExtraFile(p *SignCreateParam) interface{} {
+func getExtraFile(p *SignCreateParam) any {
 	switch p.Type {
 	case 1:
 		return p.BusinessLicenseImage

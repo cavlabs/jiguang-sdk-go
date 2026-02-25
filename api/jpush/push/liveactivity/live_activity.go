@@ -36,11 +36,11 @@ type IosMessage struct {
 	// 【必填】实时活动动态内容，需与客户端 SDK 值匹配（对应 Apple 官方的 [content-state 字段]）。
 	//
 	// [content-state 字段]: https://developer.apple.com/documentation/activitykit/updating-and-ending-your-live-activity-with-activitykit-push-notifications
-	ContentState map[string]interface{} `json:"content-state"`
+	ContentState map[string]any `json:"content-state"`
 	// 【可选】实时活动属性类型，开发者自定义值，当 Event 为 EventStart 时该参数必填。
 	AttributesType string `json:"attributes-type,omitempty"`
 	// 【可选】实时活动属性。
-	Attributes map[string]interface{} `json:"attributes,omitempty"`
+	Attributes map[string]any `json:"attributes,omitempty"`
 	// 【可选】实时活动通知内容。
 	Alert *IosAlertMessage `json:"alert,omitempty"`
 	// 【可选】实时活动结束展示时间。

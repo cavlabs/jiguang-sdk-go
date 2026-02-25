@@ -14,7 +14,7 @@
 
 package cid
 
-import "github.com/cavlabs/jiguang-sdk-go/api"
+import "github.com/cavlabs/jiguang-sdk-go/v2/api"
 
 // # 获取推送/定时推送唯一标识 (CID) 结果
 type GetResult struct {

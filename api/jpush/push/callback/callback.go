@@ -27,7 +27,7 @@ type Callback struct {
 	//  - 不指定，则以极光后台配置为准。
 	URL string `json:"url,omitempty"`
 	// 【可选】需要回调给用户的自定义参数。
-	Params map[string]interface{} `json:"params,omitempty"`
+	Params map[string]any `json:"params,omitempty"`
 	// 【可选】回调数据类型。
 	//  - 可选值为 {1, 2, 3, 8, 9, 10, 11}，包括 Received = 1, Clicked = 2, Push = 8 和它们的任意 or 组合。
 	Type Type `json:"type,omitempty"`

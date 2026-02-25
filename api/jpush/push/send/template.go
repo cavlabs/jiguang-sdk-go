@@ -14,7 +14,7 @@
 
 package send
 
-import "github.com/cavlabs/jiguang-sdk-go/api/jpush/push/options"
+import "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/options"
 
 // # 模板参数
 //
@@ -32,7 +32,7 @@ type TemplateParam struct {
 	//  - 若指定为推送设备对象 push.Audience 的 Tags 推送，则 Params 模板参数列表仅允许配置一个；
 	//  - 若指定为推送设备对象 push.Audience 的 Segments 推送，则 Params 模板参数列表仅允许配置一个，且只允许设置一个分群 ID 值。
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#audience%EF%BC%9A%E6%8E%A8%E9%80%81%E7%9B%AE%E6%A0%87
-	Audience interface{} `json:"audience"`
+	Audience any `json:"audience"`
 	// 【可选】推送可选项。
 	//  - 详见 [docs.jiguang.cn] 文档说明。
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#options%EF%BC%9A%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0
@@ -40,5 +40,5 @@ type TemplateParam struct {
 	// 【可选】客户自行指定的标识，API 会原样返回。
 	TraceID string `json:"trace_id,omitempty"`
 	// 【可选】地理围栏推送时，此处指定围栏相关参数。
-	Geofence map[string]interface{} `json:"geofence,omitempty"`
+	Geofence map[string]any `json:"geofence,omitempty"`
 }

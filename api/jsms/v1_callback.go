@@ -17,8 +17,8 @@ package jsms
 import (
 	"errors"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jsms/callback"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jsms/callback"
 )
 
 // # 获取配置好的回调接口服务

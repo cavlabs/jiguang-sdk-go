@@ -21,8 +21,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
-	"github.com/cavlabs/jiguang-sdk-go/third_party/gmsm/sm2"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/third_party/gmsm/sm2"
 )
 
 const (

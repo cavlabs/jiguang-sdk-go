@@ -18,7 +18,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jums"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums"
 )
 
 type callbackTargetValidDataProcessor struct{}

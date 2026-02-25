@@ -27,9 +27,9 @@ type SMS interface {
 //
 // 可参考 jsms.MessageSendParam。
 type JSMS struct {
-	SignID     int                    `json:"sign_id,omitempty"`   // 【可选】签名 ID，该字段为空则使用应用默认签名。
-	TempID     int64                  `json:"temp_id"`             // 【必填】模板 ID。
-	TempParams map[string]interface{} `json:"temp_para,omitempty"` // 【可选】模板参数，需要替换的参数名和参数值的键值对。
+	SignID     int            `json:"sign_id,omitempty"`   // 【可选】签名 ID，该字段为空则使用应用默认签名。
+	TempID     int64          `json:"temp_id"`             // 【必填】模板 ID。
+	TempParams map[string]any `json:"temp_para,omitempty"` // 【可选】模板参数，需要替换的参数名和参数值的键值对。
 }
 
 var _ SMS = &JSMS{}

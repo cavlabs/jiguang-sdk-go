@@ -22,8 +22,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/push"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push"
 )
 
 // # 分组推送
@@ -41,7 +41,7 @@ func (gp *apiv3) Send(ctx context.Context, param *SendParam) (*SendResult, error
 // # 自定义分组推送
 //
 // 如果遇到 Send 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-func (gp *apiv3) CustomSend(ctx context.Context, param interface{}) (*SendResult, error) {
+func (gp *apiv3) CustomSend(ctx context.Context, param any) (*SendResult, error) {
 	if gp == nil {
 		return nil, api.ErrNilJPushGroupPushAPIv3
 	}
@@ -133,7 +133,7 @@ func (rs SendResult) MarshalJSON() ([]byte, error) {
 		return json.Marshal(data)
 	}
 
-	data := make(map[string]interface{})
+	data := make(map[string]any)
 
 	if len(rs.Successes) > 0 {
 		for k, v := range rs.Successes {

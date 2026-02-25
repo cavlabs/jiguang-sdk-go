@@ -17,9 +17,9 @@ package push
 import (
 	"context"
 
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/file"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/image"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/schedule"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/file"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/image"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/schedule"
 )
 
 type (
@@ -159,15 +159,15 @@ type APIv3 interface {
 	// # 自定义推送
 	//
 	// 如果遇到 Send 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-	CustomSend(ctx context.Context, param interface{}) (*SendResult, error)
+	CustomSend(ctx context.Context, param any) (*SendResult, error)
 
 	// # 自定义文件推送
 	//
 	// 如果遇到 SendByFile 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-	CustomSendByFile(ctx context.Context, param interface{}) (*SendResult, error)
+	CustomSendByFile(ctx context.Context, param any) (*SendResult, error)
 
 	// # 自定义推送校验
 	//
 	// 如果遇到 ValidateSend 接口没有及时补充字段的情况，可以自行构建 JSON，调用此接口。
-	ValidateCustomSend(ctx context.Context, param interface{}) (*SendResult, error)
+	ValidateCustomSend(ctx context.Context, param any) (*SendResult, error)
 }

@@ -21,7 +21,7 @@ import (
 	"mime/multipart"
 	"net/http"
 
-	sdk "github.com/cavlabs/jiguang-sdk-go"
+	sdk "github.com/cavlabs/jiguang-sdk-go/v2"
 )
 
 // 极光 REST API 的 HTTP 请求原始请求封装。
@@ -31,7 +31,7 @@ type Request struct {
 	URL    string      // 请求完整 URL
 	Auth   string      // 请求授权信息
 	Header http.Header // 自定义请求头
-	Body   interface{} // 请求正文负载
+	Body   any         // 请求正文负载
 }
 
 // defaultUserAgent 是默认的用户代理字符串，用于携带的请求头 `User-Agent` 标识。

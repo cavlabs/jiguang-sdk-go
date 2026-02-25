@@ -20,9 +20,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums/audience"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums/message"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/audience"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/message"
 )
 
 // # 模板消息 - 其他方式发送
@@ -66,7 +66,7 @@ type TemplateSendParam struct {
 	// 【必填】模板 ID。
 	TemplateID int64 `json:"template_id"`
 	// 【可选】模板参数，需要替换的参数名和参数值的键值对。
-	TemplateParams map[string]interface{} `json:"template_para,omitempty"`
+	TemplateParams map[string]any `json:"template_para,omitempty"`
 	// 【可选】APP 通道的相关参数，模板中有 APP 通道时必填。
 	AppParams *message.AppParams `json:"app_para,omitempty"`
 	// 【可选】发送策略 ID，如果是同时发送可传 0 或不传。当使用自定义通道 ID 发送时，该字段无效。

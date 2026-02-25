@@ -23,7 +23,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 	"github.com/rs/zerolog"
 )
 
@@ -35,7 +35,7 @@ type ZeroLogger struct {
 func NewZeroLogger(logPrefix string) *ZeroLogger {
 	consoleWriter := zerolog.ConsoleWriter{
 		Out: os.Stdout,
-		FormatLevel: func(i interface{}) string {
+		FormatLevel: func(i any) string {
 			var l string
 			if ll, ok := i.(string); ok {
 				level := strings.ToUpper(ll)
@@ -67,7 +67,7 @@ func NewZeroLogger(logPrefix string) *ZeroLogger {
 			return l
 		},
 		// TimeFormat: "2006/01/02 15:04:05",
-		FormatTimestamp: func(i interface{}) string {
+		FormatTimestamp: func(i any) string {
 			timestamp := i.(string)
 			if ts, err := time.ParseInLocation(zerolog.TimeFieldFormat, timestamp, time.Local); err == nil {
 				timestamp = ts.Local().Format("2006/01/02 15:04:05")
@@ -92,7 +92,7 @@ func NewZeroLogger(logPrefix string) *ZeroLogger {
 }
 
 // colorize returns the string s wrapped in ANSI code c.
-func colorize(s interface{}, c int) string {
+func colorize(s any, c int) string {
 	return fmt.Sprintf("\x1b[%dm%-5s\x1b[0m", c, s)
 }
 
@@ -112,18 +112,18 @@ func (z *ZeroLogger) Error(_ context.Context, msg string) {
 	z.logger.Error().Msg(msg)
 }
 
-func (z *ZeroLogger) Debugf(_ context.Context, format string, args ...interface{}) {
+func (z *ZeroLogger) Debugf(_ context.Context, format string, args ...any) {
 	z.logger.Debug().Msgf(format, args...)
 }
 
-func (z *ZeroLogger) Infof(_ context.Context, format string, args ...interface{}) {
+func (z *ZeroLogger) Infof(_ context.Context, format string, args ...any) {
 	z.logger.Info().Msgf(format, args...)
 }
 
-func (z *ZeroLogger) Warnf(_ context.Context, format string, args ...interface{}) {
+func (z *ZeroLogger) Warnf(_ context.Context, format string, args ...any) {
 	z.logger.Warn().Msgf(format, args...)
 }
 
-func (z *ZeroLogger) Errorf(_ context.Context, format string, args ...interface{}) {
+func (z *ZeroLogger) Errorf(_ context.Context, format string, args ...any) {
 	z.logger.Error().Msgf(format, args...)
 }

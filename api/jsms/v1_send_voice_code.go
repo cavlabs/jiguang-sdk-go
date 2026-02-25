@@ -22,7 +22,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 var voiceCodeRegex = regexp.MustCompile(`^\d{4,8}$`)
@@ -116,7 +116,7 @@ func (p *VoiceCodeSendParam) UnmarshalJSON(data []byte) error {
 }
 
 func (p VoiceCodeSendParam) MarshalJSON() ([]byte, error) {
-	param := make(map[string]interface{}, 4)
+	param := make(map[string]any, 4)
 	param["mobile"] = p.Mobile
 	if p.Code != "" {
 		param["code"] = p.Code

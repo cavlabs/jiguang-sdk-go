@@ -22,7 +22,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
 )
 
 // # 上传文件 (Alias)
@@ -98,7 +98,7 @@ type FileUploadParam struct {
 	//  - 文件不超过 10M。
 	//  - 文件自创建起，若不指定 TTL 参数，则服务器会默认保存 720 小时（即 30 天），超过有效期，服务器自动将文件删除。
 	//  - 有效期内的文件不允许超过 20 个。
-	File interface{} `json:"filename"`
+	File any `json:"filename"`
 	// 【可选】文件有效期，单位：小时，默认值：720，取值范围：1~720，即 1 小时至 720 小时（30天）。
 	//  - 超过有效期，服务器自动将文件删除。
 	TTL *int `json:"ttl,omitempty"`

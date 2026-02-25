@@ -18,9 +18,9 @@ import (
 	"encoding/base64"
 	"errors"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jsms/callback"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jsms/callback"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // 用于构建和配置 JSMS API v1 访问客户端的构建器。

@@ -17,10 +17,10 @@ package callback
 import (
 	"encoding/json"
 
-	"github.com/cavlabs/jiguang-sdk-go/api"
-	"github.com/cavlabs/jiguang-sdk-go/api/jpush/device/platform"
-	"github.com/cavlabs/jiguang-sdk-go/api/jums/message"
-	"github.com/cavlabs/jiguang-sdk-go/jiguang"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/message"
+	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 回调数据列表
@@ -42,7 +42,7 @@ type Data struct {
 	AppSender      *message.SenderAppCategory      `json:"app_sender,omitempty"`      // APP 厂商通道，Sender = message.SenderApp 时有值
 	SentTime       *jiguang.Timestamp              `json:"sent_time,omitempty"`       // 产生该记录的时间点，秒级时间戳
 	Error          *api.CodeError                  `json:"error,omitempty"`           // 目标无效/提交失败/送达失败/撤回失败的原因，当 Type = TargetInvalid / SentFail / ReceivedFail / RetractedFail 时有值
-	Params         map[string]interface{}          `json:"params,omitempty"`          // 自定义参数，用户在发送消息请求时在 message.Callback 里自行指定的参数 Params
+	Params         map[string]any                  `json:"params,omitempty"`          // 自定义参数，用户在发送消息请求时在 message.Callback 里自行指定的参数 Params
 }
 
 func (d Data) MarshalJSON() ([]byte, error) {

@@ -44,7 +44,7 @@ func (r *ReportData) UnmarshalJSON(data []byte) error {
 	type Alias ReportData
 	aux := &struct {
 		MsgID       json.RawMessage `json:"msgId"`       // 兼容字符串和数字类型的 `msgId`
-		ReceiveTime interface{}     `json:"receiveTime"` // 兼容时间戳和时间字符串类型的 `receiveTime`
+		ReceiveTime any             `json:"receiveTime"` // 兼容时间戳和时间字符串类型的 `receiveTime`
 		*Alias
 	}{
 		Alias: (*Alias)(r),
