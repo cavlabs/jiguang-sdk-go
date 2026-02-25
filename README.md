@@ -65,7 +65,7 @@
 
 1. 使用以下命令安装 SDK：
     ```bash
-    go get github.com/cavlabs/jiguang-sdk-go@latest
+    go get github.com/cavlabs/jiguang-sdk-go/v2@latest
     ```
 
 ---
@@ -74,7 +74,7 @@
 
 1. 在项目中引入 SDK：
     ```go
-    import sdk "github.com/cavlabs/jiguang-sdk-go"
+    import sdk "github.com/cavlabs/jiguang-sdk-go/v2"
     ```
 
 2. 示例代码（假设用于极光应用的「普通推送」）：

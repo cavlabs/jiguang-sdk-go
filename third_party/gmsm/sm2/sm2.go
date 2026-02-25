@@ -34,10 +34,13 @@ import (
 	"github.com/cavlabs/jiguang-sdk-go/v2/third_party/gmsm/sm3" // Modified: Changed import path from "github.com/tjfoc/gmsm/sm3" to "github.com/cavlabs/jiguang-sdk-go/v2/third_party/gmsm/sm3"
 )
 
-var (
-	default_uid = []byte{0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38}
-	C1C3C2      = 0
-	C1C2C3      = 1
+// Modified: Changed from default_uid to defaultUid to follow Go naming conventions
+var defaultUid = []byte{0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38}
+
+// Modified: Changed C1C3C2 and C1C2C3 from var to const since they are constants
+const (
+	C1C3C2 = 0
+	C1C2C3 = 1
 )
 
 type PublicKey struct {
@@ -84,12 +87,12 @@ func (pub *PublicKey) Verify(msg []byte, sign []byte) bool {
 	if err != nil {
 		return false
 	}
-	return Sm2Verify(pub, msg, default_uid, sm2Sign.R, sm2Sign.S)
+	return Sm2Verify(pub, msg, defaultUid, sm2Sign.R, sm2Sign.S)
 }
 
 func (pub *PublicKey) Sm3Digest(msg, uid []byte) ([]byte, error) {
 	if len(uid) == 0 {
-		uid = default_uid
+		uid = defaultUid
 	}
 
 	za, err := ZA(pub, uid)
@@ -114,7 +117,7 @@ func (priv *PrivateKey) DecryptAsn1(data []byte) ([]byte, error) {
 	return DecryptAsn1(priv, data)
 }
 
-// **************************Key agreement algorithm**************************//
+// **************************Key agreement algorithm************************** //
 // KeyExchangeB 协商第二部，用户B调用， 返回共享密钥k
 func KeyExchangeB(klen int, ida, idb []byte, priB *PrivateKey, pubA *PublicKey, rpri *PrivateKey, rpubA *PublicKey) (k, s1, s2 []byte, err error) {
 	return keyExchange(klen, ida, idb, priB, pubA, rpri, rpubA, false)
@@ -125,7 +128,7 @@ func KeyExchangeA(klen int, ida, idb []byte, priA *PrivateKey, pubB *PublicKey, 
 	return keyExchange(klen, ida, idb, priA, pubB, rpri, rpubB, true)
 }
 
-//****************************************************************************//
+// **************************************************************************** //
 
 func Sm2Sign(priv *PrivateKey, msg, uid []byte, random io.Reader) (r, s *big.Int, err error) {
 	digest, err := priv.PublicKey.Sm3Digest(msg, uid)
@@ -168,6 +171,7 @@ func Sm2Sign(priv *PrivateKey, msg, uid []byte, random io.Reader) (r, s *big.Int
 	}
 	return
 }
+
 func Sm2Verify(pub *PublicKey, msg, uid []byte, r, s *big.Int) bool {
 	c := pub.Curve
 	N := c.Params().N
@@ -179,7 +183,7 @@ func Sm2Verify(pub *PublicKey, msg, uid []byte, r, s *big.Int) bool {
 		return false
 	}
 	if len(uid) == 0 {
-		uid = default_uid
+		uid = defaultUid
 	}
 	za, err := ZA(pub, uid)
 	if err != nil {
@@ -299,9 +303,9 @@ func Encrypt(pub *PublicKey, data []byte, random io.Reader, mode int) ([]byte, e
 			c1 := make([]byte, 64)
 			c2 := make([]byte, len(c)-96)
 			c3 := make([]byte, 32)
-			copy(c1, c[:64])   //x1,y1
-			copy(c3, c[64:96]) //hash
-			copy(c2, c[96:])   //密文
+			copy(c1, c[:64])   // x1,y1
+			copy(c3, c[64:96]) // hash
+			copy(c2, c[96:])   // 密文
 			ciphertext := []byte{}
 			ciphertext = append(ciphertext, c1...)
 			ciphertext = append(ciphertext, c2...)
@@ -322,9 +326,9 @@ func Decrypt(priv *PrivateKey, data []byte, mode int) ([]byte, error) {
 		c1 := make([]byte, 64)
 		c2 := make([]byte, len(data)-96)
 		c3 := make([]byte, 32)
-		copy(c1, data[:64])             //x1,y1
-		copy(c2, data[64:len(data)-32]) //密文
-		copy(c3, data[len(data)-32:])   //hash
+		copy(c1, data[:64])             // x1,y1
+		copy(c2, data[64:len(data)-32]) // 密文
+		copy(c3, data[len(data)-32:])   // hash
 		c := []byte{}
 		c = append(c, c1...)
 		c = append(c, c3...)
@@ -612,7 +616,7 @@ func kdf(length int, x ...[]byte) ([]byte, bool) {
 
 func randFieldElement(c elliptic.Curve, random io.Reader) (k *big.Int, err error) {
 	if random == nil {
-		random = rand.Reader //If there is no external trusted random source,please use rand.Reader to instead of it.
+		random = rand.Reader // If there is no external trusted random source,please use rand.Reader to instead of it.
 	}
 	params := c.Params()
 	b := make([]byte, params.BitSize/8+8)
@@ -630,7 +634,7 @@ func randFieldElement(c elliptic.Curve, random io.Reader) (k *big.Int, err error
 func GenerateKey(random io.Reader) (*PrivateKey, error) {
 	c := P256Sm2()
 	if random == nil {
-		random = rand.Reader //If there is no external trusted random source,please use rand.Reader to instead of it.
+		random = rand.Reader // If there is no external trusted random source,please use rand.Reader to instead of it.
 	}
 	params := c.Params()
 	b := make([]byte, params.BitSize/8+8)
