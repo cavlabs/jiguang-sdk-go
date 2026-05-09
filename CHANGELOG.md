@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.7](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.7) - 2026-05-09
+
+### 新特性
+
+- 【JPush】「推送可选项」增加对「厂商通道消息超长是否自动截断」和「是否启用情景商业 Push」配置的支持。
+
+---
+
 ## [v1.0.6](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.6) - 2026-02-25
 
 ### 优化
