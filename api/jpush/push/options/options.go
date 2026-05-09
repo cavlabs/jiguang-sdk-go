@@ -130,6 +130,21 @@ type Options struct {
 	//
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
 	Notification3rdVer string `json:"notification_3rd_ver,omitempty"`
+	// 【可选】厂商通道消息超长是否自动截断。
+	//  - 默认为 true，如果传递的消息体内容发送到厂商通道时发现超长，会自动截断，不期望截断，可以传递 false 关闭；
+	//  - 如果在通知消息体下传递了 *pns_content_forshort 字段，会优先使用 *pns_content_forshort 字段作为消息体内容，同时 AutoTruncation 也能生效。
+	AutoTruncation *bool `json:"auto_truncation,omitempty"`
+	// 【可选】是否启用情景商业 Push。
+	//  - 默认为 false：表示普通消息推送；
+	//  - true：表示极光情景商业 Push 推送；
+	// 情景商业 Push 说明：
+	//  1. 背景：国内各个厂商，都对消息进行了严格分类管理，并实施了差异化配额管控，比如营销类消息限额大部分情况限额 2条/设备/应用/天，直接影响 APP 业务关键消息推送，影响用户行为链路转化。
+	//  2. 基于上述背景，极光目前和部分厂商有达成深度商业合作，享有付费额度提升特权，突破系统默认运营消息推送条数限制，实现关键营销节点无上限触达，保障关键信息触达目标用户。
+	//  3. 此功能为增值付费服务，需要额外申请权限。
+	// 详见 [docs.jiguang.cn] 文档说明。
+	//
+	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#%E6%83%85%E6%99%AF%E5%95%86%E4%B8%9Apush-%E8%AF%B4%E6%98%8E
+	MktEnable *bool `json:"mkt_enable,omitempty"`
 }
 
 // # 推送请求下发通道
