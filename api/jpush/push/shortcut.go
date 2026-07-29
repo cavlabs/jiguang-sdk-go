@@ -176,9 +176,10 @@ const (
 	LiveActivityEventUpdate = liveactivity.EventUpdate // 实时活动事件类型：update 更新
 	LiveActivityEventEnd    = liveactivity.EventEnd    // 实时活动事件类型：end 结束
 
-	CallbackTypeReceived = callback.Received // 回调数据类型：送达回执 (1)
-	CallbackTypeClicked  = callback.Clicked  // 回调数据类型：点击回执 (2)
-	CallbackTypePush     = callback.Push     // 回调数据类型：推送成功回执 (8)
+	CallbackTypeReceived    = callback.Received    // 回调数据类型：送达回执 (1)
+	CallbackTypeClicked     = callback.Clicked     // 回调数据类型：点击回执 (2)
+	CallbackTypeNotReceived = callback.NotReceived // 回调数据类型：未送达回执 (4)
+	CallbackTypePush        = callback.Push        // 回调数据类型：推送成功回执 (8)
 )
 
 // ↑↑↑ 这是为了方便 SDK 的使用者，提供了一些共享模型的别名定义。↑↑↑

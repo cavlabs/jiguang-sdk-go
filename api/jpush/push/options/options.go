@@ -28,19 +28,23 @@ type Options struct {
 	SendNo int64 `json:"sendno,omitempty"`
 	// 【可选】离线消息保留时长（单位：秒）。
 	//  - 推送当前用户不在线时，为该用户保留多长时间的离线消息，以便其上线时再次推送；
-	//  - 默认 86400（1 天），普通用户最长 3 天，VIP 用户最长 10 天，设置为 0 表示不保留离线消息，只有推送当前在线的用户可以收到；
-	//  - 该字段对 iOS 的 Notification 消息无效。
+	//  - 默认 86400（1 天），普通用户最长 3 天，VIP 用户最长 10 天；设置为 0 表示不保留离线消息，只有推送当前在线的用户可以收到；
+	//  - 该字段对 iOS、HarmonyOS、Android 厂商通道，会根据系统推送能力本身支持情况自动适配。
 	TimeToLive *int64 `json:"time_to_live,omitempty"`
 	// 【可选】要覆盖的消息 ID。
 	//
 	// 如果当前的推送要覆盖之前的一条推送，这里填写前一条推送的 MsgID 就会产生覆盖效果，即：
 	//  - 该 MsgID 离线收到的消息是覆盖后的内容，即使该 MsgID Android 端用户已经收到，如果通知栏还未清除，则新的消息内容会覆盖之前这条通知；
 	//  - 覆盖功能起作用的时限是：1 天，如果在覆盖指定时限内该 MsgID 不存在，则返回 1003 错误，提示不是一次有效的消息覆盖操作，当前的消息不会被推送；
-	//  - 该字段仅对 Android 有效，且仅支持极光通道、小米通道、魅族通道、OPPO 通道、FCM 通道、荣耀通道和华为通道（EMUI 10 及以上的设备）。
+	//  - 该字段对 Android 有效，仅支持极光通道、小米通道、OPPO 通道、vivo 通道、FCM 通道、荣耀通道、华为通道（EMUI 10 及以上的设备）和鸿蒙通道。
 	OverrideMsgID int64 `json:"override_msg_id,omitempty"`
 	// 【可选】APNs 是否生产环境。
 	//
 	// 该字段仅对 iOS 的 Notification 有效，如果不指定则为推送生产环境。
+	//
+	// 注意：JPush 服务端 SDK 默认设置为推送「开发环境」。
+	//  - true：表示推送生产环境；
+	//  - false：表示推送开发环境。
 	ApnsProduction *bool `json:"apns_production,omitempty"`
 	// 【可选】更新 iOS 通知的标识符。
 	//  - APNs 新通知如果匹配到当前通知中心有相同 ApnsCollapseID 字段的通知，则会用新通知内容来更新它，并使其置于通知中心首位；
@@ -52,7 +56,7 @@ type Options struct {
 	//  - 未设置则不是定速推送。
 	BigPushDuration int `json:"big_push_duration,omitempty"`
 	// 【可选】推送请求下发通道。
-	//  - 目前只支持 xiaomi、huawei、honor、meizu、oppo、vivo、fcm、nio 类型用户，可以一个或者多个同时存在，未传递的通道类型其对应的厂商下发走「默认下发逻辑」：
+	//  - 目前只支持 xiaomi、huawei、honor、meizu、oppo、vivo、fcm、nio、asus、hmos 类型用户，可以一个或者多个同时存在，未传递的通道类型其对应的厂商下发走「默认下发逻辑」：
 	//
 	//  1. 免费用户：Distribution 默认为 secondary_push，DistributionFcm 默认为 secondary_fcm_push；
 	//
@@ -66,7 +70,13 @@ type Options struct {
 	// 极光不对指定的消息类型进行判断或校准，会以开发者自行指定的消息类型适配 Android 厂商通道。不填默认为 0。
 	//  - 0：代表运营消息；
 	//  - 1：代表系统消息。
-	// 此字段优先级最高，会覆盖 ThirdPartyChannel 的 vivo 厂商的 Classification 设置的值。
+	//
+	// 此字段优先级最高，会覆盖 ThirdPartyChannel 的 Vivo.Classification、Honor.Importance 等设置的值。
+	// 极光平台默认根据此字段值来判断消息类型，并进行厂商配额扣除处理和厂商消息分类适配逻辑，请务必确保传值准确。
+	//
+	// 厂商适配使用方式可参考：[厂商消息分类使用指南]
+	//
+	// [厂商消息分类使用指南]: https://docs.jiguang.cn/jpush/client/Android/android_channel_id
 	Classification *int `json:"classification,omitempty"`
 	// 【可选】目标转化事件。
 	//
@@ -80,21 +90,22 @@ type Options struct {
 	// [如何创建自定义事件]: https://docs.jiguang.cn/public_service/dataCenter/metadata/metaEvent
 	// [SDK 如何上报自定义事件]: https://docs.jiguang.cn/public_service/client/Android/sdk_api#%E4%B8%8A%E6%8A%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6
 	TargetEvent []string `json:"target_event,omitempty"`
-	// 【可选】测试消息标识。
-	//  - 指定鸿蒙平台通知和自定义消息推送配置，优先级大于 HMOS 通知体内的 TestMessage 字段（同样适配鸿蒙自定义消息，如果推送鸿蒙自定义消息，请传递此字段）；
+	// 【可选】是否测试消息标识。
+	//  - 优先级大于 HMOS 通知体内的 TestMessage 字段（同样适配鸿蒙自定义消息，如果推送鸿蒙自定义消息，请传递此字段）；
 	//  - 请注意区别于 TestModel 功能字段，TestMessage 仅用于适配厂商的测试消息功能，并非表示处于测试模式下推送。
 	TestMessage *bool `json:"test_message,omitempty"`
-	// 【可选】华为回执 ID。
-	//  - 指定鸿蒙平台通知和自定义消息推送配置，优先级大于 HMOS 通知体内的 ReceiptID 字段。
+	// 【可选】回执 ID。
+	//  - 优先级大于 HMOS 通知体内的 ReceiptID 字段（同样适配鸿蒙自定义消息，如果推送鸿蒙自定义消息，请传递此字段）。
 	ReceiptID string `json:"receipt_id,omitempty"`
 	// 【可选】是否使用亮屏推送。
 	//  - true：使用亮屏推送，false：不使用亮屏推送，默认值 false；
+	//  - 适用于实时性要求不高的营销类消息，实时性要求较高的消息不推荐使用；
 	//  - 此功能为增值付费服务，需要额外申请权限；
 	//  - 当使用亮屏推送时，建议同时设置 NeedBackup 为 true；
 	//  - 此功能仅支持单纯通知消息，不支持自定义消息或者通知+自定义消息推送，否则请求会返回 code 码 1035；
 	//  - 此功能不支持定速推送，否则请求会返回 code 码 1035；
 	//  - 亮屏推送支持的时间范围是每天 7:00 - 22:00；
-	//  - 亮屏推送对于 Android 厂商用户的下发策略固定为在线走极光，离线走厂商。
+	//  - 亮屏推送对于 Android 厂商用户的下发策略固定为在线走极光，离线走厂商（如有自行指定厂商下发策略，使用亮屏推送时可不指定策略，或者必须指定为 secondary_push）。
 	ActivePush *bool `json:"active_push,omitempty"`
 	// 【可选】是否使用亮屏推送兜底策略。
 	//  - true：使用亮屏兜底策略，false：不使用亮屏兜底策略，默认值 false；
@@ -110,7 +121,7 @@ type Options struct {
 	BusinessOperationCode string `json:"business_operation_code,omitempty"`
 	// 【可选】是否测试模式推送。
 	//  - false：正式模式推送消息（默认值），true：测试模式推送消息；
-	//  - 测试模式推送消息仅推送给到测试设备；
+	//  - 测试模式推送消息仅推送给到测试设备，请务必先添加测试设备；
 	//  - 功能逻辑可参考文档 [测试模式]；
 	//  - 请注意区分区别 TestMessage 字段：TestMessage 仅用于适配厂商的测试消息功能，并非表示处于测试模式下推送；TestModel 则表示请求在极光平台下发消息时就已经控制，消息是否仅下发给到测试设备；
 	//  - 此功能为增值付费服务，需要额外申请权限。
@@ -123,28 +134,33 @@ type Options struct {
 	// 【可选】极光 WebPortal 的附加属性。
 	PortalExtra *PortalExtraOptions `json:"portal_extra,omitempty"`
 	// 【可选】自定义消息转厂商通知功能版本。
-	//  - 可选值：v1、v2，为空则默认使用 v1 版本，如果使用 v2 版本则必须指定此字段值；
-	//  - 推荐使用 v2 版本，支持 Android、iOS、HarmonyOS 三个平台；
-	//  - v1 版本仅支持 Android 平台，且后续将不再拓展支持新功能字段，仅维持现状。
-	// 详见 [docs.jiguang.cn] 文档说明。
+	//  - 取值："v1"、"v2"；
+	//  - v1：仅支持 Android 平台；
+	//  - v2：支持 Android、iOS、HarmonyOS 三个平台，推荐使用 v2 版本。
+	// 功能字段和使用逻辑可参考文档 [notification_3rd：自定义消息转厂商通知]。
 	//
-	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
+	// [notification_3rd：自定义消息转厂商通知]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
 	Notification3rdVer string `json:"notification_3rd_ver,omitempty"`
 	// 【可选】厂商通道消息超长是否自动截断。
-	//  - 默认为 true，如果传递的消息体内容发送到厂商通道时发现超长，会自动截断，不期望截断，可以传递 false 关闭；
+	//  - 默认为 true，如果传递的消息体内容发送到厂商通道时发现超长，会自动截断；不期望截断，可以传递 false 关闭；
 	//  - 如果在通知消息体下传递了 *pns_content_forshort 字段，会优先使用 *pns_content_forshort 字段作为消息体内容，同时 AutoTruncation 也能生效。
 	AutoTruncation *bool `json:"auto_truncation,omitempty"`
 	// 【可选】是否启用情景商业 Push。
 	//  - 默认为 false：表示普通消息推送；
-	//  - true：表示极光情景商业 Push 推送；
+	//  - true：表示极光情景商业 Push 推送，可「联系商务咨询」。
 	// 情景商业 Push 说明：
-	//  1. 背景：国内各个厂商，都对消息进行了严格分类管理，并实施了差异化配额管控，比如营销类消息限额大部分情况限额 2条/设备/应用/天，直接影响 APP 业务关键消息推送，影响用户行为链路转化。
+	//  1. 背景：国内各个厂商，都对消息进行了严格分类管理，并实施了差异化配额管控，比如营销类消息限额大部分情况限额 2 条/设备/应用/天，直接影响 APP 业务关键消息推送，影响用户行为链路转化。
 	//  2. 基于上述背景，极光目前和部分厂商有达成深度商业合作，享有付费额度提升特权，突破系统默认运营消息推送条数限制，实现关键营销节点无上限触达，保障关键信息触达目标用户。
 	//  3. 此功能为增值付费服务，需要额外申请权限。
+	//  4. 使用前需在极光控制台启用「厂商运营超限走商业 Push 通道下发」功能，再通过本字段指定是否使用情景商业 Push。
 	// 详见 [docs.jiguang.cn] 文档说明。
 	//
 	// [docs.jiguang.cn]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#%E6%83%85%E6%99%AF%E5%95%86%E4%B8%9Apush-%E8%AF%B4%E6%98%8E
 	MktEnable *bool `json:"mkt_enable,omitempty"`
+	// 【可选】是否过滤 APP 通知开关关闭的用户。
+	//  - 默认为 false：表示不过滤；
+	//  - true：表示过滤，极光 VIP 客户专属功能，可「联系商务咨询」。
+	NotificationSwitchFilter *bool `json:"notification_switch_filter,omitempty"`
 }
 
 // # 推送请求下发通道
@@ -157,6 +173,8 @@ type ThirdPartyChannel struct {
 	Vivo   *ThirdPartyChannelOptions `json:"vivo,omitempty"`   // vivo 通道策略和属性参数。
 	FCM    *ThirdPartyChannelOptions `json:"fcm,omitempty"`    // FCM 通道策略和属性参数。
 	NIO    *ThirdPartyChannelOptions `json:"nio,omitempty"`    // 蔚来通道策略和属性参数。
+	ASUS   *ThirdPartyChannelOptions `json:"asus,omitempty"`   // 华硕通道策略和属性参数。
+	HMOS   *ThirdPartyChannelOptions `json:"hmos,omitempty"`   // 鸿蒙通道策略和属性参数。
 }
 
 // # 推送请求下发通道的策略和属性参数
@@ -296,12 +314,14 @@ type ThirdPartyChannelOptions struct {
 	//  - 输入一个唯一的回执 ID 指定本次下行消息的回执地址及配置，该回执 ID 可以在 [vivo 回执参数配置]。
 	// [vivo 回执参数配置]: https://dev.vivo.com.cn/documentCenter/doc/681#w2-33657032
 	CallbackID string `json:"callback_id,omitempty"`
-	// 【可选】华为消息类型，仅华为通道有效。
+	// 【可选】华为 / 荣耀消息类型，仅华为、荣耀通道有效。
 	//  - 0：普通消息（默认值）；
 	//  - 1：测试消息。
-	// 每个应用每日可发送测试消息 500 条且不受 [每日单设备推送数量上限要求] 限制。
+	// 华为每个应用每日可发送测试消息 500 条且不受 [华为每日单设备推送数量上限要求] 限制；
+	// 荣耀每个应用每日可发送测试消息 1000 条且不受 [荣耀每日单设备推送数量上限要求] 限制。
 	//
-	// [每日单设备推送数量上限要求]: https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-restriction-description-0000001361648361#section104849311415
+	// [华为每日单设备推送数量上限要求]: https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-restriction-description-0000001361648361#section104849311415
+	// [荣耀每日单设备推送数量上限要求]: https://developer.honor.com/cn/docs/11002/guides/notification-push-standards#%E4%B8%8D%E5%90%8C%E5%BA%94%E7%94%A8%E7%B1%BB%E5%88%AB%E7%9A%84%E6%8E%A8%E9%80%81%E6%95%B0%E9%87%8F%E4%B8%8A%E9%99%90%E8%A6%81%E6%B1%82
 	TargetUserType *int `json:"target_user_type,omitempty"`
 	// 【可选】厂商消息大图标样式。
 	//  - 支持 华为 / 荣耀 / OPPO 厂商，使用详情参见 [设置图标文档]；
@@ -315,8 +335,9 @@ type ThirdPartyChannelOptions struct {
 	LargeIcon string `json:"large_icon,omitempty"`
 	// 【可选】厂商消息小图标样式。
 	//  - 目前支持 华为 / 荣耀 厂商，使用详情参见 [设置图标文档]；
-	//  - 优先使用厂商字段，厂商字段没有填充，则使用 [Android 里面定义 SmallIcon 字段] (small_icon_uri)。
-	//  - 华为、荣耀支持极光的 MediaID 及厂商本地路径。(小米从 2023.08 开始不再支持推送时动态设置小图标、右侧图标、大图片功能，建议开发者不要继续使用小米相关特性功能)。
+	//  - 优先使用厂商字段，厂商字段没有填充，则使用 [Android 里面定义 SmallIcon 字段] (small_icon_uri)；
+	//  - 华为、荣耀支持极光的 MediaID 及厂商本地路径。(小米从 2023.08 开始不再支持推送时动态设置小图标、右侧图标、大图片功能，建议开发者不要继续使用小米相关特性功能)；
+	//  - 请注意：如果推送的是运营消息（营销消息），荣耀通道不支持携带图标，否则推送会直接返回失败。
 	// [设置图标文档]: https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82
 	// [Android 里面定义 SmallIcon 字段]: https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#android
 	SmallIcon string `json:"small_icon_uri,omitempty"`
@@ -331,22 +352,32 @@ type ThirdPartyChannelOptions struct {
 	//  - style.BigText：大文本通知栏样式 (1)；
 	//  - style.Inbox：文本条目通知栏样式 (2)；
 	//  - style.BigPicture：大图片通知栏样式 (3)。
+	//
+	// 特别说明：实际展示效果以终端设备为准，由设备系统决定。
 	Style style.Style `json:"style,omitempty"`
 	// 【可选】厂商消息大文本样式。
 	//  - 为了适配厂商的消息大文本样式, 目前支持 小米 / 华为 / 荣耀 / OPPO 厂商。
 	//  - 优先使用厂商字段，如果厂商字段没有填充，则使用 Android 里面定义 BigText 字段；
 	//  - 其中小米最多支持 128 个字符 (一个英文或一个中文算一个字符)，配合小米 Style 使用，OPPO 最多也是支持 128 个字符，配合 Style 使用；
 	//  - JPush Android SDK v3.9.0 版本以上才支持该字段。
+	//
+	// 特别说明：实际展示效果以终端设备为准，由设备系统决定。
 	BigText string `json:"big_text,omitempty"`
 	// 【可选】厂商消息 Inbox 样式。
 	//  - 为了适配厂商的消息 Inbox 样式, 目前支持华为厂商；
 	//  - 优先使用厂商字段，如果厂商字段没有填充，则使用 Android 里面定义 Inbox 字段，配合华为 Style 使用；
 	//  - JPush Android SDK v3.9.0 版本以上才支持该字段。
+	//
+	// 特别说明：实际展示效果以终端设备为准，由设备系统决定。
 	Inbox map[string]interface{} `json:"inbox,omitempty"`
 	// 【可选】厂商消息大图片样式。
-	//  - 为了适配厂商的消息大图片样式，目前支持 OPPO 厂商:
+	//  - 为了适配厂商的消息大图片样式，目前支持 OPPO 厂商，使用详情参见 [设置大图片文档]；
 	//  - 优先使用厂商字段，如果厂商字段没有填充，则使用 Android 里面定义 BigPicture 字段，配合各自厂商的 Style 使用；
 	//  - JPush Android SDK v3.9.0 版本以上才支持该字段。
+	//
+	// 特别说明：实际展示效果以终端设备为准，由设备系统决定。
+	//
+	// [设置大图片文档]: https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82
 	BigPicture string `json:"big_pic_path,omitempty"`
 	// 【可选】是否使用自身通道设置样式。
 	//
@@ -367,7 +398,7 @@ type ThirdPartyChannelOptions struct {
 	AuditResponse map[string]interface{} `json:"auditResponse,omitempty"`
 	// 【可选】私信模板 ID。2025.07.14 新增。
 	//
-	// 目前仅支持 OPPO 厂商。
+	// 仅支持 OPPO 厂商。
 	//
 	// 下发对应私信模板时必须携带，不支持自拟。
 	//
@@ -377,7 +408,7 @@ type ThirdPartyChannelOptions struct {
 	PrivateMsgTemplateID string `json:"private_msg_template_id,omitempty"`
 	// 【可选】标题模板填充参数。2025.07.14 新增。
 	//
-	// 目前仅支持 OPPO 厂商。
+	// 仅支持 OPPO 厂商。
 	//
 	// 例：私信模板 ID 标题模板为：`欢迎来到 ${city}$，${city}$ 欢迎您`，此参数内容为：`{"city": "北京"}`。
 	//
@@ -387,7 +418,7 @@ type ThirdPartyChannelOptions struct {
 	PrivateTitleParameters map[string]interface{} `json:"private_title_parameters,omitempty"`
 	// 【可选】内容模板填充参数。2025.07.14 新增。
 	//
-	// 目前仅支持 OPPO 厂商。
+	// 仅支持 OPPO 厂商。
 	//
 	// 例：私信模板 ID 对应的内容模板为：`欢迎 ${userName}$ 来到 ${city}$`，此参数内容为：`{"userName": "汤姆", "city": "深圳市"}`。
 	//
@@ -395,4 +426,214 @@ type ThirdPartyChannelOptions struct {
 	//
 	// [OPUSH 私信模版校验能力接入说明]: https://open.oppomobile.com/documentation/page/info?id=12391
 	PrivateContentParameters map[string]interface{} `json:"private_content_parameters,omitempty"`
+	// 【可选】消息模板 ID。
+	//
+	// 仅支持小米厂商。所有私信消息下发时需同时携带 ChannelID 及本字段。
+	//
+	// 详见：[小米关于消息模板推送新规的更新通知]。
+	//
+	// [小米关于消息模板推送新规的更新通知]: https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2315
+	MiTemplateID string `json:"mi_template_id,omitempty"`
+	// 【可选】消息模板参数。
+	//
+	// 仅支持小米厂商。值为消息模板参数的 JSON 字符串。
+	//
+	// 例：`{"app_name":"小米商城","order_no":"XM202601130001","order_amount":"11.00","delivery_time":"2026-01-15 18:00"}`。
+	//
+	// 详见：[小米消息模板接入指南]。
+	//
+	// [小米消息模板接入指南]: https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2314
+	MiTemplateParam string `json:"mi_template_param,omitempty"`
+	// 【可选】数字角标操作类型。
+	//
+	// 目前支持 OPPO 厂商。取值说明：
+	//  - 0：覆盖；
+	//  - 1：增加。
+	//
+	// 系统要求：ColorOS 3.1 及以上支持「覆盖」；Android 11 及以上版本支持角标「增加」。
+	BadgeOperationType *int `json:"badge_operation_type,omitempty"`
+	// 【可选】设置数字角标数量。
+	//
+	// 目前支持 OPPO 厂商。
+	//  - 0：清除数字角标（需要设置 BadgeOperationType = 0（覆盖））；
+	//  - 1–99：显示对应的数字角标；
+	//  - 大于 99：显示 99+。
+	//
+	// 当 BadgeOperationType 设置为 1（增加）时，不需要传递此字段，默认 +1。
+	BadgeMessageCount *int `json:"badge_message_count,omitempty"`
+	// 【可选】是否展示角标。
+	//
+	// 目前支持 vivo 厂商。该字段透传给 vivo 厂商通道，需要向厂商申请权限，设置后角标自动加 1。
+	//
+	// 详见：[桌面角标设置方法 - Vpush 接入方法]。
+	//
+	// 注意：此功能从 JPush Android SDK v5.9.0 版本开始支持。
+	//
+	// [桌面角标设置方法 - Vpush 接入方法]: https://dev.vivo.com.cn/documentCenter/doc/788
+	AddBadge *bool `json:"add_badge,omitempty"`
+	// 【可选】华为推送类型。
+	//
+	// 目前支持华为厂商，极光透传该字段值给华为厂商。
+	//
+	// 若需使用实况窗通知，请设置本字段为 7，并同时满足：
+	//  1. 提供有效的 HwLivePayload；
+	//  2. 设置 Classification = 1；
+	//  3. 发送策略设为 ospush（或不指定，默认为 ospush）。
+	//
+	// 推送华为实况窗时可不携带 Notification、Message 等消息内容顶级字段；如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	HwPushType *int `json:"hw_push_type,omitempty"`
+	// 【可选】华为实况窗消息体。
+	//
+	// 用于配置华为实况窗通知，需提前向华为申请相应权限。仅在 HwPushType = 7 时生效。
+	//
+	// 前置配置：实况窗推送需要独立的校验文件，请在推送前登录极光控制台（Android 厂商集成设置）上传对应的服务密钥文件（与普通厂商 Push 鉴权不同），密钥文件获取参考 [服务账号密钥]。
+	//
+	// 极光将该字段透传给华为厂商，对应华为 LiveNotificationPayload 字段。具体参数说明请参见 [华为实况窗通知刷新文档]。
+	//
+	// [服务账号密钥]: https://developer.huawei.com/consumer/cn/doc/start/api-0000001062522591#section3554194116341
+	// [华为实况窗通知刷新文档]: https://developer.huawei.com/consumer/cn/doc/HMSCore-References/rest-live-0000001562939968#ZH-CN_TOPIC_0000001700850537__p195121620102511
+	HwLivePayload map[string]interface{} `json:"hw_live_payload,omitempty"`
+	// 【可选】OPPO 推送类型。
+	//
+	// 目前支持 OPPO 厂商。枚举值：3（VoIP 消息）、7（实况窗通知）。
+	//
+	//  - 实况窗通知：设置本字段为 7，并按 OpIntelligentIntent 或 OpDeleteIntentData 说明传参。
+	//
+	//  - VoIP 通知：参考 OPPO 厂商 [VoIP 消息推送指南] 申请权益。通过极光平台推送时，设置本字段为 3，并同时满足：
+	//
+	//   1. 提供有效的 VoipExtraData；
+	//
+	//   2. 设置 Classification = 1；
+	//
+	//   3. 发送策略设为 ospush（或不指定，默认为 ospush）。
+	//
+	// 推送 OPPO VoIP 时可不携带 Notification、Message 等消息内容顶级字段；如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	//
+	// [VoIP 消息推送指南]: https://open.oppomobile.com/documentation/page/info?id=13765
+	OpPushType *int `json:"op_push_type,omitempty"`
+	// 【可选】意图共享数据结构（OPPO 流体云消息）。
+	//
+	// 用于配置 OPPO 流体云消息，需提前向 OPPO 申请相应权限。
+	//
+	// 生效条件：
+	//  1. 设置 Classification = 1；
+	//  2. 发送策略设为 ospush（或不指定，默认为 ospush）。
+	//
+	// 前置配置：需在极光控制台（Android 厂商集成设置）完成流体云推送特有鉴权配置（与普通厂商 Push 鉴权不同），鉴权密钥获取参考 [接口认证]。
+	//
+	// 极光将该字段透传给 OPPO 厂商，对应厂商 IntelligentIntent 字段。具体参数说明参见 OPPO [意图共享数据结构] 文档。校验到本字段不为空时，会认为此次推送是 OPPO 厂商流体云消息。
+	//
+	// 推送 OPPO 流体云消息时可不必携带 Notification、Message 等消息内容顶级字段；如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	//
+	// 与 OpDeleteIntentData 二者不可同时存在，二选一。
+	//
+	// [接口认证]: https://open.oppomobile.com/documentation/page/info?id=13559
+	// [意图共享数据结构]: https://open.oppomobile.com/documentation/page/info?id=13565
+	OpIntelligentIntent map[string]interface{} `json:"op_intelligent_intent,omitempty"`
+	// 【可选】删除意图共享（撤销 OPPO 流体云消息）。
+	//
+	// 用于撤销 OPPO 流体云消息，需提前向 OPPO 申请相应权限。
+	//
+	// 生效条件：
+	//  1. 设置 Classification = 1；
+	//  2. 发送策略设为 ospush（或不指定，默认为 ospush）。
+	//
+	// 前置配置：需在极光控制台（Android 厂商集成设置）完成流体云推送特有鉴权配置（与普通厂商 Push 鉴权不同），鉴权密钥获取参考 [接口认证]。
+	//
+	// 极光将该字段透传给 OPPO 厂商，对应厂商销卡协议 data 字段。具体参数说明参见 OPPO [销卡] 文档。校验到本字段不为空时，会认为此次推送是 OPPO 流体云消息。
+	//
+	// 删除 OPPO 流体云消息时可不必携带 Notification、Message 等消息内容顶级字段；如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	//
+	// 与 OpIntelligentIntent 二者不可同时存在，二选一。
+	//
+	// [接口认证]: https://open.oppomobile.com/documentation/page/info?id=13559
+	// [销卡]: https://open.oppomobile.com/documentation/page/info?id=13578
+	OpDeleteIntentData map[string]interface{} `json:"op_delete_intent_data,omitempty"`
+	// 【可选】vivo 推送类型。
+	//
+	// 目前支持 vivo 厂商。枚举值：2（透传消息）、3（VoIP 消息）、7（原子通知）。
+	//
+	//  - 透传：设置本字段为 2，并提供有效的 VivoInAppMsg；
+	//  - VoIP：设置本字段为 3，并提供有效的 VoipExtraData；
+	//  - 原子通知：设置本字段为 7，并提供有效的 VivoLiveMessage。
+	//
+	// 以上枚举场景均需同时满足：
+	//  - 设置 Classification = 1；
+	//  - 发送策略为 ospush（或不指定）；
+	//  - 可不必携带 Notification、Message 等消息内容顶级字段；
+	//  - 如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	VivoPushType *int `json:"vivo_push_type,omitempty"`
+	// 【可选】vivo 透传消息体。
+	//
+	// 用于配置 vivo 透传消息，需提前向 vivo 申请相应权限。传递此字段即视为推送 vivo 透传消息，需同时设置 Classification = 1，发送策略为 ospush（或不指定）。
+	//
+	// 极光会将字段内容透传至 vivo 厂商，对应厂商字段为 inAppMsg（具体协议需向 vivo 申请获取）。
+	//
+	// 推送 vivo 透传消息时可不携带 Notification、Message 等消息内容顶级字段；如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	VivoInAppMsg map[string]interface{} `json:"vivo_inapp_msg,omitempty"`
+	// 【可选】vivo 原子通知消息体。
+	//
+	// 用于配置 vivo 原子通知，需提前向 vivo 申请相应权限。传递此字段即视为推送 vivo 原子通知，需同时设置 Classification = 1，发送策略为 ospush（或不指定）。
+	//
+	// 极光会将字段内容透传至 vivo 厂商，对应厂商字段为 [liveMessage]。
+	//
+	// 推送 vivo 原子通知时可不携带 Notification、Message 等消息内容顶级字段；如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	//
+	// [liveMessage]: https://dev.vivo.com.cn/documentCenter/doc/896#s-fdagzbd4
+	VivoLiveMessage map[string]interface{} `json:"vivo_liveMessage,omitempty"`
+	// 【可选】荣耀推送类型。
+	//
+	// 目前支持荣耀厂商。枚举值：3（VoIP 消息）。请参考荣耀厂商 [VoIP 能力使用规范] 申请权益。
+	//
+	// 若需使用 VoIP 消息，请设置本字段为 3，并同时满足：
+	//  1. 提供有效的 VoipExtraData；
+	//  2. 设置 Classification = 1；
+	//  3. 发送策略设为 ospush（或不指定，默认为 ospush）；
+	//
+	// 推送荣耀 VoIP 消息时可不携带 notification，message 等消息内容顶级字段；如未传递alert字段，极光服务端将自动为 notification.android.alert 赋空值，以确保兼容。
+	//
+	// [VoIP 能力使用规范]: https://developer.honor.com/cn/docs/11002/guides/notification-voip-standards#2%E3%80%81%E7%94%B3%E8%AF%B7%E6%B5%81%E7%A8%8B
+	HonorPushType *int `json:"honor_push_type,omitempty"`
+	// 【可选】小米推送类型。
+	//
+	// 目前支持小米厂商。枚举值：3（VoIP 消息）、7（超级岛通知）。请参考小米厂商 [音视频通话功能限制] 申请权益。
+	//
+	//  - VoIP：设置本字段为 3，并提供有效的 VoipExtraData，且必须设置 ChannelID；
+	//  - 超级岛通知：设置本字段为 7，并提供有效的 MiLivePayload。
+	//
+	// 以上枚举场景均需同时满足：
+	//  - 设置 Classification = 1；
+	//  - 发送策略为 ospush（或不指定）；
+	//  - 可不必携带 Notification、Message 等消息内容顶级字段；
+	//  - 如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	//
+	// [音视频通话功能限制]: https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1656
+	MiPushType *int `json:"mi_push_type,omitempty"`
+	// 【可选】小米超级岛通知体。
+	//
+	// 用于配置小米超级岛通知，需提前向小米申请相应权限。传递此字段即视为推送小米超级岛通知，需同时设置 Classification = 1，发送策略为 ospush（或不指定）。
+	//
+	// 极光会将字段内容透传至小米厂商，对应厂商字段为 [miui.focus.param 和 miui.focus.pic_XXX]；传参时务必定义小米对应字段 key。
+	//
+	// 推送小米超级岛通知时可不携带 Notification、Message 等消息内容顶级字段；如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	//
+	// [miui.focus.param 和 miui.focus.pic_XXX]: https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2131
+	MiLivePayload map[string]interface{} `json:"mi_live_payload,omitempty"`
+	// 【可选】VoIP 消息体。
+	//
+	// 目前支持厂商：荣耀、小米、OPPO、vivo。
+	//
+	// 若需使用 VoIP 消息，请设置对应厂商的 *PushType = 3，并同时满足：
+	//  1. 提供有效的本字段；
+	//  2. 设置 Classification = 1；
+	//  3. 发送策略设为 ospush（或不指定，默认为 ospush）。
+	//
+	// 推送 VoIP 消息时可不携带 Notification、Message 等消息内容顶级字段；如未传递 Alert 字段，极光服务端将自动为 Notification.Android.Alert 赋空值，以确保兼容。
+	VoipExtraData string `json:"voip_extraData,omitempty"`
+	// 【可选】vivo VoIP 消息特有字段。
+	//
+	// 该字段仅用于 vivo VoIP 消息特性，极光透传厂商，具体特性以厂商为准，参考厂商文档：[VoIP Service Kit Message]。
+	//
+	// [VoIP Service Kit Message]: https://dev.vivo.com.cn/documentCenter/doc/979#s-kbzqsenz
+	ExtensionExpireShow *bool `json:"extensionExpireShow,omitempty"`
 }
