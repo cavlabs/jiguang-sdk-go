@@ -82,6 +82,7 @@ func (lc *loggingHttpClient) DetectProto(url string) string {
 	if err != nil {
 		return "HTTP/1.1"
 	}
+	// HEAD 请求通常没有或只有非常小的响应体，但仍需关闭以避免占用底层连接。
 	defer func() { _ = resp.Body.Close() }()
 	_, _ = io.Copy(io.Discard, resp.Body)
 	return resp.Proto
@@ -134,7 +135,12 @@ func (lc *loggingHttpClient) doRequest(ctx context.Context, httpReq *http.Reques
 
 	lc.logResponse(ctx, httpResp, startTime)
 
-	defer func() { err = httpResp.Body.Close() }()
+	// 确保响应体被关闭；仅在原本没有错误时才用 Close 错误覆盖返回错误。
+	defer func() {
+		if cerr := httpResp.Body.Close(); cerr != nil && err == nil {
+			err = cerr
+		}
+	}()
 
 	rawBody, err := io.ReadAll(httpResp.Body)
 	if err != nil {

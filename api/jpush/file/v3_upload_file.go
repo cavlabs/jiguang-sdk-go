@@ -58,17 +58,16 @@ func (f *apiv3) uploadFile(ctx context.Context, forType string, param *FileUploa
 		return nil, fmt.Errorf("empty %q file", forType)
 	}
 
-	body := api.MultipartFormDataBody{
-		Files: []api.FormFile{{FieldName: "filename", FileData: param.File}},
-		FileValidator: &api.FileValidator{
+	opts := []api.UploadRequestOption{
+		api.WithFile("filename", param.File),
+		api.WithValidator(&api.FileValidator{
 			MaxSize:      10 * 1024 * 1024, // 10MB
 			AllowedMimes: []string{"text/plain", "application/octet-stream"},
 			AllowedExts:  []string{".txt"},
-		},
+		}),
 	}
-
 	if param.TTL != nil && (*param.TTL >= 1 && *param.TTL <= 720) {
-		body.Fields = []api.FormField{{Name: "ttl", Value: strconv.Itoa(*param.TTL)}}
+		opts = append(opts, api.WithField("ttl", strconv.Itoa(*param.TTL)))
 	}
 
 	req := &api.Request{
@@ -76,7 +75,7 @@ func (f *apiv3) uploadFile(ctx context.Context, forType string, param *FileUploa
 		Proto:  f.proto,
 		URL:    f.host + "/v3/files/" + forType,
 		Auth:   f.auth,
-		Body:   body,
+		Body:   api.NewUploadRequest(opts...),
 	}
 	resp, err := f.client.FormRequest(ctx, req)
 	if err != nil {
@@ -92,13 +91,14 @@ func (f *apiv3) uploadFile(ctx context.Context, forType string, param *FileUploa
 }
 
 type FileUploadParam struct {
-	// 【必填】文件名。
+	// 【必填】文件。
 	//  - 文件一行一个内容，忽略每行的前后空格和换行符作为实际的 Registration ID 值或者 Alias 值。
 	//  - 文件只支持 txt 格式，要求文件内容必须是 UTF-8 编码。
 	//  - 文件不超过 10M。
 	//  - 文件自创建起，若不指定 TTL 参数，则服务器会默认保存 720 小时（即 30 天），超过有效期，服务器自动将文件删除。
 	//  - 有效期内的文件不允许超过 20 个。
-	File any `json:"filename"`
+	//  - 可通过 UploadFileFromPath、UploadFileFromBytes 等方法创建。
+	File *api.UploadFile `json:"filename"`
 	// 【可选】文件有效期，单位：小时，默认值：720，取值范围：1~720，即 1 小时至 720 小时（30天）。
 	//  - 超过有效期，服务器自动将文件删除。
 	TTL *int `json:"ttl,omitempty"`

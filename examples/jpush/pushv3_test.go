@@ -222,8 +222,9 @@ func TestPushAPIv3_Send(t *testing.T) {
 func TestPushAPIv3_SendByFile(t *testing.T) {
 	fileID := "004f2b2c3d8fc649fa60ad2c-15563487-577d-4bb0-806b-56f1a19e06c1"
 	/*var fileID string
+	uploadFile, _ := file.UploadFileFromPath("~/Desktop/registrationId.txt")
 	uploadFileResult, _ := pushAPIv3.UploadFileForRegistrationID(context.Background(),
-		&file.FileUploadParam{File: "~/Desktop/registrationId.txt"})
+		&file.FileUploadParam{File: uploadFile})
 	if uploadFileResult.IsSuccess() {
 		fileID = uploadFileResult.FileID
 	} else {

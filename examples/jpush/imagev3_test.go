@@ -60,9 +60,13 @@ func TestImageAPIv3_UpdateImageByUrl(t *testing.T) {
 }
 
 func TestImageAPIv3_AddImageByFile(t *testing.T) {
+	oppoImageFile, err := image.UploadFileFromPath("~/Desktop/xx.jpeg")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
 	param := &image.AddByFileParam{
 		ImageType:     image.BigImage,
-		OppoImageFile: "~/Desktop/xx.jpeg",
+		OppoImageFile: oppoImageFile,
 	}
 	result, err := imageAPIv3.AddImageByFile(context.Background(), param)
 	if err != nil {
@@ -80,8 +84,12 @@ func TestImageAPIv3_AddImageByFile(t *testing.T) {
 
 func TestImageAPIv3_UpdateImageByFile(t *testing.T) {
 	mediaID := "jgmedia-1-c20d4b1f-e821-430d-b651-91c0c4bf1f60"
+	oppoImageFile, err := image.UploadFileFromPath("~/Desktop/yy.jpg")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
 	param := &image.UpdateByFileParam{
-		OppoImageFile: "~/Desktop/yy.jpg",
+		OppoImageFile: oppoImageFile,
 	}
 	result, err := imageAPIv3.UpdateImageByFile(context.Background(), mediaID, param)
 	if err != nil {

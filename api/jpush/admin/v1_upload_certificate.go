@@ -48,34 +48,26 @@ func (a *apiv1) UploadCertificate(ctx context.Context, appKey string, param *Cer
 		return nil, errors.New("either `devCertificateFile` or `proCertificateFile` must be set")
 	}
 
-	var body api.MultipartFormDataBody
+	opts := make([]api.UploadRequestOption, 0, 4)
 
 	if devCertFile != nil {
 		if devCertPwd == "" {
 			return nil, errors.New("`devCertificatePassword` is required when `devCertificateFile` is set")
 		}
-		body.Fields = append(body.Fields, api.FormField{
-			Name:  "devCertificatePassword",
-			Value: devCertPwd,
-		})
-		body.Files = append(body.Files, api.FormFile{
-			FieldName: "devCertificateFile",
-			FileData:  devCertFile,
-		})
+		opts = append(opts,
+			api.WithField("devCertificatePassword", devCertPwd),
+			api.WithFile("devCertificateFile", devCertFile),
+		)
 	}
 
 	if proCertFile != nil {
 		if proCertPwd == "" {
 			return nil, errors.New("`proCertificatePassword` is required when `proCertificateFile` is set")
 		}
-		body.Fields = append(body.Fields, api.FormField{
-			Name:  "proCertificatePassword",
-			Value: proCertPwd,
-		})
-		body.Files = append(body.Files, api.FormFile{
-			FieldName: "proCertificateFile",
-			FileData:  proCertFile,
-		})
+		opts = append(opts,
+			api.WithField("proCertificatePassword", proCertPwd),
+			api.WithFile("proCertificateFile", proCertFile),
+		)
 	}
 
 	req := &api.Request{
@@ -83,7 +75,7 @@ func (a *apiv1) UploadCertificate(ctx context.Context, appKey string, param *Cer
 		Proto:  a.proto,
 		URL:    a.host + "/v1/app/" + appKey + "/certificate",
 		Auth:   a.auth,
-		Body:   body,
+		Body:   api.NewUploadRequest(opts...),
 	}
 	resp, err := a.client.FormRequest(ctx, req)
 	if err != nil {
@@ -99,10 +91,10 @@ func (a *apiv1) UploadCertificate(ctx context.Context, appKey string, param *Cer
 }
 
 type CertificateUploadParam struct {
-	DevCertificatePassword string `json:"devCertificatePassword,omitempty"` // 「开发」证书密码
-	DevCertificateFile     any    `json:"devCertificateFile,omitempty"`     // 「开发」证书文件
-	ProCertificatePassword string `json:"proCertificatePassword,omitempty"` // 「生产」证书密码
-	ProCertificateFile     any    `json:"proCertificateFile,omitempty"`     // 「生产」证书文件
+	DevCertificatePassword string         `json:"devCertificatePassword,omitempty"` // 「开发」证书密码
+	DevCertificateFile     *api.UploadFile `json:"devCertificateFile,omitempty"`     // 「开发」证书文件
+	ProCertificatePassword string         `json:"proCertificatePassword,omitempty"` // 「生产」证书密码
+	ProCertificateFile     *api.UploadFile `json:"proCertificateFile,omitempty"`     // 「生产」证书文件
 }
 
 type CertificateUploadResult struct {

@@ -23,8 +23,12 @@ import (
 )
 
 func TestFileAPIv3_UploadFileForAlias(t *testing.T) {
+	uploadFile, err := file.UploadFileFromPath("~/Desktop/alias.txt")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
 	param := &file.FileUploadParam{
-		File: "~/Desktop/alias.txt",
+		File: uploadFile,
 		TTL:  jiguang.Int(360),
 	}
 	result, err := fileAPIv3.UploadFileForAlias(context.Background(), param)
@@ -42,7 +46,11 @@ func TestFileAPIv3_UploadFileForAlias(t *testing.T) {
 }
 
 func TestFileAPIv3_UploadFileForRegistrationID(t *testing.T) {
-	param := &file.FileUploadParam{File: "~/Desktop/registrationId.txt"}
+	uploadFile, err := file.UploadFileFromPath("~/Desktop/registrationId.txt")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	param := &file.FileUploadParam{File: uploadFile}
 	result, err := fileAPIv3.UploadFileForRegistrationID(context.Background(), param)
 	if err != nil {
 		t.Fatalf("Failed! Error: %s", err)

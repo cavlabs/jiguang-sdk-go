@@ -1,6 +1,6 @@
 module github.com/cavlabs/jiguang-sdk-go/v2/examples
 
-go 1.26
+go 1.22
 
 retract [v0.0.0-0, v0.0.0-99991231235959-zzzzzzzzzzzz] // Wiping out this module including all pseudo-versions.
 

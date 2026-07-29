@@ -307,9 +307,13 @@ func TestAPIv1_BatchDeleteUsers(t *testing.T) {
 }
 
 func TestAPIv1_UploadMaterial(t *testing.T) {
+	uploadFile, err := jums.UploadFileFromPath("D:/ums.pdf")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
 	param := &jums.MaterialUploadParam{
 		Type:       "attachment",
-		File:       "D:/ums.pdf",
+		File:       uploadFile,
 		TimeToLive: 169,
 	}
 	result, err := umsAPIv1.UploadMaterial(context.Background(), param)

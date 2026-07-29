@@ -104,21 +104,22 @@ type SignCreateParam struct {
 	// 【必填】法人身份证号码，必须为有效的 18 位身份证号码。
 	LegalPersonIDNumber string `json:"legalPersonIdNumber"`
 	// 【必填】法人身份证图片，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	IDCardImage any `json:"idCardImage"`
+	//  - 可通过 UploadFileFromPath、UploadFileFromBytes 等方法创建。
+	IDCardImage *api.UploadFile `json:"idCardImage"`
 	// 【必填】统一社会信用代码，必须为有效的 18 位统一社会信用代码。
 	SocialCreditCode string `json:"socialCreditCode"`
 	// 【可选】第三方公司名称。
 	ThirdPartyCompanyName string `json:"thirdPartyCompanyName,omitempty"`
 	// 【条件必填】营业执照图片，Type 为 1 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	BusinessLicenseImage any `json:"businessLicenseImage,omitempty"`
+	BusinessLicenseImage *api.UploadFile `json:"businessLicenseImage,omitempty"`
 	// 【条件必填】ICP 备案 APP 截图，Type 为 3 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	ICPAppScreenshot any `json:"icpAppScreenshot,omitempty"`
+	ICPAppScreenshot *api.UploadFile `json:"icpAppScreenshot,omitempty"`
 	// 【条件必填】商标注册证图片，Type 为 6 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	TrademarkImage any `json:"trademarkImage,omitempty"`
+	TrademarkImage *api.UploadFile `json:"trademarkImage,omitempty"`
 	// 【条件必填】第三方授权委托书图片，Type 为 7 时必填，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	ThirdPartyAuthImage any `json:"thirdPartyAuthImage,omitempty"`
+	ThirdPartyAuthImage *api.UploadFile `json:"thirdPartyAuthImage,omitempty"`
 	// 【可选】其他相关图片，文件支持 PNG、JPG、JPEG 格式，且大小不超过 2M。
-	OtherImage any `json:"otherImage,omitempty"`
+	OtherImage *api.UploadFile `json:"otherImage,omitempty"`
 	// 【可选】申请说明，请简略描述您的业务使用场景，不超过 100 个字。
 	Remark string `json:"remark,omitempty"`
 }
@@ -185,7 +186,7 @@ func requiresExtraFile(t int) bool {
 	}
 }
 
-func getExtraFile(p *SignCreateParam) any {
+func getExtraFile(p *SignCreateParam) *api.UploadFile {
 	switch p.Type {
 	case 1:
 		return p.BusinessLicenseImage
@@ -215,15 +216,12 @@ func getExtraFileFieldName(t int) string {
 	}
 }
 
-func buildSignMultipartBody(p *SignCreateParam) (api.MultipartFormDataBody, error) {
-	fields := make([]api.FormField, 0, 8)
+func buildSignMultipartBody(p *SignCreateParam) (*api.UploadRequest, error) {
+	opts := make([]api.UploadRequestOption, 0, 10)
 
 	appendField := func(name, val string) {
 		if val != "" {
-			fields = append(fields, api.FormField{
-				Name:  name,
-				Value: val,
-			})
+			opts = append(opts, api.WithField(name, val))
 		}
 	}
 
@@ -235,29 +233,20 @@ func buildSignMultipartBody(p *SignCreateParam) (api.MultipartFormDataBody, erro
 	appendField("thirdPartyCompanyName", p.ThirdPartyCompanyName)
 	appendField("remark", p.Remark)
 
-	body := api.MultipartFormDataBody{
-		Fields: fields,
-		Files: []api.FormFile{
-			{
-				FieldName: "idCardImage",
-				FileData:  p.IDCardImage,
-			},
-		},
-		FileValidator: &api.FileValidator{
+	opts = append(opts,
+		api.WithFile("idCardImage", p.IDCardImage),
+		api.WithValidator(&api.FileValidator{
 			MaxSize:      2 * 1024 * 1024, // 2MB
 			AllowedMimes: []string{"image/jpeg", "image/png"},
 			AllowedExts:  []string{".jpg", ".jpeg", ".png"},
-		},
-	}
+		}),
+	)
 
 	if extraFile := getExtraFile(p); extraFile != nil {
-		body.Files = append(body.Files, api.FormFile{
-			FieldName: getExtraFileFieldName(p.Type),
-			FileData:  extraFile,
-		})
+		opts = append(opts, api.WithFile(getExtraFileFieldName(p.Type), extraFile))
 	}
 
-	return body, nil
+	return api.NewUploadRequest(opts...), nil
 }
 
 type SignCreateResult struct {

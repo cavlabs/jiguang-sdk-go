@@ -47,26 +47,18 @@ func (i *apiv3) UpdateImageByFile(ctx context.Context, mediaID string, param *Up
 		return nil, errors.New("either `xiaomi_file` or `oppo_file` must be set")
 	}
 
-	var body = api.MultipartFormDataBody{
-		FileValidator: &api.FileValidator{
+	opts := []api.UploadRequestOption{
+		api.WithValidator(&api.FileValidator{
 			MaxSize:      1 * 1024 * 1024, // 1MB
 			AllowedMimes: []string{"image/jpeg", "image/png"},
 			AllowedExts:  []string{".jpg", ".jpeg", ".png"},
-		},
+		}),
 	}
-
 	if xiaomiImageFile != nil {
-		body.Files = append(body.Files, api.FormFile{
-			FieldName: "xiaomi_file",
-			FileData:  xiaomiImageFile,
-		})
+		opts = append(opts, api.WithFile("xiaomi_file", xiaomiImageFile))
 	}
-
 	if oppoImageFile != nil {
-		body.Files = append(body.Files, api.FormFile{
-			FieldName: "oppo_file",
-			FileData:  oppoImageFile,
-		})
+		opts = append(opts, api.WithFile("oppo_file", oppoImageFile))
 	}
 
 	req := &api.Request{
@@ -74,7 +66,7 @@ func (i *apiv3) UpdateImageByFile(ctx context.Context, mediaID string, param *Up
 		Proto:  i.proto,
 		URL:    i.host + "/v3/images/byfiles/" + mediaID,
 		Auth:   i.auth,
-		Body:   body,
+		Body:   api.NewUploadRequest(opts...),
 	}
 	resp, err := i.client.FormRequest(ctx, req)
 	if err != nil {
@@ -94,12 +86,16 @@ type UpdateByFileParam struct {
 	// 【可选】上传配置小米通道的图片文件。
 	//  - 本接口将会对该图片文件大小进行校验，若不适配小米对该图片的要求，则返回错误，小米对该图片对要求参考 [小米-图片上传]；
 	//  - 小米从 2023.08 开始不再支持推送时动态设置小图标、右侧图标、大图片功能，开发者可不再设置此字段值。
+	//  - 可通过 UploadFileFromPath、UploadFileFromBytes 等方法创建。
+	//
 	// [小米-图片上传]: https://dev.mi.com/console/doc/detail?pId=1278#4_4_2
-	XiaomiImageFile any `json:"xiaomi_file,omitempty"`
+	XiaomiImageFile *api.UploadFile `json:"xiaomi_file,omitempty"`
 	// 【可选】上传配置 OPPO 通道的图片文件；
 	//  - 本接口将会对该图片文件大小进行校验，若不适配 OPPO 对该图片的要求，则返回错误，OPPO 对该图片对要求参考 [OPPO-图片上传]。
+	//  - 可通过 UploadFileFromPath、UploadFileFromBytes 等方法创建。
+	//
 	// [OPPO-图片上传]: https://open.oppomobile.com/new/developmentDoc/info?id=11241
-	OppoImageFile any `json:"oppo_file,omitempty"`
+	OppoImageFile *api.UploadFile `json:"oppo_file,omitempty"`
 }
 
 // 更新图片（文件方式）响应结果正文。

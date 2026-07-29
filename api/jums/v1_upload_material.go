@@ -51,12 +51,12 @@ func (u *apiv1) UploadMaterial(ctx context.Context, param *MaterialUploadParam) 
 		return nil, errors.New("empty attachment file")
 	}
 
-	body := api.MultipartFormDataBody{
-		Fields: []api.FormField{{Name: "type", Value: param.Type}},
-		Files:  []api.FormFile{{FieldName: "file", FileData: param.File}},
+	opts := []api.UploadRequestOption{
+		api.WithField("type", param.Type),
+		api.WithFile("file", param.File),
 	}
 	if param.TimeToLive != 0 {
-		body.Fields = append(body.Fields, api.FormField{Name: "time_to_live", Value: strconv.Itoa(param.TimeToLive)})
+		opts = append(opts, api.WithField("time_to_live", strconv.Itoa(param.TimeToLive)))
 	}
 
 	req := &api.Request{
@@ -64,7 +64,7 @@ func (u *apiv1) UploadMaterial(ctx context.Context, param *MaterialUploadParam) 
 		Proto:  u.proto,
 		URL:    u.host + "/v1/material",
 		Auth:   u.auth,
-		Body:   body,
+		Body:   api.NewUploadRequest(opts...),
 	}
 	resp, err := u.client.FormRequest(ctx, req)
 	if err != nil {
@@ -80,9 +80,11 @@ func (u *apiv1) UploadMaterial(ctx context.Context, param *MaterialUploadParam) 
 }
 
 type MaterialUploadParam struct {
-	Type       string `json:"type"`                   // 【必填】素材类型，当前仅支持 attachment 1 种类型，代表 “附件”。
-	File       any    `json:"file"`                   // 【必填】一次仅允许上传 1 个文件。
-	TimeToLive int    `json:"time_to_live,omitempty"` // 【可选】素材有效期，默认值是 24 小时。对于 “附件” 类型，有效期可传的数值范围在 [1, 168] 间，即 1 小时至 168 小时（7 天）。
+	Type string `json:"type"` // 【必填】素材类型，当前仅支持 attachment 1 种类型，代表 “附件”。
+	// 【必填】一次仅允许上传 1 个文件。
+	//  - 可通过 UploadFileFromPath、UploadFileFromBytes 等方法创建。
+	File       *api.UploadFile `json:"file"`
+	TimeToLive int             `json:"time_to_live,omitempty"` // 【可选】素材有效期，默认值是 24 小时。对于 “附件” 类型，有效期可传的数值范围在 [1, 168] 间，即 1 小时至 168 小时（7 天）。
 }
 
 type MaterialUploadResult struct {

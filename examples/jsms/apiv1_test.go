@@ -24,14 +24,22 @@ import (
 )
 
 func TestAPIv1_CreateSign(t *testing.T) {
+	idCardImage, err := jsms.UploadFileFromPath("~/Downloads/idcard.jpg")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	businessLicenseImage, err := jsms.UploadFileFromPath("~/Downloads/business_license.png")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
 	param := &jsms.SignCreateParam{
 		Sign:                 "极光推送",
 		Type:                 1,
 		LegalPersonName:      "张三",
 		LegalPersonIDNumber:  "123456789012345678",
-		IDCardImage:          "~/Downloads/idcard.jpg",
+		IDCardImage:          idCardImage,
 		SocialCreditCode:     "098765432109876543",
-		BusinessLicenseImage: "~/Downloads/business_license.png",
+		BusinessLicenseImage: businessLicenseImage,
 		Remark:               "SDK测试",
 	}
 	result, err := smsAPIv1.CreateSign(context.Background(), param)
@@ -55,14 +63,22 @@ func TestAPIv1_UpdateSign(t *testing.T) {
 	}
 	defer image.Close()*/
 
+	idCardImage, err := jsms.UploadFileFromPath("~/Downloads/idcard.jpg")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	businessLicenseImage, err := jsms.UploadFileFromPath("~/Downloads/business_license.png")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
 	param := &jsms.SignUpdateParam{
 		Sign:                 "极光推送",
 		Type:                 1,
 		LegalPersonName:      "张三",
 		LegalPersonIDNumber:  "123456789012345678",
-		IDCardImage:          "~/Downloads/idcard.jpg",
+		IDCardImage:          idCardImage,
 		SocialCreditCode:     "098765432109876543",
-		BusinessLicenseImage: "~/Downloads/business_license.png",
+		BusinessLicenseImage: businessLicenseImage,
 		Remark:               "SDK测试-修改",
 	}
 	result, err := smsAPIv1.UpdateSign(context.Background(), 37582, param)

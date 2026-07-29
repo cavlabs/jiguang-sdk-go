@@ -65,11 +65,21 @@ func TestAdminAPIv1_DeleteApp(t *testing.T) {
 
 func TestAdminAPIv1_UploadCertificate(t *testing.T) {
 	appKey := "ffbb0932c267d938941e470b"
+
+	devCertFile, err := admin.UploadFileFromPath("~/Desktop/dev-cert.pem")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	proCertFile, err := admin.UploadFileFromPath("~/Desktop/pro-cert.pem")
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+
 	param := &admin.CertificateUploadParam{
 		DevCertificatePassword: "1234567890abcdefghijklmnopqrstuvwxyz",
-		DevCertificateFile:     "~/Desktop/dev-cert.pem",
+		DevCertificateFile:     devCertFile,
 		ProCertificatePassword: "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		ProCertificateFile:     "~/Desktop/pro-cert.pem",
+		ProCertificateFile:     proCertFile,
 	}
 
 	/*devCertificateFile, err := os.Open("/Users/z/Desktop/dev-cert.pem")
@@ -82,11 +92,20 @@ func TestAdminAPIv1_UploadCertificate(t *testing.T) {
 		t.Fatalf("Failed! Error: %s", err)
 	}
 	defer proCertificateFile.Close()
+
+	devUploadFile, err := admin.UploadFileFromFile(devCertificateFile)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
+	proUploadFile, err := admin.UploadFileFromFile(proCertificateFile)
+	if err != nil {
+		t.Fatalf("Failed! Error: %s", err)
+	}
 	param := &admin.CertificateUploadParam{
 		DevCertificatePassword: "1234567890abcdefghijklmnopqrstuvwxyz",
-		DevCertificateFile:     devCertificateFile,
+		DevCertificateFile:     devUploadFile,
 		ProCertificatePassword: "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		ProCertificateFile:     proCertificateFile,
+		ProCertificateFile:     proUploadFile,
 	}*/
 
 	result, err := adminAPIv1.UploadCertificate(context.Background(), appKey, param)

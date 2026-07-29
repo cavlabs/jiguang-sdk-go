@@ -18,7 +18,8 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
+	"errors"
+	"io"
 	"mime/multipart"
 	"net/http"
 
@@ -77,12 +78,14 @@ func newMultipartFormDataRequest(ctx context.Context, req *Request) (*http.Reque
 		_ = writer.Close()
 	}()
 
-	formDataBody, ok := req.Body.(MultipartFormDataBody)
+	mfd, ok := req.Body.(MultipartFormDataBody)
 	if !ok {
-		return nil, fmt.Errorf("`req.Body` must implement MultipartFormDataBody, got %T", req.Body)
+		return nil, errors.New("api: Request.Body must be MultipartFormDataBody for multipart request")
 	}
-
-	if err := formDataBody.Prepare(writer); err != nil {
+	if closer, ok := req.Body.(io.Closer); ok {
+		defer func() { _ = closer.Close() }()
+	}
+	if err := mfd.WriteMultipart(writer); err != nil {
 		return nil, err
 	}
 
