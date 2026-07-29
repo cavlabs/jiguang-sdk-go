@@ -29,7 +29,10 @@ type Callback struct {
 	// 【可选】需要回调给用户的自定义参数。
 	Params map[string]any `json:"params,omitempty"`
 	// 【可选】回调数据类型。
-	//  - 可选值为 {1, 2, 3, 8, 9, 10, 11}，包括 Received = 1, Clicked = 2, Push = 8 和它们的任意 or 组合。
+	//  - 不指定时：应用开通了哪些回执程序，默认就会给哪些回执；
+	//  - 指定时：以实际指定的回执类型为准；
+	//  - 基础取值：Received = 1（送达）、Clicked = 2（点击）、NotReceived = 4（未送达）、Push = 8（推送成功），
+	//    以及它们的任意 “按位或” 组合，例如 3=送达+点击、7=未送达+点击+送达、11=推送成功+送达+点击 等。
 	Type Type `json:"type,omitempty"`
 }
 
@@ -39,10 +42,11 @@ type Callback struct {
 type Type int
 
 const (
-	Received Type = 1 << iota // 送达回执 (1)
-	Clicked                   // 点击回执 (2)
-	_                         // _
-	Push                      // 推送成功回执 (8)
+	Received    Type = 1 << iota // 送达回执 (1)
+	Clicked                      // 点击回执 (2)
+	NotReceived                  // 未送达回执 (4)
+	Push                         // 推送成功回执 (8)
 
 	// ↑↑↑ 可任意 “按位或” 组合以上回调数据类型 ↑↑↑
+	// 例如：Received|Clicked = 3，NotReceived|Received = 5，Push|Received|Clicked = 11。
 )
