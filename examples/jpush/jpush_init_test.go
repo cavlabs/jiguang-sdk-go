@@ -20,6 +20,7 @@ import (
 	"time"
 
 	"github.com/cavlabs/jiguang-sdk-go/v2/api"
+	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush"
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/admin"
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device"
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/file"
@@ -46,7 +47,7 @@ var (
 )
 
 func TestMain(m *testing.M) {
-	/*client := &http.Client{
+	/*httpClient := &http.Client{
 		Timeout: 30 * time.Second,
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
@@ -55,7 +56,7 @@ func TestMain(m *testing.M) {
 			ForceAttemptHTTP2: true,
 		},
 	}*/
-	// client := adapter.NewRestyClient()
+	// httpClient := adapter.NewRestyClient()
 
 	// logger := adapter.NewLogrusLogger("[JPush] ")
 	// logger := adapter.NewZapLogger("[JPush]")
@@ -71,7 +72,7 @@ func TestMain(m *testing.M) {
 		},
 		ForceAttemptHTTP2: true,
 	}*/
-	client := retryClient.StandardClient() // *http.Client
+	httpClient := retryClient.StandardClient() // *http.Client
 
 	// ###################### ↓↓↓ 此为演示数据，请替换成真实数据 ↓↓↓ ######################
 
@@ -92,88 +93,113 @@ func TestMain(m *testing.M) {
 
 	// ###################### ↑↑↑ 此为演示数据，请替换成真实数据 ↑↑↑ ######################
 
-	// 应用管理 - Admin API v1
-	adminAPIv1, _ = admin.NewAPIv1Builder().
-		SetClient(client).                     // 【可选】配置，如果不配置，则使用默认的 api.DefaultClient。
-		SetDevKey(devKey).                     // 【必填】配置。
-		SetDevSecret(devSecret).               // 【必填】配置。
-		SetLogger(logger).                     // 【可选】配置，如果不配置，则使用默认的 api.DefaultJPushLogger。
-		SetHttpLogLevel(api.HttpLogLevelFull). // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
-		Build()
+	// 推荐：产品级入口 jpush.New（共享 HTTP / Logger / 凭证）
+	client, err := jpush.New(
+		jpush.WithHTTPClient(httpClient),             // 【可选】配置，如果不配置，则使用默认的 api.DefaultClient。
+		jpush.WithLogger(logger),                     // 【可选】配置，如果不配置，则使用默认的 api.DefaultJPushLogger。
+		jpush.WithHttpLogLevel(api.HttpLogLevelFull), // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
+		jpush.WithApp(appKey, masterSecret),          // 【应用级】Push / Device / File / Image / Schedule / Report 等。
+		jpush.WithGroup(groupKey, groupMasterSecret), // 【分组级】GPush / GReport。
+		jpush.WithDev(devKey, devSecret),             // 【开发者级】Admin；GPush 文件能力可选。
+	)
+	if err != nil {
+		panic(err)
+	}
+	adminAPIv1 = client.Admin.V1
+	deviceAPIv3 = client.Device.V3
+	pushAPIv3 = client.Push.V3 // 也可直接 client.Push.Send(...)
+	gpushAPIv3 = client.GPush.V3
+	scheduleAPIv3 = client.Schedule.V3
+	fileAPIv3 = client.File.V3
+	imageAPIv3 = client.Image.V3
+	reportAPIv3 = client.Report.V3
+	greportAPIv3 = client.GReport.V3
 
-	// 设备/标签/别名 - Device API v3
-	deviceAPIv3, _ = device.NewAPIv3Builder().
-		SetClient(client).
-		SetAppKey(appKey).             // 【必填】配置。
-		SetMasterSecret(masterSecret). // 【必填】配置。
-		SetLogger(logger).
-		SetHttpLogLevel(api.HttpLogLevelFull).
-		Build()
+	// 进阶/兼容：仍可按产品分别使用 Builder，例如：
+	/*
+		// 应用管理 - Admin API v1
+		adminAPIv1, _ = admin.NewAPIv1Builder().
+			SetClient(httpClient).                   // 【可选】配置，如果不配置，则使用默认的 api.DefaultClient。
+			SetDevKey(devKey).                       // 【必填】配置。
+			SetDevSecret(devSecret).                 // 【必填】配置。
+			SetLogger(logger).                       // 【可选】配置，如果不配置，则使用默认的 api.DefaultJPushLogger。
+			SetHttpLogLevel(api.HttpLogLevelFull).   // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
+			Build()
 
-	// 推送 - Push API v3
-	pushAPIv3, _ = push.NewAPIv3Builder().
-		SetClient(client).
-		SetAppKey(appKey).             // 【必填】配置。
-		SetMasterSecret(masterSecret). // 【必填】配置。
-		SetLogger(logger).
-		SetHttpLogLevel(api.HttpLogLevelFull).
-		Build()
+		// 设备/标签/别名 - Device API v3
+		deviceAPIv3, _ = device.NewAPIv3Builder().
+			SetClient(httpClient).
+			SetAppKey(appKey).             // 【必填】配置。
+			SetMasterSecret(masterSecret). // 【必填】配置。
+			SetLogger(logger).
+			SetHttpLogLevel(api.HttpLogLevelFull).
+			Build()
 
-	// 分组推送 - Group Push API v3
-	gpushAPIv3, _ = gpush.NewAPIv3Builder().
-		SetClient(client).
-		SetGroupKey(groupKey).                   // 【必填】配置。
-		SetGroupMasterSecret(groupMasterSecret). // 【必填】配置。
-		SetDevKey(devKey).                       // 【可选】配置，但当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devKey`。
-		SetDevSecret(devSecret).                 // 【可选】配置，但当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devSecret`。
-		SetLogger(logger).
-		SetHttpLogLevel(api.HttpLogLevelFull).
-		Build()
+		// 推送 - Push API v3
+		pushAPIv3, _ = push.NewAPIv3Builder().
+			SetClient(httpClient).
+			SetAppKey(appKey).             // 【必填】配置。
+			SetMasterSecret(masterSecret). // 【必填】配置。
+			SetLogger(logger).
+			SetHttpLogLevel(api.HttpLogLevelFull).
+			Build()
 
-	// 定时任务 - Schedule API v3
-	scheduleAPIv3, _ = schedule.NewAPIv3Builder().
-		SetClient(client).
-		SetAppKey(appKey).             // 【必填】配置。
-		SetMasterSecret(masterSecret). // 【必填】配置。
-		SetLogger(logger).
-		SetHttpLogLevel(api.HttpLogLevelFull).
-		Build()
+		// 分组推送 - Group Push API v3
+		gpushAPIv3, _ = gpush.NewAPIv3Builder().
+			SetClient(httpClient).
+			SetGroupKey(groupKey).                   // 【必填】配置。
+			SetGroupMasterSecret(groupMasterSecret). // 【必填】配置。
+			SetDevKey(devKey).                       // 【可选】配置，但当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devKey`。
+			SetDevSecret(devSecret).                 // 【可选】配置，但当需要同时使用 “上传文件” 等相关「文件管理」的 API 接口时，请务必同时设置 `devSecret`。
+			SetLogger(logger).
+			SetHttpLogLevel(api.HttpLogLevelFull).
+			Build()
 
-	// 文件管理 - File API v3
-	fileAPIv3, _ = file.NewAPIv3Builder().
-		SetClient(client).
-		SetAuthKey(appKey).          // 【必填】配置，可使用 `appKey` 或者 `devKey`。
-		SetAuthSecret(masterSecret). // 【必填】配置，可使用 `masterSecret` 或者 `devSecret`。
-		SetLogger(logger).
-		SetHttpLogLevel(api.HttpLogLevelFull).
-		Build()
+		// 定时任务 - Schedule API v3
+		scheduleAPIv3, _ = schedule.NewAPIv3Builder().
+			SetClient(httpClient).
+			SetAppKey(appKey).             // 【必填】配置。
+			SetMasterSecret(masterSecret). // 【必填】配置。
+			SetLogger(logger).
+			SetHttpLogLevel(api.HttpLogLevelFull).
+			Build()
 
-	// 图片管理 - Image API v3
-	imageAPIv3, _ = image.NewAPIv3Builder().
-		SetClient(client).
-		SetAppKey(appKey).             // 【必填】配置。
-		SetMasterSecret(masterSecret). // 【必填】配置。
-		SetLogger(logger).
-		SetHttpLogLevel(api.HttpLogLevelFull).
-		Build()
+		// 文件管理 - File API v3
+		fileAPIv3, _ = file.NewAPIv3Builder().
+			SetClient(httpClient).
+			SetAuthKey(appKey).          // 【必填】配置，可使用 `appKey` 或者 `devKey`。
+			SetAuthSecret(masterSecret). // 【必填】配置，可使用 `masterSecret` 或者 `devSecret`。
+			SetLogger(logger).
+			SetHttpLogLevel(api.HttpLogLevelFull).
+			Build()
 
-	// 推送统计 - Report API v3
-	reportAPIv3, _ = report.NewAPIv3Builder().
-		SetClient(client).
-		SetAppKey(appKey).             // 【必填】配置。
-		SetMasterSecret(masterSecret). // 【必填】配置。
-		SetLogger(logger).
-		SetHttpLogLevel(api.HttpLogLevelFull).
-		Build()
+		// 图片管理 - Image API v3
+		imageAPIv3, _ = image.NewAPIv3Builder().
+			SetClient(httpClient).
+			SetAppKey(appKey).             // 【必填】配置。
+			SetMasterSecret(masterSecret). // 【必填】配置。
+			SetLogger(logger).
+			SetHttpLogLevel(api.HttpLogLevelFull).
+			Build()
 
-	// 分组推送统计 - Group Report API v3
-	greportAPIv3, _ = greport.NewAPIv3Builder().
-		SetClient(client).
-		SetGroupKey(groupKey).                   // 【必填】配置。
-		SetGroupMasterSecret(groupMasterSecret). // 【必填】配置。
-		SetLogger(logger).
-		SetHttpLogLevel(api.HttpLogLevelFull).
-		Build()
+		// 推送统计 - Report API v3
+		reportAPIv3, _ = report.NewAPIv3Builder().
+			SetClient(httpClient).
+			SetAppKey(appKey).             // 【必填】配置。
+			SetMasterSecret(masterSecret). // 【必填】配置。
+			SetLogger(logger).
+			SetHttpLogLevel(api.HttpLogLevelFull).
+			Build()
+
+		// 分组推送统计 - Group Report API v3
+		greportAPIv3, _ = greport.NewAPIv3Builder().
+			SetClient(httpClient).
+			SetGroupKey(groupKey).                   // 【必填】配置。
+			SetGroupMasterSecret(groupMasterSecret). // 【必填】配置。
+			SetLogger(logger).
+			SetHttpLogLevel(api.HttpLogLevelFull).
+			Build()
+	*/
 
 	code := m.Run()
 

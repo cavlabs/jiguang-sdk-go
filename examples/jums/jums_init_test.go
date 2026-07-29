@@ -25,7 +25,7 @@ import (
 var umsAPIv1 jums.APIv1 // 极光统一消息 - JUMS API v1
 
 func TestMain(m *testing.M) {
-	/*client := &http.Client{
+	/*httpClient := &http.Client{
 		Timeout: 30 * time.Second,
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
@@ -84,20 +84,36 @@ func TestMain(m *testing.M) {
 		jums.WithCallbackDataListProcessor(callbackDataListProcessor{}),                      // 如果你不希望根据不同的回调数据类型使用不同的处理器，可以仅配置使用此选项（6-14 选项不用配置）。
 	}*/
 
-	// 极光统一消息 - JUMS API v1
-	// `EnableCallback` 配置方法的参数是可选的，可以传入一些自定义的配置选项参数，当然也可以不传入任何参数。
-	umsAPIv1, _ = jums.NewAPIv1Builder().
-		// SetClient(client).                         // 【可选】配置，如果不配置，则使用 api.DefaultClient。
-		SetChannelKey(channelKey).                 // 【必填】配置。
-		SetMasterSecret(masterSecret).             // 【必填】配置。
-		SetAccessKey(accessKey).                   // 【可选】配置，但当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessKey`。
-		SetAccessMasterSecret(accessMasterSecret). // 【可选】配置，但当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessMasterSecret`。
-		// SetLogger(logger).                         // 【可选】配置，如果不配置，则使用默认的 api.DefaultJUmsLogger。
-		SetHttpLogLevel(api.HttpLogLevelFull). // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
-		// EnableCallback(callbackConfigOptions...).  // 【可选】启用回调接口服务（默认不启用），并且自定义服务的一些配置选项。
-		Build()
+	// 推荐：产品级入口 jums.New
+	// `WithCallback` 配置是可选的，可以传入一些自定义的配置选项参数，当然也可以不传入任何参数。
+	client, err := jums.New(
+		// jums.WithHTTPClient(httpClient),           // 【可选】配置，如果不配置，则使用 api.DefaultClient。
+		jums.WithChannel(channelKey, masterSecret), // 【必填】配置。
+		jums.WithAccess(accessKey, accessMasterSecret), // 【可选】配置，但当需要同时使用 “用户管理” API 接口时，请务必同时设置。
+		// jums.WithLogger(logger),                   // 【可选】配置，如果不配置，则使用默认的 api.DefaultJUmsLogger。
+		jums.WithHttpLogLevel(api.HttpLogLevelFull), // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
+		// jums.WithCallback(callbackConfigOptions...), // 【可选】启用回调接口服务（默认不启用），并且自定义服务的一些配置选项。
+	)
+	if err != nil {
+		panic(err)
+	}
+	umsAPIv1 = client.V1
 
-	/*srv, err := umsAPIv1.Callback() // Note: 前面需要先启用回调接口服务 EnableCallback(...)！
+	// 进阶/兼容：仍可使用 Builder
+	/*
+		umsAPIv1, _ = jums.NewAPIv1Builder().
+			// SetClient(httpClient).                         // 【可选】配置，如果不配置，则使用 api.DefaultClient。
+			SetChannelKey(channelKey).                 // 【必填】配置。
+			SetMasterSecret(masterSecret).             // 【必填】配置。
+			SetAccessKey(accessKey).                   // 【可选】配置，但当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessKey`。
+			SetAccessMasterSecret(accessMasterSecret). // 【可选】配置，但当需要同时使用 “用户管理” API 接口时，请务必同时设置 `accessMasterSecret`。
+			// SetLogger(logger).                         // 【可选】配置，如果不配置，则使用默认的 api.DefaultJUmsLogger。
+			SetHttpLogLevel(api.HttpLogLevelFull). // 【可选】配置，如果不配置，则使用 api.HttpLogLevelBasic。
+			// EnableCallback(callbackConfigOptions...).  // 【可选】启用回调接口服务（默认不启用），并且自定义服务的一些配置选项。
+			Build()
+	*/
+
+	/*srv, err := umsAPIv1.Callback() // Note: 前面需要先启用回调接口服务 EnableCallback(...) / WithCallback(...)！
 	if err != nil {
 		panic(fmt.Sprintf("Get JUMS Callback Server failed! Error: %s", err))
 	}*/

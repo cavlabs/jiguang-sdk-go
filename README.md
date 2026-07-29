@@ -18,6 +18,7 @@
 ### 特性
 
 - 全面支持 “极光推送（JPush）”、“极光短信（JSMS v1）” 和 “极光统一消息（JUMS v1）” 相关功能模块；
+- 提供产品级入口 `jpush.New` / `jsms.New` / `jums.New`，并与各 `NewAPIv*Builder` 双轨并存；
 - 简单易用的 Go 接口；
 - 支持 Go 1.22 及其以上版本。
 
@@ -72,12 +73,15 @@
 
 ## 三、使用示例
 
-1. 在项目中引入 SDK：
+1. 在项目中引入 SDK（按需）：
     ```go
-    import sdk "github.com/cavlabs/jiguang-sdk-go/v2"
+    import (
+        "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush"
+        "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push"
+    )
     ```
 
-2. 示例代码（假设用于极光应用的「普通推送」）：
+2. 推荐：产品级入口（普通推送）：
     ```go
     package main
 
@@ -85,17 +89,20 @@
         "context"
         "fmt"
         "os"
-    
+
+        "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush"
         "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
         "github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push"
     )
-    
+
     func main() {
-        pushAPIv3, _ := push.NewAPIv3Builder().
-    		SetAppKey(os.Getenv("JPUSH_APP_KEY")).
-    		SetMasterSecret(os.Getenv("JPUSH_MASTER_SECRET")).
-    		Build()
-    
+        client, err := jpush.New(
+            jpush.WithApp(os.Getenv("JPUSH_APP_KEY"), os.Getenv("JPUSH_MASTER_SECRET")),
+        )
+        if err != nil {
+            panic(err)
+        }
+
         param := &push.SendParam{
             Platform: platform.All,
             Audience: push.BroadcastAuds,
@@ -103,12 +110,13 @@
                 Alert: "Hello, JPush!",
             },
         }
-    
-        result, err := pushAPIv3.Send(context.Background(), param)
+
+        // 默认即为当前 Push REST v3；也可写 client.Push.V3.Send(...)
+        result, err := client.Push.Send(context.Background(), param)
         if err != nil {
             panic(err)
         }
-    
+
         if result.IsSuccess() {
             fmt.Printf("Send success, MsgID: %s, SendNo: %s\n", result.MsgID, result.SendNo)
         } else {
@@ -117,7 +125,9 @@
     }
     ```
 
-3. 查看完整示例代码：https://github.com/cavlabs/jiguang-sdk-go/tree/v2/examples
+3. 进阶/兼容：仍可按能力使用 Builder（如 `push.NewAPIv3Builder()...Build()`）。
+
+4. 查看完整示例代码：https://github.com/cavlabs/jiguang-sdk-go/tree/v2/examples
 
 ---
 
