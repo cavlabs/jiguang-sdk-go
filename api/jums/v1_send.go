@@ -40,6 +40,9 @@ func (u *apiv1) Send(ctx context.Context, param *SendParam) (*SendResult, error)
 	if param == nil {
 		return nil, errors.New("`param` cannot be nil")
 	}
+	if param.Message == nil {
+		return nil, errors.New("`param.message` cannot be nil")
+	}
 
 	if len(param.Message.DingtalkCC) > 0 {
 		for i, dingtalkCC := range param.Message.DingtalkCC {

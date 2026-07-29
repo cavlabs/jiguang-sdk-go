@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"mime/multipart"
 	"net/http"
 
@@ -39,12 +40,16 @@ const defaultUserAgent = "cavlabs/jiguang-sdk-go/" + sdk.Version
 
 // newApplicationJSONRequest 创建一个带有 JSON 正文负载的 HTTP 请求。
 func newApplicationJSONRequest(ctx context.Context, req *Request) (*http.Request, error) {
-	body, err := json.Marshal(req.Body)
-	if err != nil {
-		return nil, err
+	var bodyBuffer *bytes.Buffer
+	if req.Body != nil {
+		body, err := json.Marshal(req.Body)
+		if err != nil {
+			return nil, err
+		}
+		bodyBuffer = bytes.NewBuffer(body)
 	}
 
-	httpReq, err := http.NewRequestWithContext(ctx, req.Method, req.URL, bytes.NewBuffer(body))
+	httpReq, err := http.NewRequestWithContext(ctx, req.Method, req.URL, bodyBuffer)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +77,12 @@ func newMultipartFormDataRequest(ctx context.Context, req *Request) (*http.Reque
 		_ = writer.Close()
 	}()
 
-	if err := req.Body.(MultipartFormDataBody).Prepare(writer); err != nil {
+	formDataBody, ok := req.Body.(MultipartFormDataBody)
+	if !ok {
+		return nil, fmt.Errorf("`req.Body` must implement MultipartFormDataBody, got %T", req.Body)
+	}
+
+	if err := formDataBody.Prepare(writer); err != nil {
 		return nil, err
 	}
 
