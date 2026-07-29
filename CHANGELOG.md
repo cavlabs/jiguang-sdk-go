@@ -1,5 +1,28 @@
 # Changelog
 
+## [v1.0.8](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.8) - 2026-07-29
+
+### 新特性
+
+- 【JPush】「推送可选项」同步官方文档变更，新增 `notification_switch_filter`（过滤 APP 通知开关关闭的用户）；
+- 【JPush】「厂商通道」新增华硕（ASUS）、鸿蒙（HMOS）通道策略与属性参数；
+- 【JPush】「厂商通道」补充小米、华为、OPPO、vivo、荣耀等通道新字段，包括角标、推送类型、实况窗/应用内消息、模板参数等；
+- 【JPush】「回调参数」新增未送达回执类型 `NotReceived`（4），并同步更新 `shortcut` 快捷常量。
+
+### 修复
+
+- 修复 `DetectProto` 未关闭响应体导致的 HTTP 连接复用风险；
+- 修复 GET 请求在 `Body` 为空时仍发送 `null` 正文的问题；
+- 修复 `FormRequest` 在 `Body` 类型不匹配时可能 panic 的问题；
+- 【JUMS】修复 `Send` 在 `param.Message` 为 nil 时可能 panic 的问题。
+
+### 优化
+
+- 加固 CI 与 Release 流水线（最小权限、Go 模块缓存、Release 存在性检查等）；
+- 改进 `pre-push` 钩子：仅在推送 SemVer release tag 时校验 `version.go` 与 tag 一致性，并提升跨平台兼容性。
+
+---
+
 ## [v1.0.7](https://github.com/cavlabs/jiguang-sdk-go/releases/tag/v1.0.7) - 2026-05-09
 
 ### 新特性
