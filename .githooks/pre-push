@@ -1,24 +1,76 @@
 #!/bin/sh
 
-# 获取最新的 Git Tag，如果没有 Tag，则返回空
-LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null)
+set -eu
 
-# 如果 LATEST_TAG 为空，提示并退出
-if [ -z "$LATEST_TAG" ]; then
-    echo "Error: No tags found in the repository. Please create a tag before pushing."
+ZERO_SHA="0000000000000000000000000000000000000000"
+
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null || true)
+if [ -z "$repo_root" ]; then
+    echo "Error: failed to detect repository root."
+    exit 1
+fi
+cd "$repo_root"
+
+if [ ! -f "version.go" ]; then
+    echo "Error: version.go not found at repository root."
     exit 1
 fi
 
-# 获取 version.go 中的版本号
-CURRENT_VERSION=$(grep "const Version" version.go | awk -F '"' '{print $2}')
-
-# 检查版本号是否一致
-if [ "$CURRENT_VERSION" != "$LATEST_TAG" ]; then
-    echo "Error: version.go ($CURRENT_VERSION) does not match the latest tag ($LATEST_TAG)"
-    echo "Please update version.go to match the tag."
+CURRENT_VERSION=$(sed -n 's/^[[:space:]]*const[[:space:]]*Version[[:space:]]*=[[:space:]]*"\([^"]*\)".*/\1/p' version.go)
+if [ -z "$CURRENT_VERSION" ]; then
+    echo "Error: failed to parse Version from version.go."
     exit 1
 fi
 
-echo "Version check passed. Proceeding with push."
+is_semver_release_tag() {
+    # Supported examples:
+    # v1.2.3
+    # v1.2.3-rc.1
+    # v1.2.3+build.5
+    # v1.2.3-rc.1+build.5
+    echo "$1" | grep -Eq '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
+}
+
+checked_release_tag=0
+
+# pre-push stdin format:
+# <local ref> <local sha1> <remote ref> <remote sha1>
+while IFS=' ' read -r local_ref local_sha _ _; do
+    [ -n "${local_ref:-}" ] || continue
+
+    # Skip deletions.
+    if [ "${local_sha:-}" = "$ZERO_SHA" ]; then
+        continue
+    fi
+
+    case "$local_ref" in
+        refs/tags/*)
+            tag_name=${local_ref#refs/tags/}
+            if is_semver_release_tag "$tag_name"; then
+                checked_release_tag=1
+                if ! is_semver_release_tag "$CURRENT_VERSION"; then
+                    echo "Error: version.go ($CURRENT_VERSION) is not a valid SemVer release tag format."
+                    echo "Expected format: vMAJOR.MINOR.PATCH[-PRERELEASE][+BUILD]."
+                    exit 1
+                fi
+
+                if [ "$CURRENT_VERSION" != "$tag_name" ]; then
+                    echo "Error: version.go ($CURRENT_VERSION) does not match pushed tag ($tag_name)."
+                    echo "Please update version.go to the same version before pushing this release tag."
+                    exit 1
+                fi
+            fi
+            ;;
+        *)
+            # Branch push or other refs, skip.
+            ;;
+    esac
+done
+
+if [ "$checked_release_tag" -eq 1 ]; then
+    echo "Version check passed for pushed release tag(s)."
+else
+    echo "No release tag push detected, skipping version check."
+fi
 
 exit 0
