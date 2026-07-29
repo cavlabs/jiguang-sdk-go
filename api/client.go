@@ -82,6 +82,8 @@ func (lc *loggingHttpClient) DetectProto(url string) string {
 	if err != nil {
 		return "HTTP/1.1"
 	}
+	defer func() { _ = resp.Body.Close() }()
+	_, _ = io.Copy(io.Discard, resp.Body)
 	return resp.Proto
 }
 
