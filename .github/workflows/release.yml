@@ -21,7 +21,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Determine release tag
         id: tag
@@ -33,11 +36,11 @@ jobs:
             TAG="${GITHUB_REF#refs/tags/}"
             echo "ℹ️ Triggered by tag push, using inferred tag: $TAG."
           fi
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
       - name: Verify tag exists in Git
         run: |
-          TAG=${{ steps.tag.outputs.tag }}
+          TAG="${{ steps.tag.outputs.tag }}"
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "✅ Tag '$TAG' exists."
           else
@@ -45,21 +48,30 @@ jobs:
             exit 1
           fi
 
+      - name: Checkout release tag
+        run: git checkout "${{ steps.tag.outputs.tag }}"
+
       - name: Check if release already exists
         id: check_release
         run: |
-          TAG=${{ steps.tag.outputs.tag }}
+          TAG="${{ steps.tag.outputs.tag }}"
           echo "Checking if release for $TAG exists..."
 
           RELEASE_URL="https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG"
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "$RELEASE_URL")
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "$RELEASE_URL")
 
           if [ "$HTTP_STATUS" -eq 200 ]; then
             echo "✅ Release already exists for tag $TAG, skipping!"
-            echo "release_exists=true" >> $GITHUB_OUTPUT
-          else
+            echo "release_exists=true" >> "$GITHUB_OUTPUT"
+          elif [ "$HTTP_STATUS" -eq 404 ]; then
             echo "🔄 No existing release for tag $TAG, continuing..."
-            echo "release_exists=false" >> $GITHUB_OUTPUT
+            echo "release_exists=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "❌ ERROR: Unexpected HTTP status $HTTP_STATUS when checking release for $TAG!"
+            exit 1
           fi
 
       - name: Extract CHANGELOG for tag
@@ -67,10 +79,12 @@ jobs:
         if: steps.check_release.outputs.release_exists == 'false'
         run: |
           chmod +x ./scripts/release-extract_changelog.sh
-          changelog=$(./scripts/release-extract_changelog.sh ${{ steps.tag.outputs.tag }} ${{ github.repository }})
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$changelog" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          changelog=$(./scripts/release-extract_changelog.sh "${{ steps.tag.outputs.tag }}" "${{ github.repository }}")
+          {
+            echo "notes<<EOF"
+            echo "$changelog"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
