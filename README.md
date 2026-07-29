@@ -130,7 +130,7 @@
 
 ## 五、许可证
 
-本项目采用 [Apache 2.0](https://github.com/cavlabs/jiguang-sdk-go?tab=Apache-2.0-1-ov-file#readme) 许可证。
+本项目采用 [Apache 2.0](LICENSE) 许可证。详见根目录 `LICENSE` 与 `NOTICE`。
 
 ---
 

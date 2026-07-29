@@ -1,0 +1,11 @@
+jiguang-sdk-go
+Copyright 2025-2026 cavlabs/jiguang-sdk-go authors.
+
+This product is licensed under the Apache License, Version 2.0.
+See the LICENSE file in the root of this distribution for the full text.
+
+This product includes code derived from tjfoc/gmsm (Apache License 2.0),
+vendored under third_party/gmsm:
+
+  Copyright Suzhou Tongji Fintech Research Institute 2017
+  https://github.com/tjfoc/gmsm
