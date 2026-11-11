@@ -23,7 +23,6 @@ import (
 	"strings"
 
 	"github.com/cavlabs/jiguang-sdk-go/v2/api"
-	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 获取某个定时任务的所有消息 ID
@@ -90,7 +89,7 @@ func (rs *ScheduleMsgIDsResult) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				return err
 			}
-			rs.Count = jiguang.Int(count)
+			rs.Count = new(count)
 		}
 	}
 

@@ -64,7 +64,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 	android.LargeIcon = "https://www.jiguang.cn/largeIcon.jpg"
 	android.Intent = &push.NotificationIntent{URL: "intent:#Intent;component=com.jiguang.push/com.example.jpushdemo.SettingActivity;end"}
 	android.Extras = map[string]any{"newsid": 321}
-	android.BadgeAddNum = jiguang.Int(1)
+	android.BadgeAddNum = new(1)
 	showBeginTime, _ := jiguang.ParseLocalDateTime("2024-12-25 00:00:00")
 	android.ShowBeginTime = &showBeginTime
 	showEndTime := jiguang.BuildLocalDateTime(2024, 12, 31, 23, 59, 59)
@@ -85,7 +85,7 @@ func TestPushAPIv3_Send(t *testing.T) {
 		Name:     "sound.caf",
 		Volume:   0.5,
 	}
-	ios.Badge = jiguang.String("+1")
+	ios.Badge = new("+1")
 	ios.ThreadID = "default"
 	ios.Extras = map[string]any{"newsid": 321}
 	ios.InterruptionLevel = alert.IosInterruptionLevelActive // active
@@ -95,10 +95,10 @@ func TestPushAPIv3_Send(t *testing.T) {
 	hmos.Alert = "通知内容"
 	hmos.Title = "推送个性化显示"
 	hmos.Intent = &push.NotificationIntent{URL: "scheme://test?key1=val1&key2=val2"}
-	hmos.BadgeAddNum = jiguang.Int(1)
+	hmos.BadgeAddNum = new(1)
 	hmos.Extras = map[string]any{"skuId": 12345, "useCoupon": true}
 	hmos.Category = "MARKETING"
-	hmos.TestMessage = jiguang.Bool(true)
+	hmos.TestMessage = new(true)
 	hmos.ReceiptID = "abc1212"
 	hmos.LargeIcon = "https://www.jiguang.cn/largeIcon.jpg"
 	hmos.Style = style.Inbox // 多行文本样式 (2)
@@ -156,8 +156,8 @@ func TestPushAPIv3_Send(t *testing.T) {
 	notification3rd.ChannelID = "channel001"
 	notification3rd.UriActivity = "cn.jpush.android.ui.OpenClickActivity"
 	notification3rd.UriAction = "cn.jpush.android.intent.CONNECTION"
-	notification3rd.BadgeAddNum = jiguang.Int(1)
-	notification3rd.BadgeSetNum = jiguang.Int(1)
+	notification3rd.BadgeAddNum = new(1)
+	notification3rd.BadgeSetNum = new(1)
 	notification3rd.BadgeClass = "com.test.badge.MainActivity"
 	notification3rd.Sound = "sound"
 	notification3rd.Extras = map[string]any{"news_id": 134, "my_key": "a value"}*/
@@ -175,13 +175,13 @@ func TestPushAPIv3_Send(t *testing.T) {
 	sms.TempID = 1250
 	sms.TempParams = map[string]any{"code": "123456"}
 	sms.DelayTime = 3600
-	sms.ActiveFilter = jiguang.Bool(false)
+	sms.ActiveFilter = new(false)
 	param.SmsMessage = sms
 
 	// 可选项
 	options := &push.Options{}
-	options.TimeToLive = jiguang.Int64(60)
-	options.ApnsProduction = jiguang.Bool(false)
+	options.TimeToLive = new(int64(60))
+	options.ApnsProduction = new(false)
 	options.ApnsCollapseID = "jiguang_test_201706011100"
 	huaweiChannelOptions := &push.ThirdPartyChannelOptions{
 		Distribution: "first_ospush",
@@ -236,7 +236,7 @@ func TestPushAPIv3_SendByFile(t *testing.T) {
 		Audience:      &push.Audience{File: &push.FileAudience{FileID: fileID}},
 		Notification:  &push.Notification{Alert: "Hello, JPush!"},
 		CustomMessage: &push.CustomMessage{Content: "Hello, JPush!"},
-		Options:       &push.Options{TimeToLive: jiguang.Int64(600), ApnsProduction: jiguang.Bool(false)},
+		Options:       &push.Options{TimeToLive: new(int64(600)), ApnsProduction: new(false)},
 	}
 
 	result, err := pushAPIv3.SendByFile(context.Background(), param)
@@ -264,8 +264,8 @@ func TestPushAPIv3_ValidateSend(t *testing.T) {
 	// Android 通知内容
 	android := &push.AndroidNotification{Extras: map[string]any{"android-key1": "android-value1"}}
 	ios := &push.IosNotification{
-		Sound:  jiguang.String("sound.caf"),
-		Badge:  jiguang.String("+1"),
+		Sound:  new("sound.caf"),
+		Badge:  new("+1"),
 		Extras: map[string]any{"ios-key1": "ios-value1"},
 	}
 	// 推送通知内容
@@ -300,7 +300,7 @@ func TestPushAPIv3_BatchSend(t *testing.T) {
 			Notification:  &push.Notification{Alert: "Hello, JPush!"},
 			CustomMessage: &push.CustomMessage{Content: "Hello, JPush!"},
 			SmsMessage:    &push.SmsMessage{TempID: 1250, TempParams: map[string]any{"code": "123456"}},
-			Options:       &push.Options{TimeToLive: jiguang.Int64(600), ApnsProduction: jiguang.Bool(false)},
+			Options:       &push.Options{TimeToLive: new(int64(600)), ApnsProduction: new(false)},
 		},
 		"7103a4c428a0b98974ec1849-711161d4-5f17-4d2f-b855-5e5a8909b26e": {
 			Platform:      platform.All,
@@ -308,7 +308,7 @@ func TestPushAPIv3_BatchSend(t *testing.T) {
 			Notification:  &push.Notification{Alert: "Hi, JPush!"},
 			CustomMessage: &push.CustomMessage{Content: "Hi, JPush!"},
 			SmsMessage:    &push.SmsMessage{TempID: 1250, TempParams: map[string]any{"code": "123456"}},
-			Options:       &push.Options{TimeToLive: jiguang.Int64(600), ApnsProduction: jiguang.Bool(false)},
+			Options:       &push.Options{TimeToLive: new(int64(600)), ApnsProduction: new(false)},
 		},
 	}
 
@@ -337,7 +337,7 @@ func TestPushAPIv3_TemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是广播标题", "content": "这是广播内容"},
 			Audience: push.BroadcastAuds,
-			Options:  &push.Options{TestModel: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: new(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}
@@ -348,13 +348,13 @@ func TestPushAPIv3_TemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是推送给第⼀个regid的标题", "content": "这是第⼀个regid的内容"},
 			Audience: &push.Audience{RegistrationIDs: []string{"13065ffa4ee8411496f"}},
-			Options:  &push.Options{TestModel: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: new(true)},
 			TraceID:  "98ode06fh-8dgg",
 		},
 		{
 			Keys:     map[string]string{"title": "这是推送给第二个regid的标题", "content": "这是第二个regid的内容"},
 			Audience: &push.Audience{RegistrationIDs: []string{"8914afdsa31"}},
-			Options:  &push.Options{TestModel: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: new(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}*/
@@ -365,13 +365,13 @@ func TestPushAPIv3_TemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是推送给第⼀个alias的标题", "content": "这是第⼀个alias的内容"},
 			Audience: &push.Audience{Aliases: []string{"4312kjkla31"}},
-			Options:  &push.Options{TestModel: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: new(true)},
 			TraceID:  "98ode06fh-8dgg",
 		},
 		{
 			Keys:     map[string]string{"title": "这是推送给第二个alias的标题", "content": "这是第二个alias的内容"},
 			Audience: &push.Audience{Aliases: []string{"8914sa31"}},
-			Options:  &push.Options{TestModel: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: new(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}*/
@@ -382,7 +382,7 @@ func TestPushAPIv3_TemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是推送给第1个tag的标题", "content": "这是第1个tag的内容"},
 			Audience: &push.Audience{Tags: []string{"tag1"}},
-			Options:  &push.Options{TestModel: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: new(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}*/
@@ -393,7 +393,7 @@ func TestPushAPIv3_TemplateSend(t *testing.T) {
 		{
 			Keys:     map[string]string{"title": "这是推送给第1个segment的标题", "content": "这是第1个segment的内容"},
 			Audience: &push.Audience{Segments: []string{"segmentid001"}},
-			Options:  &push.Options{TestModel: jiguang.Bool(true)},
+			Options:  &push.Options{TestModel: new(true)},
 			TraceID:  "8de06fh-8djfgg",
 		},
 	}*/

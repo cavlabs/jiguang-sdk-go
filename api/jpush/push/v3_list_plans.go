@@ -79,12 +79,12 @@ type PlansData struct {
 
 // 推送计划详情
 type PlanDetail struct {
-	Name         string                `json:"name,omitempty"`           // 计划标识
-	Description  string                `json:"description,omitempty"`    // 计划描述
-	PushCount    int                   `json:"push_count,omitempty"`     // 推送次数
-	CreateTime   jiguang.LocalDateTime `json:"create_time,omitempty"`    // 创建时间
-	LastUsedTime jiguang.LocalDateTime `json:"last_used_time,omitempty"` // 最后使用时间
-	SendSource   int                   `json:"send_source,omitempty"`    // 创建来源，0 表示 API，1 表示 web（控制台创建）
+	Name         string                `json:"name,omitempty"`        // 计划标识
+	Description  string                `json:"description,omitempty"` // 计划描述
+	PushCount    int                   `json:"push_count,omitempty"`  // 推送次数
+	CreateTime   jiguang.LocalDateTime `json:"create_time"`           // 创建时间
+	LastUsedTime jiguang.LocalDateTime `json:"last_used_time"`        // 最后使用时间
+	SendSource   int                   `json:"send_source,omitempty"` // 创建来源，0 表示 API，1 表示 web（控制台创建）
 }
 
 func (rs *PlansListResult) IsSuccess() bool {

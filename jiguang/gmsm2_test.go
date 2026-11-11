@@ -80,12 +80,10 @@ func rebuildSm2PrivKey() (*sm2.PrivateKey, error) {
 
 	// 构造 SM2 私钥
 	return &sm2.PrivateKey{
-		D: d,
-		PublicKey: sm2.PublicKey{
-			Curve: curve,
-			X:     x,
-			Y:     y,
-		},
+		D:     d,
+		Curve: curve,
+		X:     x,
+		Y:     y,
 	}, nil
 }
 
@@ -100,12 +98,10 @@ func rebuildSm2PrivKeyByDXY() (*sm2.PrivateKey, error) {
 
 	// 构造 SM2 私钥
 	return &sm2.PrivateKey{
-		D: d,
-		PublicKey: sm2.PublicKey{
-			Curve: curve,
-			X:     x,
-			Y:     y,
-		},
+		D:     d,
+		Curve: curve,
+		X:     x,
+		Y:     y,
 	}, nil
 }
 

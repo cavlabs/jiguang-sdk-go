@@ -81,7 +81,7 @@ func (r *apiv3) GetUserDetail(ctx context.Context, start jiguang.UnitTime, durat
 type UserDetailGetResult struct {
 	*api.Response `json:"-"`
 	Error         *api.CodeError   `json:"error,omitempty"`
-	Start         jiguang.UnitTime `json:"start,omitempty"`    // 请求时的起始时间
+	Start         jiguang.UnitTime `json:"start"`              // 请求时的起始时间
 	Duration      int              `json:"duration,omitempty"` // 请求时的持续时长
 	Items         []UserStatsItem  `json:"items,omitempty"`    // 获取到的统计数据项
 }

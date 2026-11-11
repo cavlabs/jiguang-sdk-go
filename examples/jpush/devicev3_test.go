@@ -21,7 +21,6 @@ import (
 
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device"
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/device/platform"
-	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func TestDeviceAPIv3_GetDevice(t *testing.T) {
@@ -67,7 +66,7 @@ func TestDeviceAPIv3_SetDevice(t *testing.T) {
 	// 「空字符串」在这里有特殊含义，比如参数的 Tags 字段是空字符串时，表示清空所有的 tags，如下示例：
 	clearAll := ""
 	param = &device.DeviceSetParam{
-		Tags:   jiguang.String(""), // or &clearAll, only for demonstration here.
+		Tags:   new(""), // or &clearAll, only for demonstration here.
 		Alias:  &clearAll,
 		Mobile: &mobile,
 	}

@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"maps"
 	"mime/multipart"
 	"net/http"
 
@@ -59,9 +60,7 @@ func newApplicationJSONRequest(ctx context.Context, req *Request) (*http.Request
 		httpReq.Proto = req.Proto
 	}
 
-	for k, v := range req.Header {
-		httpReq.Header[k] = v
-	}
+	maps.Copy(httpReq.Header, req.Header)
 
 	httpReq.Header.Set("Authorization", req.Auth)
 	httpReq.Header.Set("Content-Type", "application/json;charset=UTF-8")
@@ -98,9 +97,7 @@ func newMultipartFormDataRequest(ctx context.Context, req *Request) (*http.Reque
 		httpReq.Proto = req.Proto
 	}
 
-	for k, v := range req.Header {
-		httpReq.Header[k] = v
-	}
+	maps.Copy(httpReq.Header, req.Header)
 
 	httpReq.Header.Set("Authorization", req.Auth)
 	httpReq.Header.Set("Content-Type", writer.FormDataContentType())

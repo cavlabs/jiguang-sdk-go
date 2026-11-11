@@ -38,25 +38,23 @@ func NewLogrusLogger(logPrefix string) *LogrusLogger {
 	logger.ExitFunc = os.Exit
 	logger.ReportCaller = true
 	logger.Formatter = &SDKTextFormatter{
-		TextFormatter: logrus.TextFormatter{
-			TimestampFormat: "2006/01/02 15:04:05",
-			FullTimestamp:   true,
-			ForceColors:     true,
-			PadLevelText:    true,
-			CallerPrettyfier: func(frame *runtime.Frame) (function string, file string) {
-				// Skip the first 11 layers of the stack to avoid the logrus adapter and library themselves being reported.
-				_, file, line, ok := runtime.Caller(11)
-				if !ok {
-					file, line = frame.File, frame.Line
-				}
-				matches := jiguang.ModPathRegex.FindStringSubmatch(file)
-				if len(matches) > 0 {
-					file = matches[0]
-				} else {
-					file = filepath.Base(file)
-				}
-				return "", fmt.Sprintf(" %s:%d", file, line)
-			},
+		TimestampFormat: "2006/01/02 15:04:05",
+		FullTimestamp:   true,
+		ForceColors:     true,
+		PadLevelText:    true,
+		CallerPrettyfier: func(frame *runtime.Frame) (function string, file string) {
+			// Skip the first 11 layers of the stack to avoid the logrus adapter and library themselves being reported.
+			_, file, line, ok := runtime.Caller(11)
+			if !ok {
+				file, line = frame.File, frame.Line
+			}
+			matches := jiguang.ModPathRegex.FindStringSubmatch(file)
+			if len(matches) > 0 {
+				file = matches[0]
+			} else {
+				file = filepath.Base(file)
+			}
+			return "", fmt.Sprintf(" %s:%d", file, line)
 		},
 		Prefix: logPrefix,
 	}

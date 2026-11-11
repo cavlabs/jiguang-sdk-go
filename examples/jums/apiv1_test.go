@@ -23,7 +23,6 @@ import (
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums"
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/audience"
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/message"
-	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func TestAPIv1_BroadcastSend(t *testing.T) {
@@ -100,8 +99,8 @@ func TestAPIv1_TemplateBroadcastSend(t *testing.T) {
 		},
 		AppParams: &message.AppParams{
 			Platform:       platform.IOS,
-			TimeToLive:     jiguang.Int64(9999),
-			ApnsProduction: jiguang.Bool(true),
+			TimeToLive:     new(int64(9999)),
+			ApnsProduction: new(true),
 		},
 		RuleID: 1001,
 		Option: &message.Option{
@@ -146,8 +145,8 @@ func TestAPIv1_TemplateSend(t *testing.T) {
 		},
 		AppParams: &message.AppParams{
 			Platform:       platform.IOS,
-			TimeToLive:     jiguang.Int64(9999),
-			ApnsProduction: jiguang.Bool(true),
+			TimeToLive:     new(int64(9999)),
+			ApnsProduction: new(true),
 		},
 		RuleID: 1001,
 		Option: &message.Option{

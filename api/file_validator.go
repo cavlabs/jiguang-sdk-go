@@ -19,6 +19,7 @@ import (
 	"io"
 	"net/http"
 	"path/filepath"
+	"slices"
 	"strings"
 )
 
@@ -55,7 +56,7 @@ func (fv *FileValidator) Validate(f *UploadFile) error {
 	// 校验文件扩展名
 	if len(fv.AllowedExts) > 0 {
 		ext := strings.ToLower(filepath.Ext(name))
-		if !stringInSlice(ext, fv.AllowedExts) {
+		if !slices.Contains(fv.AllowedExts, ext) {
 			return fmt.Errorf("%q ext %q not allowed", name, ext)
 		}
 	}
@@ -84,7 +85,7 @@ func (fv *FileValidator) Validate(f *UploadFile) error {
 
 		mimeType := http.DetectContentType(buf[:n])
 		baseMime := getBaseMimeType(mimeType)
-		if !stringInSlice(mimeType, fv.AllowedMimes) && !stringInSlice(baseMime, fv.AllowedMimes) {
+		if !slices.Contains(fv.AllowedMimes, mimeType) && !slices.Contains(fv.AllowedMimes, baseMime) {
 			return fmt.Errorf("%q MIME %q not allowed", name, mimeType)
 		}
 	}
@@ -94,17 +95,8 @@ func (fv *FileValidator) Validate(f *UploadFile) error {
 
 // 提取 MIME 类型的基础部分，例如去掉 `;charset=utf-8`。
 func getBaseMimeType(mimeType string) string {
-	if i := strings.IndexByte(mimeType, ';'); i >= 0 {
-		return strings.TrimSpace(mimeType[:i])
+	if before, _, ok := strings.Cut(mimeType, ";"); ok {
+		return strings.TrimSpace(before)
 	}
 	return mimeType
-}
-
-func stringInSlice(s string, list []string) bool {
-	for _, v := range list {
-		if v == s {
-			return true
-		}
-	}
-	return false
 }

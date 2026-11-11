@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"maps"
 	"net/http"
 	"strings"
 
@@ -170,9 +171,7 @@ func (rs BatchSendResult) MarshalJSON() ([]byte, error) {
 		return json.Marshal(data)
 	} else if len(rs.SendResult) > 0 {
 		data := make(map[string]BatchPushResult, len(rs.SendResult))
-		for k, v := range rs.SendResult {
-			data[k] = v
-		}
+		maps.Copy(data, rs.SendResult)
 		return json.Marshal(data)
 	}
 	return []byte("null"), nil

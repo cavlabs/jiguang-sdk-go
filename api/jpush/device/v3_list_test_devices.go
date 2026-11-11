@@ -97,11 +97,11 @@ type TestDevicesListResult struct {
 
 // 测试设备详情
 type TestDeviceDetail struct {
-	DeviceName       string                `json:"device_name,omitempty"`       // 设备名称
-	DeviceModel      string                `json:"device_model,omitempty"`      // 设备型号
-	RegistrationID   string                `json:"registration_id,omitempty"`   // 极光生成的设备唯一标识
-	RegistrationTime jiguang.LocalDateTime `json:"registration_time,omitempty"` // 设备注册时间，格式：2006-01-02 15:04:05
-	CreateTime       jiguang.LocalDateTime `json:"create_time,omitempty"`       // 信息添加时间，格式：2006-01-02 15:04:05
+	DeviceName       string                `json:"device_name,omitempty"`     // 设备名称
+	DeviceModel      string                `json:"device_model,omitempty"`    // 设备型号
+	RegistrationID   string                `json:"registration_id,omitempty"` // 极光生成的设备唯一标识
+	RegistrationTime jiguang.LocalDateTime `json:"registration_time"`         // 设备注册时间，格式：2006-01-02 15:04:05
+	CreateTime       jiguang.LocalDateTime `json:"create_time"`               // 信息添加时间，格式：2006-01-02 15:04:05
 }
 
 func (rs *TestDevicesListResult) IsSuccess() bool {

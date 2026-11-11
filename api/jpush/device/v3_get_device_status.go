@@ -18,6 +18,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"maps"
 	"net/http"
 
 	"github.com/cavlabs/jiguang-sdk-go/v2/api"
@@ -124,9 +125,7 @@ func (rs DeviceStatusGetResult) MarshalJSON() ([]byte, error) {
 		return json.Marshal(data)
 	} else if len(rs.Result) > 0 {
 		data := make(map[string]DeviceStatusResult, len(rs.Result))
-		for k, v := range rs.Result {
-			data[k] = v
-		}
+		maps.Copy(data, rs.Result)
 		return json.Marshal(data)
 	}
 	return []byte("null"), nil

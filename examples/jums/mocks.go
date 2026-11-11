@@ -20,7 +20,6 @@ import (
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/push/notification"
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/audience"
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jums/message"
-	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func mockAudience() *audience.Audience {
@@ -105,7 +104,7 @@ func mockMessage() *message.Message {
 					IOS: &notification.IOS{
 						Alert:    "Hi, JPush from JUMS!",
 						Sound:    "default",
-						Badge:    jiguang.String("+1"),
+						Badge:    new("+1"),
 						ThreadID: "default",
 						Extras:   map[string]any{"newsid": 321},
 					},
@@ -122,8 +121,8 @@ func mockMessage() *message.Message {
 					Extras:      map[string]any{"key": "value"},
 				},
 				Options: &push.Options{
-					TimeToLive:     jiguang.Int64(60),
-					ApnsProduction: jiguang.Bool(false),
+					TimeToLive:     new(int64(60)),
+					ApnsProduction: new(false),
 					ApnsCollapseID: "jiguang_test_201706011100",
 				},
 			},

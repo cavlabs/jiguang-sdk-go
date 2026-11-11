@@ -55,7 +55,7 @@ func TestGroupPushAPIv3_Send(t *testing.T) {
 	android.LargeIcon = "https://www.jiguang.cn/largeIcon.jpg"
 	android.Intent = &push.NotificationIntent{URL: "intent:#Intent;component=com.jiguang.push/com.example.jpushdemo.SettingActivity;end"}
 	android.Extras = map[string]any{"newsid": 321}
-	android.BadgeAddNum = jiguang.Int(1)
+	android.BadgeAddNum = new(1)
 	showBeginTime, _ := jiguang.ParseLocalDateTime("2024-12-25 00:00:00")
 	android.ShowBeginTime = &showBeginTime
 	showEndTime := jiguang.BuildLocalDateTime(2024, 12, 31, 23, 59, 59)
@@ -65,7 +65,7 @@ func TestGroupPushAPIv3_Send(t *testing.T) {
 	ios := &push.IosNotification{}
 	ios.Alert = "Hi, JPush!"
 	ios.Sound = "default"
-	ios.Badge = jiguang.String("+1")
+	ios.Badge = new("+1")
 	ios.ThreadID = "group001"
 	ios.Extras = map[string]any{"newsid": 123}
 	ios.InterruptionLevel = alert.IosInterruptionLevelPassive // passive
@@ -75,10 +75,10 @@ func TestGroupPushAPIv3_Send(t *testing.T) {
 	hmos.Alert = "分组通知内容"
 	hmos.Title = "分组推送个性化显示"
 	hmos.Intent = &push.NotificationIntent{URL: "scheme://test-group?key1=val1&key2=val2"}
-	hmos.BadgeAddNum = jiguang.Int(1)
+	hmos.BadgeAddNum = new(1)
 	hmos.Extras = map[string]any{"skuId": 54321, "useCoupon": false}
 	hmos.Category = "MARKETING"
-	hmos.TestMessage = jiguang.Bool(true)
+	hmos.TestMessage = new(true)
 	hmos.ReceiptID = "def3434"
 	hmos.LargeIcon = "https://www.jiguang.cn/largeIcon.jpg"
 	hmos.Style = style.Inbox // 多行文本样式 (2)
@@ -136,8 +136,8 @@ func TestGroupPushAPIv3_Send(t *testing.T) {
 	notification3rd.ChannelID = "channel001"
 	notification3rd.UriActivity = "cn.jpush.android.ui.OpenClickActivity"
 	notification3rd.UriAction = "cn.jpush.android.intent.CONNECTION"
-	notification3rd.BadgeAddNum = jiguang.Int(1)
-	notification3rd.BadgeSetNum = jiguang.Int(1)
+	notification3rd.BadgeAddNum = new(1)
+	notification3rd.BadgeSetNum = new(1)
 	notification3rd.BadgeClass = "com.test.badge.MainActivity"
 	notification3rd.Sound = "sound"
 	notification3rd.Extras = map[string]any{"news_id": 134, "my_key": "a value"}*/
@@ -155,13 +155,13 @@ func TestGroupPushAPIv3_Send(t *testing.T) {
 	sms.TempID = 1250
 	sms.TempParams = map[string]any{"code": "123456"}
 	sms.DelayTime = 3600
-	sms.ActiveFilter = jiguang.Bool(false)
+	sms.ActiveFilter = new(false)
 	param.SmsMessage = sms
 
 	// 可选项
 	options := &push.Options{}
-	options.TimeToLive = jiguang.Int64(60)
-	options.ApnsProduction = jiguang.Bool(false)
+	options.TimeToLive = new(int64(60))
+	options.ApnsProduction = new(false)
 	options.ApnsCollapseID = "jiguang_test_201706011100"
 	huaweiChannelOptions := &push.ThirdPartyChannelOptions{
 		Distribution: "first_ospush",
@@ -211,7 +211,7 @@ func TestGroupPushAPIv3_SendByFile(t *testing.T) {
 		Audience:      &push.Audience{File: &push.FileAudience{FileID: "004f2b2c3d8fc649fa60ad2c-15563487-577d-4bb0-806b-56f1a19e06c1"}},
 		Notification:  &push.Notification{Alert: "Hello, JPush!"},
 		CustomMessage: &push.CustomMessage{Content: "Hello, JPush!"},
-		Options:       &push.Options{TimeToLive: jiguang.Int64(600), ApnsProduction: jiguang.Bool(false)},
+		Options:       &push.Options{TimeToLive: new(int64(600)), ApnsProduction: new(false)},
 	}
 
 	result, err := gpushAPIv3.SendByFile(context.Background(), param)

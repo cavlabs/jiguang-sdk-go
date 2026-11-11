@@ -56,7 +56,7 @@ func (d Data) MarshalJSON() ([]byte, error) {
 		Alias: (Alias)(d),
 	}
 	if d.AppPlatform != nil {
-		aux.AppPlatform = jiguang.Int(d.AppPlatform.Index())
+		aux.AppPlatform = new(d.AppPlatform.Index())
 	}
 	return json.Marshal(&aux)
 }

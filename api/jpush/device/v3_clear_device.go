@@ -21,7 +21,6 @@ import (
 	"net/http"
 
 	"github.com/cavlabs/jiguang-sdk-go/v2/api"
-	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 // # 清空设备的标签
@@ -139,13 +138,13 @@ type deviceClearParam struct {
 func newDeviceClearParam(clearTags, clearAlias, clearMobile bool) *deviceClearParam {
 	param := deviceClearParam{}
 	if clearTags {
-		param.Tags = jiguang.String("")
+		param.Tags = new("")
 	}
 	if clearAlias {
-		param.Alias = jiguang.String("")
+		param.Alias = new("")
 	}
 	if clearMobile {
-		param.Mobile = jiguang.String("")
+		param.Mobile = new("")
 	}
 	return &param
 }

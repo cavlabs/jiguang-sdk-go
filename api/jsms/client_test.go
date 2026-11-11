@@ -16,6 +16,7 @@ package jsms
 
 import (
 	"context"
+	"errors"
 	"testing"
 
 	"github.com/cavlabs/jiguang-sdk-go/v2/api"
@@ -27,7 +28,7 @@ func TestNew_WithoutCredentials(t *testing.T) {
 		t.Fatalf("New: %v", err)
 	}
 	_, err = client.SendCode(context.Background(), nil)
-	if err != api.ErrNilJSmsAPIv1 {
+	if !errors.Is(err, api.ErrNilJSmsAPIv1) {
 		t.Fatalf("SendCode error = %v, want %v", err, api.ErrNilJSmsAPIv1)
 	}
 }

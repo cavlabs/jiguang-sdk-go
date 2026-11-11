@@ -19,7 +19,6 @@ import (
 	"testing"
 
 	"github.com/cavlabs/jiguang-sdk-go/v2/api/jpush/file"
-	"github.com/cavlabs/jiguang-sdk-go/v2/jiguang"
 )
 
 func TestFileAPIv3_UploadFileForAlias(t *testing.T) {
@@ -29,7 +28,7 @@ func TestFileAPIv3_UploadFileForAlias(t *testing.T) {
 	}
 	param := &file.FileUploadParam{
 		File: uploadFile,
-		TTL:  jiguang.Int(360),
+		TTL:  new(360),
 	}
 	result, err := fileAPIv3.UploadFileForAlias(context.Background(), param)
 	if err != nil {
